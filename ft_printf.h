@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/08 10:27:30 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/09 08:41:11 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
+# include <unistd.h>
+# include <locale.h>
+# include <stdlib.h>
 
 typedef struct			s_to_complete
 {
