@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/09 11:17:13 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/09 20:26:44 by gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,17 @@
 
 // If there are flags but no arguments, it is undefined behaviour
 
-int		ft_printf(const char * c, ...)
+int		ft_printf(const char  *str, ...)
 {
+	int		pos_flag;
+	char	arguments;
+	int		i;
+	char	arr_args[];
+	i = 0;
+	flag = ft_strchri(str, '%');
+	while (arr_args[i])
+	i = 0;
+
 	return (0);
 }
 
