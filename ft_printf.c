@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/10 15:29:28 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/10 15:46:56 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ int		average(int count, ...)
 */
 int		main(void)
 {
-	printf("%s\n", "%shello");
+	ft_putchar_fd('é');
 	return (0);
 }
