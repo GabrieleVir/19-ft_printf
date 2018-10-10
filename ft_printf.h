@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/09 08:41:11 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/10 13:50:23 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <locale.h>
 # include <stdlib.h>
+# include "libft.h"
 
 typedef struct			s_to_complete
 {
