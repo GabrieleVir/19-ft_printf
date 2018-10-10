@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/10 14:08:29 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/10 15:29:28 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,17 @@ int		ft_printf(const char *str, ...)
 {
 	int		pos_flag;
 	int		i;
-	char	arr_args[14];
+	char	arr_args[15];
 
 	ft_strcpy(arr_args, "sSpdDioOuUxXcC");
 	i = 0;
+	pos_flag = 0;
+	while (str[pos_flag])
+	{
+		if ((pos_flag =ft_strchri(str, '%')) != 0)
+			
+	}
 	pos_flag = ft_strchri(str, '%');
-	while (arr_args[i])
 	i = 0;
 	return (0);
 }
