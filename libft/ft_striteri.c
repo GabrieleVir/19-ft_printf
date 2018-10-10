@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/10 13:50:23 by gvirga           ###   ########.fr       */
+/*   Created: 2018/06/20 15:22:31 by gvirga            #+#    #+#             */
+/*   Updated: 2018/10/09 16:12:43 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-
-# include <stdarg.h>
-# include <unistd.h>
-# include <locale.h>
-# include <stdlib.h>
-# include "libft.h"
-
-typedef struct			s_to_complete
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
+	int		i;
 
-}						t_to_complete;
-#endif
+	i = 0;
+	if (!s || !f)
+		return ;
+	while (s[i])
+	{
+		f(i, &(s[i]));
+		i++;
+	}
+}

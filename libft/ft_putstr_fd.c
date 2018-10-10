@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/10 13:50:23 by gvirga           ###   ########.fr       */
+/*   Created: 2018/06/15 13:51:59 by gvirga            #+#    #+#             */
+/*   Updated: 2018/06/20 10:07:50 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <locale.h>
-# include <stdlib.h>
-# include "libft.h"
-
-typedef struct			s_to_complete
+void	ft_putstr_fd(char const *s, int fd)
 {
-
-}						t_to_complete;
-#endif
+	if (!s)
+		return ;
+	while (*s)
+	{
+		ft_putchar_fd((char)*s, fd);
+		s++;
+	}
+}

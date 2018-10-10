@@ -6,29 +6,31 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/09 20:26:44 by gabriele         ###   ########.fr       */
+/*   Updated: 2018/10/10 14:08:29 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-// If there are flags but no arguments, it is undefined behaviour
+/*
+** If there are flags but no arguments, it is undefined behaviour
+*/
 
-int		ft_printf(const char  *str, ...)
+int		ft_printf(const char *str, ...)
 {
 	int		pos_flag;
-	char	arguments;
 	int		i;
-	char	arr_args[];
+	char	arr_args[14];
+
+	ft_strcpy(arr_args, "sSpdDioOuUxXcC");
 	i = 0;
-	flag = ft_strchri(str, '%');
+	pos_flag = ft_strchri(str, '%');
 	while (arr_args[i])
 	i = 0;
-
 	return (0);
 }
-
+/*
 int		average(int count, ...)
 {
 	va_list		ap;
@@ -47,9 +49,9 @@ int		average(int count, ...)
 	va_end(ap);
 	return (sum / count);
 }
-
-int		main(int ac, char **av)
+*/
+int		main(void)
 {
-	printf("%d\n", average(3));
+	printf("%s\n", "%shello");
 	return (0);
 }

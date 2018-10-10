@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/10 13:50:23 by gvirga           ###   ########.fr       */
+/*   Created: 2018/06/15 18:26:04 by gvirga            #+#    #+#             */
+/*   Updated: 2018/06/17 21:25:37 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <locale.h>
-# include <stdlib.h>
-# include "libft.h"
-
-typedef struct			s_to_complete
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
+	unsigned char		*cast_dst;
+	const unsigned char	*cast_src;
+	size_t				i;
 
-}						t_to_complete;
-#endif
+	i = 0;
+	cast_dst = (unsigned char *)dst;
+	cast_src = (const unsigned char *)src;
+	while (i < n)
+	{
+		cast_dst[i] = cast_src[i];
+		i++;
+	}
+	return (dst);
+}

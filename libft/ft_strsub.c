@@ -1,26 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/10 13:50:23 by gvirga           ###   ########.fr       */
+/*   Created: 2018/06/20 17:09:46 by gvirga            #+#    #+#             */
+/*   Updated: 2018/06/20 17:20:04 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <locale.h>
-# include <stdlib.h>
-# include "libft.h"
-
-typedef struct			s_to_complete
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
+	char	*slice;
+	size_t	i;
 
-}						t_to_complete;
-#endif
+	i = 0;
+	if (!s)
+		return (NULL);
+	if ((slice = ft_strnew(len)))
+	{
+		while (i < len)
+		{
+			slice[i] = (char)s[start];
+			start++;
+			i++;
+		}
+		slice[i] = '\0';
+		return (slice);
+	}
+	else
+		return (NULL);
+}

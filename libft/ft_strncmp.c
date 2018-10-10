@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/10 13:50:23 by gvirga           ###   ########.fr       */
+/*   Created: 2018/06/15 15:45:04 by gvirga            #+#    #+#             */
+/*   Updated: 2018/06/22 16:16:34 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <locale.h>
-# include <stdlib.h>
-# include "libft.h"
-
-typedef struct			s_to_complete
+int		ft_strncmp(const char *s1, const char *s2, size_t n)
 {
+	unsigned char	c1;
+	unsigned char	c2;
+	size_t			i;
 
-}						t_to_complete;
-#endif
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (*s1 == *s2)
+	{
+		c1 = *s1;
+		c2 = *s2;
+		s1++;
+		s2++;
+		if (c1 == '\0' || i == (n - 1))
+			return (c1 - c2);
+		i++;
+	}
+	c1 = *s1;
+	c2 = *s2;
+	return (c1 - c2);
+}

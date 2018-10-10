@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/10 13:50:23 by gvirga           ###   ########.fr       */
+/*   Created: 2018/06/20 01:26:08 by gvirga            #+#    #+#             */
+/*   Updated: 2018/06/23 19:24:28 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <locale.h>
-# include <stdlib.h>
-# include "libft.h"
-
-typedef struct			s_to_complete
+char		*ft_strnstr(const char *h, const char *n, size_t len)
 {
+	size_t	i;
 
-}						t_to_complete;
-#endif
+	i = 0;
+	if (ft_strlen(n) == 0)
+		return ((char *)h);
+	while (i < len && h[i])
+	{
+		if (ft_strncmp((char *)&h[i], n, ft_strlen(n)) == 0)
+		{
+			if (i + ft_strlen(n) > len)
+				return (NULL);
+			return ((char *)&h[i]);
+		}
+		i++;
+	}
+	return (NULL);
+}

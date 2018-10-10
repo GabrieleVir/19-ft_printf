@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/10 13:50:23 by gvirga           ###   ########.fr       */
+/*   Created: 2018/06/20 15:35:27 by gvirga            #+#    #+#             */
+/*   Updated: 2018/06/20 17:05:42 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <locale.h>
-# include <stdlib.h>
-# include "libft.h"
-
-typedef struct			s_to_complete
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
+	char		*result_arr;
+	int			i;
 
-}						t_to_complete;
-#endif
+	if (!s)
+		return (NULL);
+	if ((result_arr = ft_strnew(ft_strlen(s))))
+	{
+		i = 0;
+		while (s[i])
+		{
+			result_arr[i] = f(i, s[i]);
+			i++;
+		}
+		result_arr[i] = '\0';
+		return (result_arr);
+	}
+	else
+		return (NULL);
+}

@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/10 13:50:23 by gvirga           ###   ########.fr       */
+/*   Created: 2018/06/17 18:38:05 by gvirga            #+#    #+#             */
+/*   Updated: 2018/06/18 16:13:09 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <locale.h>
-# include <stdlib.h>
-# include "libft.h"
-
-typedef struct			s_to_complete
+char	*ft_strncat(char *s1, const char *s2, size_t n)
 {
+	size_t		i;
+	size_t		start;
 
-}						t_to_complete;
-#endif
+	start = 0;
+	i = ft_strlen(s1);
+	while (start < n && *s2 != '\0')
+	{
+		s1[i] = *s2;
+		i++;
+		s2++;
+		start++;
+	}
+	s1[i] = '\0';
+	return (s1);
+}

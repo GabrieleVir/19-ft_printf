@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/10 13:50:23 by gvirga           ###   ########.fr       */
+/*   Created: 2018/06/20 01:06:31 by gvirga            #+#    #+#             */
+/*   Updated: 2018/06/23 19:24:08 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <locale.h>
-# include <stdlib.h>
-# include "libft.h"
-
-typedef struct			s_to_complete
+char	*ft_strrchr(const char *s, int c)
 {
+	size_t		i;
 
-}						t_to_complete;
-#endif
+	i = ft_strlen(s) - 1;
+	if (s[i] == '\0' && (char)c != '\0')
+		return (NULL);
+	if ((char)c == '\0')
+	{
+		s += i + 1;
+		return ((char *)s);
+	}
+	while ((int)i >= 0)
+	{
+		if (s[i] == (char)c)
+		{
+			s += i;
+			return ((char *)s);
+		}
+		i--;
+	}
+	return (NULL);
+}
