@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/10 14:02:19 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/10 14:08:29 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,17 @@
 int		ft_printf(const char *str, ...)
 {
 	int		pos_flag;
-	char	arguments;
 	int		i;
 	char	arr_args[14];
 
-	arr_args = ft_strcpy("sSpdDioOuUxXcC");
+	ft_strcpy(arr_args, "sSpdDioOuUxXcC");
 	i = 0;
 	pos_flag = ft_strchri(str, '%');
 	while (arr_args[i])
 	i = 0;
 	return (0);
 }
-
+/*
 int		average(int count, ...)
 {
 	va_list		ap;
@@ -50,9 +49,9 @@ int		average(int count, ...)
 	va_end(ap);
 	return (sum / count);
 }
-
-int		main(int ac, char **av)
+*/
+int		main(void)
 {
-	printf("%d\n", average(3));
+	printf("%s\n", "%shello");
 	return (0);
 }
