@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/11 16:46:43 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/11 19:44:20 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ int		ft_printf(const char *str, ...)
 		{
 			if (str[i + 1] == args[args_i])
 			{
-				buf = args_f[args_i](ap);
-				ft_putstr(buf);
+				buf = ft_strjoin_free(buf, args_f[args_i](ap), 1);
 				i++;
 				break;
 			}
