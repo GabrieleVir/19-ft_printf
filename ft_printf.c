@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/11 19:44:20 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/11 20:48:20 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,24 @@ int		ft_printf(const char *str, ...)
 	char		*(*args_f[2]) (va_list);
 	int			args_i;
 	char		*buf;
+	int			u;
+	char		*tmp;
 
 	args_f[0] = &ft_aptostr;
 	ft_strcpy(args, "sSpdDioOuUxXcC");
 	va_start(ap, str);
 	i = -1;
+	if (!(buf = ft_strnew(0)))
+		return (-1);
 	while (str[++i])
 	{
+		u = i;
 		while (str[i] != '%' && str[i] != '\0')
-		{
-			ft_putchar(str[i]);
 			i++;
-		}
+		printf("u : %d\n", u);
+		printf("i : %d\n", i);
+		tmp = ft_strsub(str, u, i - u);
+		printf("tmp: %s\n", tmp);
 		if (str[i] == '\0')
 			break;
 		args_i = 0;
@@ -57,7 +63,9 @@ int		ft_printf(const char *str, ...)
 		{
 			if (str[i + 1] == args[args_i])
 			{
-				buf = ft_strjoin_free(buf, args_f[args_i](ap), 1);
+				printf("tmp %p\n", tmp);
+				buf = ft_strjoin_free(tmp, args_f[args_i](ap), 1);
+				ft_putstr(buf);
 				i++;
 				break;
 			}
@@ -91,6 +99,6 @@ int		main(void)
 {
 	setlocale(LC_ALL, "");
 	//printf("%ssslldsfaasf", "é");
-	ft_printf("%ssljfdgsklj", "é");
+	ft_printf("kjasdflkj%ssljfdgsklj", "é");
 	return (0);
 }
