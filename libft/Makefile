@@ -6,14 +6,14 @@
 #    By: gvirga <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/12 23:31:55 by gvirga            #+#    #+#              #
-#    Updated: 2018/10/10 14:14:37 by gvirga           ###   ########.fr        #
+#    Updated: 2018/10/10 16:02:18 by gvirga           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=gcc
 CFLAGS=-I./includes -Wall -Werror -Wextra
 FILES= ft_putchar.c ft_putchar_fd.c ft_putstr.c ft_putstr_fd.c ft_putendl.c \
-ft_putendl_fd.c ft_memcpy.c \
+ft_putendl_fd.c ft_memcpy.c ft_putstr_u32fd.c ft_putchar_u32fd.c\
 \
 ft_memccpy.c ft_memset.c ft_bzero.c ft_memmove.c \
 ft_memchr.c ft_memcmp.c ft_strlen.c ft_strdup.c \

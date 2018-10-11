@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_strnboccur.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/20 02:52:56 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/11 13:31:04 by gvirga           ###   ########.fr       */
+/*   Created: 2018/10/10 19:06:15 by gvirga            #+#    #+#             */
+/*   Updated: 2018/10/11 13:40:08 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isalpha(int c)
+size_t		ft_strcnboccur(char const *str, int c)
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-		return (1);
-	return (0);
+	int		i;
+	size_t	nb_occur;
+
+	nb_occur = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			nb_occur++;
+		i++;
+	}
+	return (nb_occur);
 }
