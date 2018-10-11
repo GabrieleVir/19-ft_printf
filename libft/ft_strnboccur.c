@@ -6,13 +6,13 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 19:06:15 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/11 13:40:08 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/11 15:54:43 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		ft_strcnboccur(char const *str, int c)
+size_t		ft_strnboccur(char const *str, int c)
 {
 	int		i;
 	size_t	nb_occur;

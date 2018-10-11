@@ -6,17 +6,20 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 21:58:18 by gvirga            #+#    #+#             */
-/*   Updated: 2018/06/23 21:58:51 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/11 15:54:03 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	push_back(t_list **head, void *content)
+void	ft_push_back(t_list **head, void *content)
 {
+	if (!head || !content)
+		return ;
 	while (*head)
 		head = &(*head)->next;
-	*head = ft_memalloc(sizeof(**head));
+	if (!(*head = ft_memalloc(sizeof(**head))))
+		return ;
 	(*head)->content = content;
 	(*head)->next = NULL;
 }

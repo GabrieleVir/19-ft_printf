@@ -6,14 +6,14 @@
 #    By: gvirga <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/12 23:31:55 by gvirga            #+#    #+#              #
-#    Updated: 2018/10/10 16:02:18 by gvirga           ###   ########.fr        #
+#    Updated: 2018/10/11 16:23:44 by gvirga           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=gcc
-CFLAGS=-I./includes -Wall -Werror -Wextra
+CFLAGS=-I./ -Wall -Werror -Wextra
 FILES= ft_putchar.c ft_putchar_fd.c ft_putstr.c ft_putstr_fd.c ft_putendl.c \
-ft_putendl_fd.c ft_memcpy.c ft_putstr_u32fd.c ft_putchar_u32fd.c\
+ft_putendl_fd.c ft_memcpy.c ft_putchar_u32fd.c\
 \
 ft_memccpy.c ft_memset.c ft_bzero.c ft_memmove.c \
 ft_memchr.c ft_memcmp.c ft_strlen.c ft_strdup.c \
@@ -27,7 +27,8 @@ ft_strmap.c ft_strmapi.c ft_strequ.c ft_strnequ.c ft_strsub.c ft_strjoin.c \
 ft_atoi.c ft_isalpha.c ft_isalnum.c \
 ft_isascii.c ft_isprint.c ft_toupper.c ft_tolower.c ft_memalloc.c ft_itoa.c \
 ft_memdel.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c \
-ft_lstiter.c ft_lstmap.c ft_lstcpy.c ft_wordcount.c ft_atol.c
+ft_lstiter.c ft_lstmap.c ft_lstcpy.c ft_wordcount.c ft_atol.c ft_push_back.c \
+ft_strnboccur.c
 OBJ=$(FILES:%.c=%.o)
 NAME=libft.a
 LFLAGS=rc
@@ -35,11 +36,9 @@ LFLAGS=rc
 .PHONY: all
 all: $(NAME)
 
-.SILENT: $(OBJ)
-
 $(NAME): $(OBJ)
 	ar $(LFLAGS) $@ $^
-
+	ranlib $(NAME)
 .PHONY: clean
 clean:
 	rm -f $(OBJ)
