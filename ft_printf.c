@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/11 15:14:40 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/11 16:46:43 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,29 @@
 ** If there are flags but no arguments, it is undefined behaviour
 */
 
+/*
+** The aptostr function will take the va_list ap and return the NUL terminated
+** str.
+*/
+
+char	*ft_aptostr(va_list ap)
+{
+	char		*str;
+
+	str = va_arg(ap, char *);
+	return (str);
+}
+
 int		ft_printf(const char *str, ...)
 {
 	va_list		ap;
 	int			i;
 	char		args[15];
-	(void)		*args_f[2] (va_list);
+	char		*(*args_f[2]) (va_list);
 	int			args_i;
+	char		*buf;
 
-	args_f[0] = ft_pur(ap);
+	args_f[0] = &ft_aptostr;
 	ft_strcpy(args, "sSpdDioOuUxXcC");
 	va_start(ap, str);
 	i = -1;
@@ -41,10 +55,12 @@ int		ft_printf(const char *str, ...)
 		args_i = 0;
 		while (args[args_i])
 		{
-			if (*ft_strchr(*str[i], args[args_i]) == args[args_i])
+			if (str[i + 1] == args[args_i])
 			{
-				ft_putstr(va_list ap);
-				va_arg(ap, char*);
+				buf = args_f[args_i](ap);
+				ft_putstr(buf);
+				i++;
+				break;
 			}
 			args_i += 2;
 		}
@@ -75,7 +91,7 @@ int		average(int count, ...)
 int		main(void)
 {
 	setlocale(LC_ALL, "");
-	printf("%ssslldsfaasf", "é");
+	//printf("%ssslldsfaasf", "é");
 	ft_printf("%ssljfdgsklj", "é");
 	return (0);
 }
