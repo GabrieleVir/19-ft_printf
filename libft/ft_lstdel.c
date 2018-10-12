@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 13:43:37 by gvirga            #+#    #+#             */
-/*   Updated: 2018/06/23 19:27:50 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/12 16:26:58 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
 	t_list		*current;
 
-	if (!alst || !del)
+	if (!del || !*alst)
 		return ;
 	while (*alst)
 	{

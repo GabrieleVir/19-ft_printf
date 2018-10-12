@@ -6,13 +6,13 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/11 15:46:54 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/11 15:47:15 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/12 17:23:15 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putchar_u32fd(int c, int fd)
+void	ft_putchar_u32fd(unsigned int c, int fd)
 {
 	write(fd, &c, 1);
 }

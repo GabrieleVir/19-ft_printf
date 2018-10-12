@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/11 20:48:20 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/12 17:51:11 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,20 @@ int		ft_printf(const char *str, ...)
 	ft_strcpy(args, "sSpdDioOuUxXcC");
 	va_start(ap, str);
 	i = -1;
-	if (!(buf = ft_strnew(0)))
-		return (-1);
+	buf = NULL;
 	while (str[++i])
 	{
 		u = i;
 		while (str[i] != '%' && str[i] != '\0')
 			i++;
-		printf("u : %d\n", u);
-		printf("i : %d\n", i);
-		tmp = ft_strsub(str, u, i - u);
-		printf("tmp: %s\n", tmp);
+		if (!buf)
+			buf = ft_strsub(str, u, i - u);
+		else
+		{
+			tmp = ft_strsub(str, u, i - u);
+			tmp = ft_strjoin_free(buf, tmp, 3);
+			buf = tmp;
+		}
 		if (str[i] == '\0')
 			break;
 		args_i = 0;
@@ -63,15 +66,15 @@ int		ft_printf(const char *str, ...)
 		{
 			if (str[i + 1] == args[args_i])
 			{
-				printf("tmp %p\n", tmp);
-				buf = ft_strjoin_free(tmp, args_f[args_i](ap), 1);
-				ft_putstr(buf);
+				tmp = ft_strjoin_free(buf, args_f[args_i](ap), 1);
+				buf = tmp;
 				i++;
 				break;
 			}
 			args_i += 2;
 		}
 	}
+	ft_putstr(buf);
 	va_end(ap);
 	return (0);
 }
@@ -97,8 +100,17 @@ int		average(int count, ...)
 */
 int		main(void)
 {
+	char str[4];
+	int a = 128+64+32+1;
+	int b = 177;
+	str[0] = a;
+	str[1] = b;
+	str[2] = (char)(128 + 1);
+	str[3] = '\0';
+
+	ft_putstr(str);
 	setlocale(LC_ALL, "");
 	//printf("%ssslldsfaasf", "é");
-	ft_printf("kjasdflkj%ssljfdgsklj", "é");
+	printf("kjasdflkj%Csljfdgsklj", 0x000021BD);
 	return (0);
 }
