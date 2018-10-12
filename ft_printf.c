@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/12 17:51:11 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/12 18:51:51 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,12 @@ int		average(int count, ...)
 	return (sum / count);
 }
 */
+
+// This is how you manage unicode
+
 int		main(void)
 {
+/*
 	char str[4];
 	int a = 128+64+32+1;
 	int b = 177;
@@ -107,7 +111,7 @@ int		main(void)
 	str[1] = b;
 	str[2] = (char)(128 + 1);
 	str[3] = '\0';
-
+*/
 	ft_putstr(str);
 	setlocale(LC_ALL, "");
 	//printf("%ssslldsfaasf", "é");
