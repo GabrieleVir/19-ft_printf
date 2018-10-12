@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/12 18:51:51 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/12 20:34:35 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,8 @@ int		main(void)
 	str[2] = (char)(128 + 1);
 	str[3] = '\0';
 */
-	ft_putstr(str);
 	setlocale(LC_ALL, "");
 	//printf("%ssslldsfaasf", "é");
-	printf("kjasdflkj%Csljfdgsklj", 0x000021BD);
+	printf("kjasdflkj%sljfdgsklj", "é");
 	return (0);
 }
