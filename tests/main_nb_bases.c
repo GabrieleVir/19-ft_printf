@@ -6,18 +6,18 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 15:34:22 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/18 15:35:18 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/18 19:36:25 by gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-
+#include "libft.h"
 int		main(void)
 {
 	char	*str;
 
-	str = ft_itoa_base(100,16);
+	str = ft_itoa_base(100, 8);
+	printf("%o\n", 100);
 	printf("%s\n", str);
-	printf("%p\n", 100);
 	return (0);
 }
