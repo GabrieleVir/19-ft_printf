@@ -6,13 +6,14 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/15 12:08:53 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/16 12:08:56 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 #include <wchar.h>
+#include "args_functions.c"
 /*
 ** If there are flags but no arguments, it is undefined behaviour
 */
@@ -21,14 +22,6 @@
 ** The aptostr function will take the va_list ap and return the NUL terminated
 ** str.
 */
-
-char	*ft_aptostr(va_list ap)
-{
-	char		*str;
-
-	str = va_arg(ap, char *);
-	return (str);
-}
 
 int		ft_printf(const char *str, ...)
 {
@@ -41,7 +34,7 @@ int		ft_printf(const char *str, ...)
 	int			u;
 	char		*tmp;
 
-	args_f[0] = &ft_aptostr;
+	args_f[0] = &ft_strtostr;
 	ft_strcpy(args, "sSpdDioOuUxXcC");
 	va_start(ap, str);
 	i = -1;
@@ -115,5 +108,6 @@ int		main(void)
 	setlocale(LC_ALL, "");
 	//printf("%ssslldsfaasf", "é");
 	ft_printf("kjasdflkj%sljfdgsklj", "é");
+	printf("%3.3d \n", 16);
 	return (0);
 }
