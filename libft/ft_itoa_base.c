@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/15 11:35:44 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/18 19:40:07 by gabriele         ###   ########.fr       */
+/*   Updated: 2018/10/18 20:10:45 by gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ static char	*strnbr_conversion(int nbr, int base, int sign)
 	{
 		modulo = nbr % base;
 		if (modulo > 9)
-			strnbr[nb_digit - 1 - i] = 'a' + modulo - 10;
+			strnbr[nb_digit + sign - 1 - i] = 'a' + modulo - 10;
 		else
-			strnbr[nb_digit - 1 - i] = modulo + '0';
+			strnbr[nb_digit + sign - 1 - i] = modulo + '0';
 		nbr /= base;
 	}
-	strnbr[nb_digit] = '\0';
+	strnbr[nb_digit + sign] = '\0';
 	return (strnbr);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 15:34:22 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/18 19:36:25 by gabriele         ###   ########.fr       */
+/*   Updated: 2018/10/18 20:04:40 by gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int		main(void)
 {
 	char	*str;
 
-	str = ft_itoa_base(100, 8);
-	printf("%o\n", 100);
+	str = ft_itoa_base(-588, 10);
+	printf("%d\n", -588);
 	printf("%s\n", str);
 	return (0);
 }
