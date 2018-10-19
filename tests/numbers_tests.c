@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   numbers_tests.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/19 17:46:55 by gvirga           ###   ########.fr       */
+/*   Created: 2018/10/19 17:37:16 by gvirga            #+#    #+#             */
+/*   Updated: 2018/10/19 17:57:47 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include <stdarg.h>
-# include <locale.h>
-# include "libft.h"
-
-char	*ft_strtostr(va_list ap);
-char	*ft_chrtostr(va_list ap);
-char	*ft_inttostr(va_list ap);
-char	*ft_octtostr(va_list ap);
-char	*ft_itoa_printf(unsigned long nbr, int base);
-int		ft_printf(const char *str, ...);
-
-typedef struct			s_to_complete
+int		main(void)
 {
-
-}						t_to_complete;
-#endif
+	ft_putstr("======test with %o %o %o %d and %d at the end of the string======\n");
+	printf("Printf:============ \nkj%o\n%o%oasdflkj%d\nljfdgsklj%d", -0777, 7327, 12389, 100, 10);
+	ft_printf("My printf:======== \nkj%o\n%o%oasdflkj%d\nljfdgsklj%d\n", -0777, 7327, 12389, 100, 10);
+	return (0);
+}

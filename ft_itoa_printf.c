@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
+/*   ft_itoa_printf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/15 11:35:44 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/19 16:11:12 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/19 16:34:17 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		nb_digit_base(long nbr, int base)
+
+static int		nb_digit_base(unsigned long nbr, int base)
 {
 	int		nbr_digit;
 
 	if (base <= 1)
 		return (-1);
 	nbr_digit = 1;
-	while (nbr >= base)
+	while (nbr >= (unsigned long)base)
 	{
 		nbr /= base;
 		nbr_digit++;
@@ -27,14 +28,7 @@ static int		nb_digit_base(long nbr, int base)
 	return (nbr_digit);
 }
 
-static int	int_min(nbr)
-{
-	if (nbr == INT_MIN)
-		return (1);
-	return (0);
-}
-
-static char	*strnbr_conversion(long nbr, int base, int sign)
+static char	*strnbr_conversion(unsigned long nbr, int base)
 {
 	int		nb_digit;
 	int		modulo;
@@ -43,42 +37,27 @@ static char	*strnbr_conversion(long nbr, int base, int sign)
 
 	i = -1;
 	nb_digit = nb_digit_base(nbr, base);
-	strnbr = (char*)malloc(sizeof(*strnbr) * nb_digit + sign);
-	if (sign)
-		strnbr[0] = '-';
+	if (!(strnbr = (char*)malloc(sizeof(*strnbr) * nb_digit)))
+		return (NULL);
 	while (++i < nb_digit)
 	{
 		modulo = nbr % base;
 		if (modulo > 9)
-			strnbr[nb_digit + sign - 1 - i] = 'a' + modulo - 10;
+			strnbr[nb_digit - 1 - i] = 'a' + modulo - 10;
 		else
-			strnbr[nb_digit + sign - 1 - i] = modulo + '0';
+			strnbr[nb_digit - 1 - i] = modulo + '0';
 		nbr /= base;
 	}
-	strnbr[nb_digit + sign] = '\0';
+	strnbr[nb_digit] = '\0';
 	return (strnbr);
 }
 
-char		*ft_itoa_base(int nbr, int base)
+char		*ft_itoa_printf(unsigned long nbr, int base)
 {
-	int				i;
-	int				sign;
 	char			*strnbr;
-	long			result;
 
 	if (base <= 1 || base > 16)
 		return (NULL);
-	result = nbr;
-	i = -1;
-	sign = 0;
-	if (nbr < 0)
-	{
-		sign = 1;
-		if (int_min(nbr))
-			result = 2147483648;
-		else
-			result = -nbr;
-	}
-	strnbr = strnbr_conversion(result, base, sign);
+	strnbr = strnbr_conversion(nbr, base);
 	return (strnbr);
 }

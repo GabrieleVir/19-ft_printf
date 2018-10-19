@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 18:54:43 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/18 15:37:06 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/19 18:02:26 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_strtostr(va_list ap)
 {
 	char		*str;
 
-	str = va_arg(ap, char *);
+	str = ft_strdup(va_arg(ap, char*));
 	return (str);
 }
 
@@ -24,7 +24,9 @@ char	*ft_chrtostr(va_list ap)
 {
 	char		*str;
 
-	*str = va_arg(ap, char);
+	str = (char*)malloc(sizeof(*str) * 2);
+	str[0] = va_arg(ap, int);
+	str[1] = '\0';
 	return (str);
 }
 
@@ -38,9 +40,18 @@ char	*ft_inttostr(va_list ap)
 
 char	*ft_octtostr(va_list ap)
 {
-	char	*str;
+	char				*str;
+	unsigned long		nb;
 
-	str = ft_itoa_base(va_arg(ap, unsigned int), 8);
+	nb = va_arg(ap, unsigned long);
+	str = ft_itoa_printf(nb, 8);
 	return (str);
 }
 
+char	*ft_addtostr(va_list ap)
+{
+	char		*str;
+
+	str = va_arg(ap, void*);
+	return (str);
+}

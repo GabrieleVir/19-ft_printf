@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 17:48:52 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/18 20:05:21 by gabriele         ###   ########.fr       */
+/*   Updated: 2018/10/19 12:49:30 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <wchar.h>
 # include <unistd.h>
+# include <limits.h>
 
 typedef struct		s_list
 {

@@ -6,14 +6,13 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/16 12:08:56 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/19 17:48:32 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 #include <wchar.h>
-#include "args_functions.c"
 /*
 ** If there are flags but no arguments, it is undefined behaviour
 */
@@ -28,13 +27,15 @@ int		ft_printf(const char *str, ...)
 	va_list		ap;
 	int			i;
 	char		args[15];
-	char		*(*args_f[2]) (va_list);
+	char		*(*args_f[15]) (va_list);
 	int			args_i;
 	char		*buf;
 	int			u;
 	char		*tmp;
 
 	args_f[0] = &ft_strtostr;
+	args_f[6] = &ft_octtostr;
+	args_f[3] = &ft_inttostr;
 	ft_strcpy(args, "sSpdDioOuUxXcC");
 	va_start(ap, str);
 	i = -1;
@@ -59,12 +60,12 @@ int		ft_printf(const char *str, ...)
 		{
 			if (str[i + 1] == args[args_i])
 			{
-				tmp = ft_strjoin_free(buf, args_f[args_i](ap), 1);
+				tmp = ft_strjoin_free(buf, args_f[args_i](ap), 3);
 				buf = tmp;
 				i++;
 				break;
 			}
-			args_i += 2;
+			args_i++;
 		}
 	}
 	ft_putstr(buf);
@@ -93,10 +94,10 @@ int		average(int count, ...)
 */
 
 // This is how you manage unicode
-
+/*
 int		main(void)
 {
-/*
+
 	char str[4];
 	int a = 128+64+32+1;
 	int b = 177;
@@ -104,10 +105,12 @@ int		main(void)
 	str[1] = b;
 	str[2] = (char)(128 + 1);
 	str[3] = '\0';
-*/
+
 	setlocale(LC_ALL, "");
 	//printf("%ssslldsfaasf", "é");
-	ft_printf("kjasdflkj%sljfdgsklj", "é");
-	printf("%3.3d \n", 16);
+	ft_printf("kj%o\n%o%oasdflkj%d\nljfdgsklj\n", -0777, 7327, 12389, 100);
+	printf("kj%o\n%o%oasdflkj%d\nljfdgsklj\n", -0777, 7327, 12389, 100);
+	//printf("%3.3d \n", 16);
 	return (0);
 }
+*/
