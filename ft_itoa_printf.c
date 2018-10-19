@@ -6,12 +6,11 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/15 11:35:44 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/19 16:34:17 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/19 20:22:29 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 
 static int		nb_digit_base(unsigned long nbr, int base)
 {

@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/19 17:48:32 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/19 20:29:26 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		ft_printf(const char *str, ...)
 	args_f[0] = &ft_strtostr;
 	args_f[6] = &ft_octtostr;
 	args_f[3] = &ft_inttostr;
+	args_f[2] = &ft_addtostr;
 	ft_strcpy(args, "sSpdDioOuUxXcC");
 	va_start(ap, str);
 	i = -1;
@@ -94,23 +95,28 @@ int		average(int count, ...)
 */
 
 // This is how you manage unicode
-/*
+
 int		main(void)
 {
 
-	char str[4];
+/*	char str[4];
 	int a = 128+64+32+1;
 	int b = 177;
 	str[0] = a;
 	str[1] = b;
 	str[2] = (char)(128 + 1);
 	str[3] = '\0';
+*/
+	char		*str;
 
+	str = malloc(sizeof(*str) + 2);
+	str[0] = 'a';
+	str[1] = '\0';
 	setlocale(LC_ALL, "");
-	//printf("%ssslldsfaasf", "é");
-	ft_printf("kj%o\n%o%oasdflkj%d\nljfdgsklj\n", -0777, 7327, 12389, 100);
-	printf("kj%o\n%o%oasdflkj%d\nljfdgsklj\n", -0777, 7327, 12389, 100);
+	ft_putstr("Test of the %p argument\n");
+	printf("Printf %%p: %p\n", &str[0]);
+	ft_printf("Ft_printf p: %p\n", &str[0]);
 	//printf("%3.3d \n", 16);
 	return (0);
 }
-*/
+
