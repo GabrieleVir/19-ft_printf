@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/19 20:15:06 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/20 17:08:30 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	*ft_chrtostr(va_list ap);
 char	*ft_inttostr(va_list ap);
 char	*ft_octtostr(va_list ap);
 char	*ft_addtostr(va_list ap);
+char	*ft_hextostr(va_list ap);
 char	*ft_itoa_printf(unsigned long nbr, int base);
 int		ft_printf(const char *str, ...);
 

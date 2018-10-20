@@ -4,4 +4,10 @@
 '%s' done.
 '%d' done.
 '%o' done.
-'%p'
+'%p' done.
+'%c' done.
+'%u' done.
+'%x' done.
+
+(I can't free something malloced by itoa, will check it later, strjoin_free is
+linked to that too...)
