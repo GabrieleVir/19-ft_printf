@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/19 20:29:26 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/20 16:08:20 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ int		main(void)
 	str[1] = '\0';
 	setlocale(LC_ALL, "");
 	ft_putstr("Test of the %p argument\n");
-	printf("Printf %%p: %p\n", &str[0]);
-	ft_printf("Ft_printf p: %p\n", &str[0]);
+	printf("Printf %%p: %p\n", str);
+	ft_printf("Ft_printf p: %p\n", str);
 	//printf("%3.3d \n", 16);
 	return (0);
 }

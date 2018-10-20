@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 18:54:43 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/19 20:30:56 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/20 16:07:49 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,19 @@ char	*ft_addtostr(va_list ap)
 {
 	char	*str;
 	void	*nb;
-	size_t	len;
+	int		len;
 	char	*tmp;
 
 	nb = va_arg(ap, void*);
-	tmp = ft_itoa_printf((unsigned long)&nb, 16);
+	tmp = ft_itoa_printf((unsigned long)nb, 16);
 	len = ft_strlen(tmp);
 	str = (char*)malloc(sizeof(*str) * len + 2);
 	str = tmp;
-	while (len-- > 2)
-		str[len] = str[len - 2];
+	while (len >= 0)
+	{
+		str[len + 2] = str[len];
+		len--;
+	}
 	str[0] = '0';
 	str[1] = 'x';
 	return (str);
