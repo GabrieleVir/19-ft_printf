@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/20 17:08:04 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/22 09:35:35 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,15 @@ int		ft_printf(const char *str, ...)
 	int			u;
 	char		*tmp;
 
-	args_f[0] = &ft_strtostr;
-	args_f[6] = &ft_octtostr;
-	args_f[3] = &ft_inttostr;
-	args_f[2] = &ft_addtostr;
 	args_f[12] = &ft_chrtostr;
 	args_f[10] = &ft_hextostr;
+	args_f[8] = &ft_udtostr;
+	args_f[6] = &ft_octtostr;
+	args_f[5] = &ft_inttostr;
+	args_f[3] = &ft_inttostr;
+	args_f[2] = &ft_addtostr;
+	//args_f[1] = &ft_strltostr;
+	args_f[0] = &ft_strtostr;
 	ft_strcpy(args, "sSpdDioOuUxXcC");
 	va_start(ap, str);
 	i = -1;
@@ -119,8 +122,12 @@ int		main(void)
 	//printf("Printf: %c hey hey hey\n", 'a');
 	//ft_printf("ft_printf: %c hey hey hey\n", 'a');
 	//printf("%3.3d \n", 16);
-	printf("Printf: %x\n", 120);
-	ft_printf("Ft_printf: %x\n", 120);
+	printf("Printf: %u hey hey hey\n", -120);
+	ft_printf("Ft_printf: %u hey hey hey\n", -120);
+	printf("Printf: %u hey hey hey\n", INT_MAX + 1);
+	ft_printf("Ft_printf: %u hey hey hey\n", INT_MAX + 1);
+	printf("Printf: %d hey hey hey\n", INT_MAX + 1);
+	ft_printf("Ft_printf: %d hey hey hey\n", INT_MAX + 1);
 	return (0);
 }
 

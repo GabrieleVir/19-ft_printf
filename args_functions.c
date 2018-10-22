@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 18:54:43 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/20 17:05:58 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/20 17:40:57 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,15 @@ char	*ft_hextostr(va_list ap)
 
 	nb = va_arg(ap, unsigned long);
 	str = ft_itoa_printf(nb, 16);
+	return (str);
+}
+
+char	*ft_udtostr(va_list ap)
+{
+	char			*str;
+	unsigned long	nb;
+
+	nb = va_arg(ap, unsigned long);
+	str = ft_itoa_printf(nb, 10);
 	return (str);
 }

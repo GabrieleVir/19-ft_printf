@@ -8,6 +8,7 @@
 '%c' done.
 '%u' done.
 '%x' done.
+'%i' done.
 
 (I can't free something malloced by itoa, will check it later, strjoin_free is
 linked to that too...)
