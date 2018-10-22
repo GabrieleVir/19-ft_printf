@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/22 09:35:35 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/22 09:58:18 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		ft_printf(const char *str, ...)
 	args_f[5] = &ft_inttostr;
 	args_f[3] = &ft_inttostr;
 	args_f[2] = &ft_addtostr;
-	//args_f[1] = &ft_strltostr;
+	args_f[1] = &ft_wchartostr;
 	args_f[0] = &ft_strtostr;
 	ft_strcpy(args, "sSpdDioOuUxXcC");
 	va_start(ap, str);
@@ -113,6 +113,7 @@ int		main(void)
 	str[3] = '\0';
 */
 	char		*str;
+	wchar_t wide[3]={ 0x0061, 0x8161, 0 };
 
 	str = malloc(sizeof(*str) + 2);
 	str[0] = 'a';
@@ -122,12 +123,15 @@ int		main(void)
 	//printf("Printf: %c hey hey hey\n", 'a');
 	//ft_printf("ft_printf: %c hey hey hey\n", 'a');
 	//printf("%3.3d \n", 16);
-	printf("Printf: %u hey hey hey\n", -120);
-	ft_printf("Ft_printf: %u hey hey hey\n", -120);
-	printf("Printf: %u hey hey hey\n", INT_MAX + 1);
-	ft_printf("Ft_printf: %u hey hey hey\n", INT_MAX + 1);
-	printf("Printf: %d hey hey hey\n", INT_MAX + 1);
-	ft_printf("Ft_printf: %d hey hey hey\n", INT_MAX + 1);
+	//printf("Printf: %u hey hey hey\n", -120);
+	//ft_printf("Ft_printf: %u hey hey hey\n", -120);
+	//printf("Printf: %u hey hey hey\n", INT_MAX + 1);
+	//ft_printf("Ft_printf: %u hey hey hey\n", INT_MAX + 1);
+	//printf("Printf: %d hey hey hey\n", INT_MAX + 1);
+	//ft_printf("Ft_printf: %d hey hey hey\n", INT_MAX + 1);
+	ft_putstr("=====Testing the %S argument=====\n");
+	printf("Printf: %S hey, are you some sexy unicode?\n", wide);
+	ft_printf("Ft_printf: %S hey, are you some sexy unicode?\n", wide);
 	return (0);
 }
 
