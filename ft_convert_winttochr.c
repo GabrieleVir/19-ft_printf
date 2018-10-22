@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 12:19:43 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/22 12:39:17 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/22 13:53:34 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 char		*ft_convert_winttochr(wint_t tmp)
 {
-	mask[0] = 
-	return (str);
+//	mask[0] = 
+	return ("Abc");
 }
