@@ -6,7 +6,7 @@
 #    By: gvirga <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/12 23:31:55 by gvirga            #+#    #+#              #
-#    Updated: 2018/10/22 09:43:59 by gvirga           ###   ########.fr        #
+#    Updated: 2018/10/22 12:45:13 by gvirga           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ ft_strrchr.c ft_strnstr.c ft_strcmp.c ft_strncmp.c \
 ft_strnew.c ft_strdel.c ft_strclr.c ft_striter.c ft_striteri.c ft_strnjoin.c \
 ft_strmap.c ft_strmapi.c ft_strequ.c ft_strnequ.c ft_strsub.c ft_strjoin.c \
 \
-ft_atoi.c ft_isalpha.c ft_isalnum.c \
+ft_atoi.c ft_isalpha.c ft_isalnum.c ft_ispowerof2.c\
 ft_isascii.c ft_isprint.c ft_toupper.c ft_tolower.c ft_memalloc.c ft_itoa.c \
 ft_memdel.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_itoa_base.c \
 ft_lstiter.c ft_lstmap.c ft_lstcpy.c ft_wordcount.c ft_atol.c ft_push_back.c \

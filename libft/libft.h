@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 17:48:52 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/22 09:43:13 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/22 12:44:59 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,5 @@ size_t				ft_wordcount(char *str, char c);
 long long int		ft_atol(const char *str);
 void				push_back(t_list **head, void *content);
 size_t				ft_strchri(const char *s, int c);
-
+int					ft_ispowerof2(int x);
 #endif
