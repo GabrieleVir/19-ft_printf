@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/22 13:55:54 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/22 15:12:12 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int		main(void)
 	str[3] = '\0';
 */
 	char		*str;
-	wchar_t wide[4]={ 255, 0x8161, 0x8181, 0 };
+	wchar_t wide[4]={ 128, 0x8161, 0x8181, 0 };
 
 	str = malloc(sizeof(*str) + 2);
 	str[0] = 'a';
@@ -132,7 +132,7 @@ int		main(void)
 	//ft_printf("Ft_printf: %d hey hey hey\n", INT_MAX + 1);
 	ft_putstr("=====Testing the %S argument=====\n");
 	printf("Printf: %C hey, are you some sexy unicode?\n", *(wide));
-//	ft_printf("Ft_printf: %C hey, are you some sexy unicode?\n", *(wide + 1));
+	ft_printf("Ft_printf: %C hey, are you some sexy unicode?\n", *(wide + 1));
 	return (0);
 }
 
