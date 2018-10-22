@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/22 15:12:12 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/22 21:07:32 by gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,18 +101,18 @@ int		average(int count, ...)
 */
 
 // This is how you manage unicode
-
+/*
 int		main(void)
 {
 
-/*	char str[4];
+	char str[4];
 	int a = 128+64+32+1;
 	int b = 177;
 	str[0] = a;
 	str[1] = b;
 	str[2] = (char)(128 + 1);
 	str[3] = '\0';
-*/
+
 	char		*str;
 	wchar_t wide[4]={ 128, 0x8161, 0x8181, 0 };
 
@@ -135,4 +135,4 @@ int		main(void)
 	ft_printf("Ft_printf: %C hey, are you some sexy unicode?\n", *(wide + 1));
 	return (0);
 }
-
+*/
