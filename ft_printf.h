@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/23 14:38:14 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/23 15:58:40 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 char	*ft_strtostr(va_list ap);
 char	*ft_chrtostr(va_list ap);
-//char	*ft_wcharstrtostr(va_list ap);
+char	*ft_wcharstrtostr(va_list ap);
 char	*ft_wchartostr(va_list ap);
 char	*ft_inttostr(va_list ap);
 char	*ft_octtostr(va_list ap);

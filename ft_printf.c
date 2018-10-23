@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/23 14:41:39 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/23 16:00:08 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		ft_printf(const char *str, ...)
 	args_f[5] = &ft_inttostr;
 	args_f[3] = &ft_inttostr;
 	args_f[2] = &ft_addtostr;
-//	args_f[1] = &ft_wcharstrtostr;
+	args_f[1] = &ft_wcharstrtostr;
 	args_f[0] = &ft_strtostr;
 	ft_strcpy(args, "sSpdDioOuUxXcC");
 	va_start(ap, str);
@@ -114,8 +114,7 @@ int		main(void)
 	str[3] = '\0';
 */
 	char		*str;
-	wint_t wide = 0x1F602;
-
+	wchar_t wide[4] = {0x1F602, 0x1F602, 0x1F602, 0};
 	str = malloc(sizeof(*str) + 2);
 	str[0] = 'a';
 	str[1] = '\0';
@@ -130,8 +129,11 @@ int		main(void)
 	//ft_printf("Ft_printf: %u hey hey hey\n", INT_MAX + 1);
 	//printf("Printf: %d hey hey hey\n", INT_MAX + 1);
 	//ft_printf("Ft_printf: %d hey hey hey\n", INT_MAX + 1);
+	ft_putstr("=====Testing the %C argument=====\n");
+	printf("Printf: %C hey, are you some sexy unicode?\n", *wide);
+	ft_printf("Ft_printf: %C hey, are you some sexy unicode?\n", *wide);
 	ft_putstr("=====Testing the %S argument=====\n");
-	printf("Printf: %C hey, are you some sexy unicode?\n", (wide));
-	ft_printf("Ft_printf: %C hey, are you some sexy unicode?\n", (wide));
+	printf("Printf: %S hey, are you some sexy unicode?\n", (wide));
+	ft_printf("Ft_printf: %S hey, are you some sexy unicode?\n", (wide));
 	return (0);
 }
