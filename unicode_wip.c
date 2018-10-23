@@ -6,7 +6,7 @@
 /*   By: gabriele <gvirga@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 18:50:11 by gabriele          #+#    #+#             */
-/*   Updated: 2018/10/22 20:57:41 by gabriele         ###   ########.fr       */
+/*   Updated: 2018/10/23 14:23:27 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,11 @@ int		main(void)
 	bytes[1] |= (wch << 26) >> 26;
 	bytes[0] = 0xC0;
 	bytes[0] |= ((wch >> 6) << 27) >> 27;
-	bytes[2] = '\0';
 	char str[3];
 	str[0] = bytes[0];
 	str[1] = bytes[1];
 	str[2] = '\0';
 	ft_putstr(str);
-	//printf("%S\n", (wint_t*)bytes);
+	printf("%C\n", 1097100);
 	return (0);
 }

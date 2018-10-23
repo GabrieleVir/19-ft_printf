@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 18:54:43 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/22 13:54:41 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/23 14:55:44 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,14 @@ char	*ft_wcharstrtostr(va_list ap)
 	str = ft_strdup((char*)test);
 	return (str);
 }
-
+*/
 char	*ft_wchartostr(va_list ap)
 {
 	char		*str;
 	wchar_t		tmp;
 
 	tmp = va_arg(ap, wint_t);
-	str = ft_convert_winttochar(tmp);
+	str = ft_convert_winttochr(tmp);
 	return (str);
 }
-*/
+
