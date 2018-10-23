@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/23 15:58:40 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/23 22:17:11 by gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ char	*ft_octtostr(va_list ap);
 char	*ft_addtostr(va_list ap);
 char	*ft_hextostr(va_list ap);
 char	*ft_udtostr(va_list ap);
+char	*ft_morsetostr(va_list ap);
 char	*ft_itoa_printf(unsigned long nbr, int base);
+char	*morse_converter(char *str);
 int		ft_printf(const char *str, ...);
 char	*ft_convert_winttochr(wint_t tmp);
 

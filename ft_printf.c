@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/23 16:34:54 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/23 22:35:02 by gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		ft_printf(const char *str, ...)
 	int			u;
 	char		*tmp;
 
+	args_f[14] = &ft_morsetostr;
 	args_f[13] = &ft_wchartostr;
 	args_f[12] = &ft_chrtostr;
 	args_f[10] = &ft_hextostr;
@@ -43,7 +44,7 @@ int		ft_printf(const char *str, ...)
 	args_f[2] = &ft_addtostr;
 	args_f[1] = &ft_wcharstrtostr;
 	args_f[0] = &ft_strtostr;
-	ft_strcpy(args, "sSpdDioOuUxXcC");
+	ft_strcpy(args, "sSpdDioOuUxXcCm");
 	va_start(ap, str);
 	i = -1;
 	buf = NULL;
@@ -79,42 +80,13 @@ int		ft_printf(const char *str, ...)
 	va_end(ap);
 	return (0);
 }
-/*
-int		average(int count, ...)
-{
-	va_list		ap;
-	int			j;
-	double		sum;
-
-	j = 0;
-	if (count == 0)
-		return (0);
-	va_start(ap, count);
-	while (j < count)
-	{
-		sum += va_arg(ap, int);
-		j++;
-	}
-	va_end(ap);
-	return (sum / count);
-}
-*/
-
-// This is how you manage unicode
 
 int		main(void)
 {
-/*
-	char str[4];
-	int a = 128+64+32+1;
-	int b = 177;
-	str[0] = a;
-	str[1] = b;
-	str[2] = (char)(128 + 1);
-	str[3] = '\0';
-*/
 	char		*str;
 	wchar_t wide[4] = {0x1F602, 0x1F602, 0x1F602, 0};
+	char	morse[4][4] = {"...", "___", "..."};
+
 	str = malloc(sizeof(*str) + 2);
 	str[0] = 'a';
 	str[1] = '\0';
@@ -135,5 +107,10 @@ int		main(void)
 	ft_putstr("=====Testing the %S argument=====\n");
 	printf("Printf: %S hey, are you some sexy unicode?\n", (wide));
 	ft_printf("Ft_printf: %S hey, are you some sexy unicode?\n", (wide));
+	int	i = -1;
+	ft_printf("Ft_printf: ");
+	while (++i < 3)
+		ft_printf("%m", morse[i]);
+	ft_printf(" hey, are you some sexy morse?");
 	return (0);
 }

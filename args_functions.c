@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 18:54:43 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/23 16:34:58 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/23 22:30:22 by gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,10 @@ char	*ft_addtostr(va_list ap)
 	nb = va_arg(ap, void*);
 	tmp = ft_itoa_printf((unsigned long)nb, 16);
 	len = ft_strlen(tmp);
-	str = (char*)malloc(sizeof(*str) * len + 2);
+	str = ft_strnew(len + 2);
 	str = tmp;
+	if (!str || !tmp)
+		return (NULL);
 	while (len >= 0)
 	{
 		str[len + 2] = str[len];
@@ -98,7 +100,8 @@ char	*ft_wcharstrtostr(va_list ap)
 	char		*tmp2;
 
 	tmp_arr = va_arg(ap, wchar_t*);
-	str = ft_strnew(0);
+	if (!(str = ft_strnew(0)))
+		return (NULL);
 	while (*tmp_arr)
 	{
 		tmp = ft_convert_winttochr((wint_t)*tmp_arr);
@@ -119,3 +122,14 @@ char	*ft_wchartostr(va_list ap)
 	return (str);
 }
 
+char	*ft_morsetostr(va_list ap)
+{
+	int		i;
+	char	*str;
+
+	i = -1;
+	if (!(str = ft_strnew(0)))
+		return (NULL);
+	str = morse_converter(va_arg(ap, char*));
+	return (str);
+}
