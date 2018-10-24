@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/24 13:10:08 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/10/24 13:14:48 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ int		ft_printf(const char *str, ...)
 	args_f[14] = &ft_morsetostr;
 	args_f[13] = &ft_wchartostr;
 	args_f[12] = &ft_chrtostr;
-	args_f[11] = &ft_hexXtostr;
+	args_f[11] = &ft_bighextostr;
 	args_f[10] = &ft_hextostr;
-	args_f[9] = &ft_uUdtostr;
+	args_f[9] = &ft_bigudtostr;
 	args_f[8] = &ft_udtostr;
-	args_f[7] = &ft_locttostr;
+	args_f[7] = &ft_bigocttostr;
 	args_f[6] = &ft_octtostr;
 	args_f[5] = &ft_inttostr;
-	args_f[4] = &ft_linttostr;
+	args_f[4] = &ft_biginttostr;
 	args_f[3] = &ft_inttostr;
 	args_f[2] = &ft_addtostr;
 	args_f[1] = &ft_wcharstrtostr;
@@ -123,7 +123,10 @@ int		main(void)
 	printf("Printf: %D hey hey hey BIG D\n", INT_MIN + 2);
 	ft_printf("Ft_printf: %D hey hey hey BIG D\n", INT_MIN + 2);
 	ft_putstr("=====Testing the %O argument=====\n");
-	printf("Printf: %O hey hey hey BIG D\n", INT_MAX + 1);
-	ft_printf("Ft_printf: %O hey hey hey BIG D\n", INT_MAX + 1);
+	printf("Printf: %O hey hey hey BIG O\n", INT_MAX + 1);
+	ft_printf("Ft_printf: %O hey hey hey BIG O\n", INT_MAX + 1);
+	ft_putstr("=====Testing the %U argument=====\n");
+	printf("Printf: %U hey hey hey BIG U\n", INT_MAX + 1);
+	ft_printf("Ft_printf: %U hey hey hey BIG U\n", INT_MAX + 1);
 	return (0);
 }
