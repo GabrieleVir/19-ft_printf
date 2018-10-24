@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 18:54:43 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/23 22:30:22 by gabriele         ###   ########.fr       */
+/*   Updated: 2018/10/24 13:08:56 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,31 @@ char	*ft_inttostr(va_list ap)
 	return (str);
 }
 
+char	*ft_linttostr(va_list ap)
+{
+	char		*str;
+
+	str = ft_itoa_printf(va_arg(ap, long int), 10, 1);
+	return (str);
+}
+
 char	*ft_octtostr(va_list ap)
 {
 	char				*str;
 	unsigned long		nb;
 
+	nb = va_arg(ap, unsigned int);
+	str = ft_itoa_printf(nb, 8, 1);
+	return (str);
+}
+
+char	*ft_locttostr(va_list ap)
+{
+	char				*str;
+	unsigned long		nb;
+
 	nb = va_arg(ap, unsigned long);
-	str = ft_itoa_printf(nb, 8);
+	str = ft_itoa_printf(nb, 8, 1);
 	return (str);
 }
 
@@ -56,7 +74,7 @@ char	*ft_addtostr(va_list ap)
 	char	*tmp;
 
 	nb = va_arg(ap, void*);
-	tmp = ft_itoa_printf((unsigned long)nb, 16);
+	tmp = ft_itoa_printf((unsigned long)nb, 16, 1);
 	len = ft_strlen(tmp);
 	str = ft_strnew(len + 2);
 	str = tmp;
@@ -78,7 +96,17 @@ char	*ft_hextostr(va_list ap)
 	unsigned long	nb;
 
 	nb = va_arg(ap, unsigned long);
-	str = ft_itoa_printf(nb, 16);
+	str = ft_itoa_printf(nb, 16, 1);
+	return (str);
+}
+
+char	*ft_hexXtostr(va_list ap)
+{
+	char			*str;
+	unsigned long	nb;
+
+	nb = va_arg(ap, unsigned long);
+	str = ft_itoa_printf(nb, 16, 2);
 	return (str);
 }
 
@@ -88,7 +116,7 @@ char	*ft_udtostr(va_list ap)
 	unsigned long	nb;
 
 	nb = va_arg(ap, unsigned long);
-	str = ft_itoa_printf(nb, 10);
+	str = ft_itoa_printf(nb, 10, 1);
 	return (str);
 }
 

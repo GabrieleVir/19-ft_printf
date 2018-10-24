@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/23 22:35:02 by gabriele         ###   ########.fr       */
+/*   Updated: 2018/10/24 13:10:08 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,14 @@ int		ft_printf(const char *str, ...)
 	args_f[14] = &ft_morsetostr;
 	args_f[13] = &ft_wchartostr;
 	args_f[12] = &ft_chrtostr;
+	args_f[11] = &ft_hexXtostr;
 	args_f[10] = &ft_hextostr;
+	args_f[9] = &ft_uUdtostr;
 	args_f[8] = &ft_udtostr;
+	args_f[7] = &ft_locttostr;
 	args_f[6] = &ft_octtostr;
 	args_f[5] = &ft_inttostr;
+	args_f[4] = &ft_linttostr;
 	args_f[3] = &ft_inttostr;
 	args_f[2] = &ft_addtostr;
 	args_f[1] = &ft_wcharstrtostr;
@@ -84,8 +88,8 @@ int		ft_printf(const char *str, ...)
 int		main(void)
 {
 	char		*str;
-	wchar_t wide[4] = {0x1F602, 0x1F602, 0x1F602, 0};
-	char	morse[4][4] = {"...", "___", "..."};
+	//wchar_t wide[4] = {0x1F602, 0x1F602, 0x1F602, 0};
+	//char	morse[4][4] = {"...", "___", "..."};
 
 	str = malloc(sizeof(*str) + 2);
 	str[0] = 'a';
@@ -101,16 +105,25 @@ int		main(void)
 	//ft_printf("Ft_printf: %u hey hey hey\n", INT_MAX + 1);
 	//printf("Printf: %d hey hey hey\n", INT_MAX + 1);
 	//ft_printf("Ft_printf: %d hey hey hey\n", INT_MAX + 1);
-	ft_putstr("=====Testing the %C argument=====\n");
-	printf("Printf: %C hey, are you some sexy unicode?\n", *wide);
-	ft_printf("Ft_printf: %C hey, are you some sexy unicode?\n", *wide);
-	ft_putstr("=====Testing the %S argument=====\n");
-	printf("Printf: %S hey, are you some sexy unicode?\n", (wide));
-	ft_printf("Ft_printf: %S hey, are you some sexy unicode?\n", (wide));
-	int	i = -1;
+	//ft_putstr("=====Testing the %C argument=====\n");
+	//printf("Printf: %C hey, are you some sexy unicode?\n", *wide);
+	//ft_printf("Ft_printf: %C hey, are you some sexy unicode?\n", *wide);
+	//ft_putstr("=====Testing the %S argument=====\n");
+	//printf("Printf: %S hey, are you some sexy unicode?\n", (wide));
+	//ft_printf("Ft_printf: %S hey, are you some sexy unicode?\n", (wide));
+	/*int	i = -1;
 	ft_printf("Ft_printf: ");
 	while (++i < 3)
 		ft_printf("%m", morse[i]);
-	ft_printf(" hey, are you some sexy morse?");
+	ft_printf(" hey, are you some sexy morse?");*/
+	ft_putstr("=====Testing the %X argument=====\n");
+	printf("Printf: %X hey hey hey BIG X\n", 0xFF);
+	ft_printf("Ft_printf: %X hey hey hey BIG X\n", 0xFF);
+	ft_putstr("=====Testing the %D argument=====\n");
+	printf("Printf: %D hey hey hey BIG D\n", INT_MIN + 2);
+	ft_printf("Ft_printf: %D hey hey hey BIG D\n", INT_MIN + 2);
+	ft_putstr("=====Testing the %O argument=====\n");
+	printf("Printf: %O hey hey hey BIG D\n", INT_MAX + 1);
+	ft_printf("Ft_printf: %O hey hey hey BIG D\n", INT_MAX + 1);
 	return (0);
 }
