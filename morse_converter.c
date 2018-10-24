@@ -6,7 +6,7 @@
 /*   By: gabriele <gvirga@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 18:01:31 by gabriele          #+#    #+#             */
-/*   Updated: 2018/10/23 22:35:17 by gabriele         ###   ########.fr       */
+/*   Updated: 2018/10/24 08:12:54 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		ft_fill_part2(char **morse_arr)
 }
 
 void		fill_morse_arr(char **morse_arr)
-{	
+{
 	morse_arr[0] = ft_strdup("._\0");
 	morse_arr[1] = ft_strdup("_...\0");
 	morse_arr[2] = ft_strdup("_._.\0");
@@ -80,14 +80,18 @@ char		*morse_converter(char *str)
 	char	*morse_code[36];
 	int		i;
 	char	*morse_trad;
+	int		y;
 
 	i = 0;
+	y = -1;
 	fill_morse_arr(morse_code);
 	while (morse_code[i])
 	{
 		if (ft_strcmp(morse_code[i], str) == 0)
 		{
 			morse_trad = morse_tradstr(i);
+			while (morse_code[++y])
+				free(morse_code[y]);
 			return (morse_trad);
 		}
 		i++;
