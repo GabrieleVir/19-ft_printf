@@ -1,0 +1,3 @@
+[submodule "19-Libft"]
+	path = 19-Libft
+	url = https://github.com/GabrieleVir/19-Libft.git
