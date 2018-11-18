@@ -5,20 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/18 04:36:15 by gvirga            #+#    #+#             */
-/*   Updated: 2018/11/18 04:49:45 by gvirga           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/11/18 04:35:10 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/11/18 23:14:40 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +74,7 @@ int		ft_printf(const char *str, ...)
 		{
 			if (str[i + 1] == args[args_i])
 			{
-				tmp2 = ft_inttostr(ap);
+				tmp2 = args_f[args_i](ap);
 				tmp = ft_strjoin_free(buf, tmp2, 3);
 				buf = tmp;
 				i++;
@@ -132,7 +120,7 @@ int		main(void)
 	while (++i < 3)
 		ft_printf("%m", morse[i]);
 	ft_printf(" hey, are you some sexy morse?");*/
-	/*ft_putstr("=====Testing the %X argument=====\n");
+	ft_putstr("=====Testing the %X argument=====\n");
 	printf("Printf: %X hey hey hey BIG X\n", 0xFF);
 	ft_printf("Ft_printf: %X hey hey hey BIG X\n", 0xFF);
 	ft_putstr("=====Testing the %D argument=====\n");
@@ -143,10 +131,7 @@ int		main(void)
 	ft_printf("Ft_printf: %O hey hey hey BIG O\n", INT_MAX + 1);
 	ft_putstr("=====Testing the %U argument=====\n");
 	printf("Printf: %U hey hey hey BIG U\n", INT_MAX + 1);
-	ft_printf("Ft_printf: %U hey hey hey BIG U\n", INT_MAX + 1);*/
-	int i = -1;
-	while (++i < 500000)
-		ft_printf("salut j'ai %d ans \n", i);
+	ft_printf("Ft_printf: %U hey hey hey BIG U\n", INT_MAX + 1);
 	return (0);
 }
 

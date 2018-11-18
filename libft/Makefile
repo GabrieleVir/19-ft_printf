@@ -6,12 +6,12 @@
 #    By: gvirga <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/12 23:31:55 by gvirga            #+#    #+#              #
-#    Updated: 2018/10/23 19:02:55 by gabriele         ###   ########.fr        #
+#    Updated: 2018/11/19 00:41:35 by gvirga           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=gcc
-CFLAGS=-I./ -Wall -Werror -Wextra
+CFLAGS=-I ../includes -Wall -Werror -Wextra
 FILES= ft_putchar.c ft_putchar_fd.c ft_putstr.c ft_putstr_fd.c ft_putendl.c \
 ft_putendl_fd.c ft_memcpy.c ft_putwchar.c ft_putwstr.c\
 \
