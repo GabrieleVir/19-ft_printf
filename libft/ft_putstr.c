@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 13:51:37 by gvirga            #+#    #+#             */
-/*   Updated: 2018/06/20 10:07:18 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/11/18 04:47:21 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 void	ft_putstr(char const *s)
 {
+	int		i;
+
+	i = -1;
 	if (!s)
 		return ;
-	while (*s)
-	{
-		ft_putchar(*s);
-		s++;
-	}
+	while (s[++i])
+		;
+	write(1, s, i); 
 }

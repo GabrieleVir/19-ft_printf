@@ -5,8 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/11/18 04:36:15 by gvirga            #+#    #+#             */
+/*   Updated: 2018/11/18 04:49:45 by gvirga           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/24 13:14:48 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/11/18 04:35:10 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +44,7 @@ int		ft_printf(const char *str, ...)
 	char		*buf;
 	int			u;
 	char		*tmp;
+	char		 *tmp2;
 
 	args_f[14] = &ft_morsetostr;
 	args_f[13] = &ft_wchartostr;
@@ -48,7 +61,8 @@ int		ft_printf(const char *str, ...)
 	args_f[2] = &ft_addtostr;
 	args_f[1] = &ft_wcharstrtostr;
 	args_f[0] = &ft_strtostr;
-	ft_strcpy(args, "sSpdDioOuUxXcCm");
+
+	ft_strcpy(args, "sSpdDioOuUxXcCm");	
 	va_start(ap, str);
 	i = -1;
 	buf = NULL;
@@ -61,8 +75,8 @@ int		ft_printf(const char *str, ...)
 			buf = ft_strsub(str, u, i - u);
 		else
 		{
-			tmp = ft_strsub(str, u, i - u);
-			tmp = ft_strjoin_free(buf, tmp, 3);
+			tmp2 = ft_strsub(str, u, i - u);
+			tmp = ft_strjoin_free(buf, tmp2, 3);
 			buf = tmp;
 		}
 		if (str[i] == '\0')
@@ -72,7 +86,8 @@ int		ft_printf(const char *str, ...)
 		{
 			if (str[i + 1] == args[args_i])
 			{
-				tmp = ft_strjoin_free(buf, args_f[args_i](ap), 3);
+				tmp2 = ft_inttostr(ap);
+				tmp = ft_strjoin_free(buf, tmp2, 3);
 				buf = tmp;
 				i++;
 				break;
@@ -81,20 +96,21 @@ int		ft_printf(const char *str, ...)
 		}
 	}
 	ft_putstr(buf);
+	free(buf);
 	va_end(ap);
 	return (0);
 }
 
 int		main(void)
 {
-	char		*str;
+//	char		*str;
 	//wchar_t wide[4] = {0x1F602, 0x1F602, 0x1F602, 0};
 	//char	morse[4][4] = {"...", "___", "..."};
 
-	str = malloc(sizeof(*str) + 2);
+/*	str = malloc(sizeof(*str) + 2);
 	str[0] = 'a';
 	str[1] = '\0';
-	setlocale(LC_ALL, "");
+*///	setlocale(LC_ALL, "");
 	//ft_putstr("=====Test of %c option=====");
 	//printf("Printf: %c hey hey hey\n", 'a');
 	//ft_printf("ft_printf: %c hey hey hey\n", 'a');
@@ -116,7 +132,7 @@ int		main(void)
 	while (++i < 3)
 		ft_printf("%m", morse[i]);
 	ft_printf(" hey, are you some sexy morse?");*/
-	ft_putstr("=====Testing the %X argument=====\n");
+	/*ft_putstr("=====Testing the %X argument=====\n");
 	printf("Printf: %X hey hey hey BIG X\n", 0xFF);
 	ft_printf("Ft_printf: %X hey hey hey BIG X\n", 0xFF);
 	ft_putstr("=====Testing the %D argument=====\n");
@@ -127,6 +143,10 @@ int		main(void)
 	ft_printf("Ft_printf: %O hey hey hey BIG O\n", INT_MAX + 1);
 	ft_putstr("=====Testing the %U argument=====\n");
 	printf("Printf: %U hey hey hey BIG U\n", INT_MAX + 1);
-	ft_printf("Ft_printf: %U hey hey hey BIG U\n", INT_MAX + 1);
+	ft_printf("Ft_printf: %U hey hey hey BIG U\n", INT_MAX + 1);*/
+	int i = -1;
+	while (++i < 500000)
+		ft_printf("salut j'ai %d ans \n", i);
 	return (0);
 }
+

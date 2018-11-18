@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 18:54:43 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/24 13:13:06 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/11/18 04:10:22 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,3 +171,4 @@ char	*ft_morsetostr(va_list ap)
 	str = morse_converter(va_arg(ap, char*));
 	return (str);
 }
+
