@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 23:24:50 by gvirga            #+#    #+#             */
-/*   Updated: 2018/11/19 00:39:54 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/11/19 06:23:06 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,3 @@ char		*ft_itoa_printf(unsigned long nbr, int base, int radix)
 		return (NULL);
 	return (strnbr_conversion(nbr, base, radix));
 }
-

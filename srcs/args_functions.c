@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 18:54:43 by gvirga            #+#    #+#             */
-/*   Updated: 2018/11/18 04:10:22 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/11/19 06:23:54 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,37 @@ char	*ft_strtostr(va_list ap)
 	return (str);
 }
 
+char	*ft_percenttostr(va_list ap)
+{
+	char		*str;
+	
+	ap = 0;
+	str = ft_strdup("%");
+	return (str);
+}
+
+char	*ft_floattostr(va_list ap)
+{
+	char		*str;
+	double		f;
+
+	f = va_arg(ap, double);
+	str = ft_strnew(0);
+	//str = manage_float(va_arg(ap, double));
+	return (str);
+}
+
 char	*ft_chrtostr(va_list ap)
+{
+	char		*str;
+
+	str = (char*)malloc(sizeof(*str) * 2);
+	str[0] = va_arg(ap, int);
+	str[1] = '\0';
+	return (str);
+}
+
+char	*ft_ftostr(va_list ap)
 {
 	char		*str;
 

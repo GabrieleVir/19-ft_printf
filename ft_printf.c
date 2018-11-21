@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/11/18 23:14:40 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/11/19 08:23:47 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,70 +21,70 @@
 ** The aptostr function will take the va_list ap and return the NUL terminated
 ** str.
 */
+void	fill_args_f(t_params **p)
+{
+	(*p)->args_f[16] = &ft_floattostr;
+	(*p)->args_f[15] = &ft_percenttostr;
+	(*p)->args_f[14] = &ft_morsetostr;
+	(*p)->args_f[13] = &ft_wchartostr;
+	(*p)->args_f[12] = &ft_chrtostr;
+	(*p)->args_f[11] = &ft_bighextostr;
+	(*p)->args_f[10] = &ft_hextostr;
+	(*p)->args_f[9] = &ft_bigudtostr;
+	(*p)->args_f[8] = &ft_udtostr;
+	(*p)->args_f[7] = &ft_bigocttostr;
+	(*p)->args_f[6] = &ft_octtostr;
+	(*p)->args_f[5] = &ft_inttostr;
+	(*p)->args_f[4] = &ft_biginttostr;
+	(*p)->args_f[3] = &ft_inttostr;
+	(*p)->args_f[2] = &ft_addtostr;
+	(*p)->args_f[1] = &ft_wcharstrtostr;
+	(*p)->args_f[0] = &ft_strtostr;
+}
 
 int		ft_printf(const char *str, ...)
 {
 	va_list		ap;
-	int			i;
-	char		args[15];
-	char		*(*args_f[15]) (va_list);
-	int			args_i;
-	char		*buf;
-	int			u;
-	char		*tmp;
-	char		 *tmp2;
+	t_params	*p;
 
-	args_f[14] = &ft_morsetostr;
-	args_f[13] = &ft_wchartostr;
-	args_f[12] = &ft_chrtostr;
-	args_f[11] = &ft_bighextostr;
-	args_f[10] = &ft_hextostr;
-	args_f[9] = &ft_bigudtostr;
-	args_f[8] = &ft_udtostr;
-	args_f[7] = &ft_bigocttostr;
-	args_f[6] = &ft_octtostr;
-	args_f[5] = &ft_inttostr;
-	args_f[4] = &ft_biginttostr;
-	args_f[3] = &ft_inttostr;
-	args_f[2] = &ft_addtostr;
-	args_f[1] = &ft_wcharstrtostr;
-	args_f[0] = &ft_strtostr;
-
-	ft_strcpy(args, "sSpdDioOuUxXcCm");	
+	p = (t_params*)malloc(sizeof(t_params));
+	fill_args_f(&p);
+	ft_strcpy(p->args, "sSpdDioOuUxXcCm%fF");	
 	va_start(ap, str);
-	i = -1;
-	buf = NULL;
-	while (str[++i])
+	p->i = -1;
+	p->buf = NULL;
+	while (str[++(p->i)])
 	{
-		u = i;
-		while (str[i] != '%' && str[i] != '\0')
-			i++;
-		if (!buf)
-			buf = ft_strsub(str, u, i - u);
+		p->start = p->i;
+		while (str[p->i] != '%' && str[p->i] != '\0')
+			(p->i)++;
+		if (!p->buf)
+			p->buf = ft_strsub(str, p->start, p->i - p->start);
 		else
 		{
-			tmp2 = ft_strsub(str, u, i - u);
-			tmp = ft_strjoin_free(buf, tmp2, 3);
-			buf = tmp;
+			p->tmp2 = ft_strsub(str, p->start, p->i - p->start);
+			p->tmp = ft_strjoin_free(p->buf, p->tmp2, 3);
+			p->buf = p->tmp;
 		}
-		if (str[i] == '\0')
+		if (str[p->i] == '\0')
 			break;
-		args_i = 0;
-		while (args[args_i])
+		p->args_i = 0;
+		while (p->args[p->args_i])
 		{
-			if (str[i + 1] == args[args_i])
+			if (str[(p->i) + 1] == p->args[p->args_i])
 			{
-				tmp2 = args_f[args_i](ap);
-				tmp = ft_strjoin_free(buf, tmp2, 3);
-				buf = tmp;
-				i++;
+				p->tmp2 = p->args_f[p->args_i](ap);
+				p->tmp = ft_strjoin_free(p->buf, p->tmp2, 3);
+				p->buf = p->tmp;
+				(p->i)++;
 				break;
 			}
-			args_i++;
+			(p->args_i)++;
 		}
 	}
-	ft_putstr(buf);
-	free(buf);
+	ft_putstr(p->buf);
+	free(p->buf);
+	free(p);
 	va_end(ap);
 	return (0);
 }
@@ -119,7 +119,7 @@ int		main(void)
 	ft_printf("Ft_printf: ");
 	while (++i < 3)
 		ft_printf("%m", morse[i]);
-	ft_printf(" hey, are you some sexy morse?");*/
+	ft_printf(" hey, are you some sexy morse?");
 	ft_putstr("=====Testing the %X argument=====\n");
 	printf("Printf: %X hey hey hey BIG X\n", 0xFF);
 	ft_printf("Ft_printf: %X hey hey hey BIG X\n", 0xFF);
@@ -131,7 +131,23 @@ int		main(void)
 	ft_printf("Ft_printf: %O hey hey hey BIG O\n", INT_MAX + 1);
 	ft_putstr("=====Testing the %U argument=====\n");
 	printf("Printf: %U hey hey hey BIG U\n", INT_MAX + 1);
-	ft_printf("Ft_printf: %U hey hey hey BIG U\n", INT_MAX + 1);
+	ft_printf("Ft_printf: %% %U hey hey hey BIG U\n", INT_MAX + 1);
+
+	printf("%f\n", 0.15);
+	printf("yo %f\n", -1000005);
+	printf("%f\n", 15);
+	printf("%f\n", .15);
+	printf("%f\n", 0.15);
+	printf("%f\n", 0.015);
+	printf("%f\n", 1.15);
+	printf("%f\n", 2147483.64755);
+	printf("%f\n", 15.);
+	printf("%f\n", 2147483647.555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555);
+*/	printf("wtf? %.10000F\n", 2147483647.5555552222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222);
+	printf("wtf? %.8F\n", 2147483647.55555522222220000992483049823048922222222222222222222222);
+
+	ft_printf("%f\n", 2147483647.55555522222222222222222222222222222222222222222222222222222);
+	printf("%f\n", 2147483647.55555522222222222222222222222222222222222222222222222222222);
+	printf("%f\n", DBL_MAX);
 	return (0);
 }
-
