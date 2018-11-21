@@ -6,49 +6,24 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 06:16:27 by gvirga            #+#    #+#             */
-/*   Updated: 2018/11/19 06:23:02 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/11/21 12:07:23 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 
-#include "libft.h"
-
-static int		nb_digit(double nbr)
+char		*ft_dtoa(double nbr, int precision)
 {
-	int		nbr_digit;
+	char	*str;
+	int		dpart;
 
-	nbr_digit = 1;
-	while (nbr >= 10.0)
+	str = ft_itoa((int)nbr);
+	dpart = nbr - (double)(int)nbr;
+	if (precision != 0)
 	{
-		nbr /= 10.0;
-		nbr_digit++;
+		str = ft_strjoin_free(str, ".", 1);
+		dpart = dpart * ft_power(10, precision);
+		ft_strjoin_free(str, ft_itoa((int)dpart), 3);
 	}
-	return (nbr_digit);
-}
-
-static char	*strnbr_conversion(double nbr)
-{
-	int		digits;
-	int		modulo;
-	int		i;
-	char	*strnbr;
-
-	i = -1;
-	digits = nb_digit(nbr);
-	printf("hey");
-	if (!(strnbr = (char*)malloc(sizeof(*strnbr) * digits + 1)))
-		return (NULL);
-	while (++i < digits)
-	{
-		modulo = (long long)nbr % 10;
-		strnbr[digits - 1 - i] = modulo + '0';
-		nbr /= 10.0;
-	}
-	strnbr[digits] = '\0';
-	return (strnbr);
-}
-
-char		manage_float(double nbr)
-{
-	return (strnbr_conversion(nbr));
+	return (str);
 }
