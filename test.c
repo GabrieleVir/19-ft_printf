@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 23:24:06 by gvirga            #+#    #+#             */
-/*   Updated: 2018/11/27 01:56:45 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/11/28 00:49:24 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static void		t(int *s,int *e, unsigned __int128 *m, long double v)
 	t_double	value;
 	unsigned __int128 test;
 
-	memcpy(test, 1, 128);
 	value.d = v;
 	*s =  (value.u >> 127) & 1;
 	*e = ((value.u >> 112) & 0x7FFF) - ((1<<14) - 1);

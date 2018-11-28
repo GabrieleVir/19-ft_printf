@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 23:24:06 by gvirga            #+#    #+#             */
-/*   Updated: 2018/11/27 06:47:23 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/11/28 03:26:31 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,27 @@ double			ft_pow(int number, int exponant)
 	return (result);
 }
 
+int			ft_ipow(int number, int exponant)
+{
+	int result;
+
+	result = 1.0;
+	if (exponant > 0)
+	{
+		exponant++;
+		while (--exponant)
+			result *= number;
+	}
+	else if (exponant < 0)
+	{
+		exponant--;
+		while (++exponant)
+			result /= number;
+	}
+	else
+		return (1);
+	return (result);
+}
 int				ft_abs(int n)
 {
 	if (n < 0)
@@ -115,14 +136,15 @@ static double	cal_mantissa(unsigned long mantissa)
 #include <float.h>
 #include <limits.h>
 
-long long			ft_entier(int e, int m, int s, double value)
+unsigned long		ft_entier(int e, unsigned long m, int s)
 {
-	long long		entier;
+	unsigned long	entier;
+	int				i;
 
+	i = 0;
 	entier = 0;
-	if (m != 0)
-		while (e--)
-			entier = (m >> (52 - e) & ft_pow();
+	if (m != 0.0 & e < 64)
+		entier = ((m << 11) >> (63 - e)) | 1L << e;
 	else
 		entier = 0;
 	return (entier);
@@ -133,19 +155,19 @@ int				main(int argc, char **argv)
 	int				s;
 	int				e;
 	unsigned long	m;
-	int				entier;
+	unsigned long	entier;
 
 	printf("%.1000f\n", DBL_MAX);
-	split(&s, &e, &m, 15.5005);
+	split(&s, &e, &m, 9000000000000000000.001);
 	printf("sign : %d\n", s);
 	printf("exponant : %d\n", e);
 	ft_putstr("mantissa : ");
 	print_mantissa(m);
 	ft_putchar('\n');
-	entier = ft_entier(e, m, s, 15.5005);
-	printf("entier: %d\n", entier);
+	entier = ft_entier(e, m, s);
+	printf("entier: %lu\n", entier);
 	if (e < 0)
-		printf("%.30f", ft_pow(-1, s) * cal_mantissa(m) * (ft_pow(2, e)));
+		printf("%.30f", ft_pow(-1, s) * cal_mantissa(m));
 	else
 		printf("%.30f", ft_pow(-1, s) * cal_mantissa(m) * ft_pow(2, e));
 	ft_putchar('\n');
