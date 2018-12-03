@@ -6,7 +6,7 @@
 #    By: gvirga <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/12 23:31:55 by gvirga            #+#    #+#              #
-#    Updated: 2018/11/21 12:08:03 by gvirga           ###   ########.fr        #
+#    Updated: 2018/12/01 18:37:38 by gabriele         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ FILES = args_functions.c ft_convert_winttochr.c ft_itoa_printf.c morse_converter
 SRCFILES = $(addprefix $(SRCDIR), $(FILES))
 OBJ= $(subst .c,.o, $(FILES)) $(subst .c,.o, $(MAIN))
 SRCOBJ= $(addprefix $(SRCDIR), $(OBJ))
-INC_DIR = ./includes
+INC_DIR = ./includes/
 
 RED=\033[0;31m
 YELLOW=\033[0;33m
@@ -51,7 +51,7 @@ clean:
 	echo "$(RED)Suppression$(END) des fichiers objet $(VOMIETALEE)./$(NAME)$(END)..."
 
 fclean: clean
-	rm -Rf $(NAME)
+	rm -f $(NAME)
 	echo "$(RED)Suppression$(END) de l'executable $(VOMIETALEE)./$(NAME)$(END)..."
 	make --no-print-directory -C $(LIBFT_DIR) fclean
 
