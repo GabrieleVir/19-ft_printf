@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/11/19 06:09:49 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/01 18:29:37 by gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char	*ft_itoa_printf(unsigned long nbr, int base, int radix);
 char	*morse_converter(char *str);
 int		ft_printf(const char *str, ...);
 char	*ft_convert_winttochr(wint_t tmp);
+char	*ft_dtoa(double nbr, int precision);
 
 typedef struct			s_params
 {

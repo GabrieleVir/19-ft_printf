@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 17:48:52 by gvirga            #+#    #+#             */
-/*   Updated: 2018/10/23 19:02:40 by gabriele         ###   ########.fr       */
+/*   Updated: 2018/12/01 18:30:48 by gabriele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ char				*ft_strrchr(const char *s, int c);
 char				*ft_strnstr(const char *h, const char *n, size_t len);
 size_t				ft_strnboccur(char const *str, int c);
 int					ft_atoi(const char *str);
+int					ft_ipower(int n, int power);
+double				ft_npower(unsigned int n, int power);
 int					ft_isalpha(int c);
 int					ft_isalnum(int c);
 int					ft_isascii(int c);
