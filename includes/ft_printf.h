@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/01 18:29:37 by gabriele         ###   ########.fr       */
+/*   Updated: 2018/12/04 04:27:13 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ typedef struct			s_params
 	int					i;
 	char				*tmp;
 	char				*tmp2;
+	char				*fl_mod;
 }						t_params;
 #endif

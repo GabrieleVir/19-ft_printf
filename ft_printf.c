@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/01 18:38:16 by gabriele         ###   ########.fr       */
+/*   Updated: 2018/12/04 04:32:10 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,64 @@ void	fill_args_f(t_params **p)
 	(*p)->args_f[2] = &ft_addtostr;
 	(*p)->args_f[1] = &ft_wcharstrtostr;
 	(*p)->args_f[0] = &ft_strtostr;
+	ft_strcpy((*p)->args, "sSpdDioOuUxXcCm%fF");
+	(*p)->i = -1;
+	(*p)->buf = NULL;
+}
+int		before_percentage(const char *str, int *i, t_params **p)
+{
+	while (str[(*i)] != '%' && str[(*i)] != '\0')
+		(*i)++;
+	if (!(*p)->buf)
+		(*p)->buf = ft_strsub(str, (*p)->start, (*i) - (*p)->start);
+	else
+	{
+		(*p)->tmp2 = ft_strsub(str, (*p)->start, (*i) - (*p)->start);
+		(*p)->tmp = ft_strjoin_free((*p)->buf, (*p)->tmp2, 3);
+		(*p)->buf = (*p)->tmp;
+	}
+	if (!(*p)->buf)
+		return (-1);
+	return (1);
+}
+
+int		ft_manage_printf_str(const char *str, int i, t_params **p, va_list ap)
+{
+	int		stop;
+
+	stop = 1;
+	while (str[++i])
+	{
+		(*p)->start = i;
+		if ((before_percentage(str, &i, p)) == -1)
+			return (-1);
+		if (str[i] == '\0')
+			break;
+		(*p)->args_i = 0;
+		(*p)->start = i;
+		while (stop || str[i + 1] == '\0')
+		{
+			while ((*p)->args[(*p)->args_i])
+			{
+				if (str[i + 1] == (*p)->args[(*p)->args_i])
+				{
+					if ((*p)->start - i != 0)
+					{
+						(*p)->fl_mod = ft_strsub(str, (*p)->start + 1, i);
+						write_fl_mod((*p)->fl_mod);
+					}
+					(*p)->tmp2 = (*p)->args_f[(*p)->args_i](ap);
+					(*p)->tmp = ft_strjoin_free((*p)->buf, (*p)->tmp2, 3);
+					(*p)->buf = (*p)->tmp;
+					stop = 0;
+					break;
+				}
+				((*p)->args_i)++;
+			}
+			i++;
+		}
+	}
+	return (1);
 }
 
 int		ft_printf(const char *str, ...)
@@ -47,41 +105,11 @@ int		ft_printf(const char *str, ...)
 	va_list		ap;
 	t_params	*p;
 
-	p = (t_params*)malloc(sizeof(t_params));
+	if (!(p = (t_params*)malloc(sizeof(t_params))))
+		return (-1);
 	fill_args_f(&p);
-	ft_strcpy(p->args, "sSpdDioOuUxXcCm%fF");	
 	va_start(ap, str);
-	p->i = -1;
-	p->buf = NULL;
-	while (str[++(p->i)])
-	{
-		p->start = p->i;
-		while (str[p->i] != '%' && str[p->i] != '\0')
-			(p->i)++;
-		if (!p->buf)
-			p->buf = ft_strsub(str, p->start, p->i - p->start);
-		else
-		{
-			p->tmp2 = ft_strsub(str, p->start, p->i - p->start);
-			p->tmp = ft_strjoin_free(p->buf, p->tmp2, 3);
-			p->buf = p->tmp;
-		}
-		if (str[p->i] == '\0')
-			break;
-		p->args_i = 0;
-		while (p->args[p->args_i])
-		{
-			if (str[(p->i) + 1] == p->args[p->args_i])
-			{
-				p->tmp2 = p->args_f[p->args_i](ap);
-				p->tmp = ft_strjoin_free(p->buf, p->tmp2, 3);
-				p->buf = p->tmp;
-				(p->i)++;
-				break;
-			}
-			(p->args_i)++;
-		}
-	}
+	ft_manage_printf_str(str, p->i, &p, ap);
 	ft_putstr(p->buf);
 	free(p->buf);
 	free(p);
