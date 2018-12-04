@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/04 04:32:10 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/04 23:23:54 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,101 +21,7 @@
 ** The aptostr function will take the va_list ap and return the NUL terminated
 ** str.
 */
-void	fill_args_f(t_params **p)
-{
-	(*p)->args_f[16] = &ft_floattostr;
-	(*p)->args_f[15] = &ft_percenttostr;
-	(*p)->args_f[14] = &ft_morsetostr;
-	(*p)->args_f[13] = &ft_wchartostr;
-	(*p)->args_f[12] = &ft_chrtostr;
-	(*p)->args_f[11] = &ft_bighextostr;
-	(*p)->args_f[10] = &ft_hextostr;
-	(*p)->args_f[9] = &ft_bigudtostr;
-	(*p)->args_f[8] = &ft_udtostr;
-	(*p)->args_f[7] = &ft_bigocttostr;
-	(*p)->args_f[6] = &ft_octtostr;
-	(*p)->args_f[5] = &ft_inttostr;
-	(*p)->args_f[4] = &ft_biginttostr;
-	(*p)->args_f[3] = &ft_inttostr;
-	(*p)->args_f[2] = &ft_addtostr;
-	(*p)->args_f[1] = &ft_wcharstrtostr;
-	(*p)->args_f[0] = &ft_strtostr;
-	ft_strcpy((*p)->args, "sSpdDioOuUxXcCm%fF");
-	(*p)->i = -1;
-	(*p)->buf = NULL;
-}
-int		before_percentage(const char *str, int *i, t_params **p)
-{
-	while (str[(*i)] != '%' && str[(*i)] != '\0')
-		(*i)++;
-	if (!(*p)->buf)
-		(*p)->buf = ft_strsub(str, (*p)->start, (*i) - (*p)->start);
-	else
-	{
-		(*p)->tmp2 = ft_strsub(str, (*p)->start, (*i) - (*p)->start);
-		(*p)->tmp = ft_strjoin_free((*p)->buf, (*p)->tmp2, 3);
-		(*p)->buf = (*p)->tmp;
-	}
-	if (!(*p)->buf)
-		return (-1);
-	return (1);
-}
 
-int		ft_manage_printf_str(const char *str, int i, t_params **p, va_list ap)
-{
-	int		stop;
-
-	stop = 1;
-	while (str[++i])
-	{
-		(*p)->start = i;
-		if ((before_percentage(str, &i, p)) == -1)
-			return (-1);
-		if (str[i] == '\0')
-			break;
-		(*p)->args_i = 0;
-		(*p)->start = i;
-		while (stop || str[i + 1] == '\0')
-		{
-			while ((*p)->args[(*p)->args_i])
-			{
-				if (str[i + 1] == (*p)->args[(*p)->args_i])
-				{
-					if ((*p)->start - i != 0)
-					{
-						(*p)->fl_mod = ft_strsub(str, (*p)->start + 1, i);
-						write_fl_mod((*p)->fl_mod);
-					}
-					(*p)->tmp2 = (*p)->args_f[(*p)->args_i](ap);
-					(*p)->tmp = ft_strjoin_free((*p)->buf, (*p)->tmp2, 3);
-					(*p)->buf = (*p)->tmp;
-					stop = 0;
-					break;
-				}
-				((*p)->args_i)++;
-			}
-			i++;
-		}
-	}
-	return (1);
-}
-
-int		ft_printf(const char *str, ...)
-{
-	va_list		ap;
-	t_params	*p;
-
-	if (!(p = (t_params*)malloc(sizeof(t_params))))
-		return (-1);
-	fill_args_f(&p);
-	va_start(ap, str);
-	ft_manage_printf_str(str, p->i, &p, ap);
-	ft_putstr(p->buf);
-	free(p->buf);
-	free(p);
-	va_end(ap);
-	return (0);
-}
 
 int		main(void)
 {
@@ -171,7 +77,7 @@ int		main(void)
 	printf("%f\n", 2147483.64755);
 	printf("%f\n", 15.);
 	printf("%f\n", 2147483647.555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555);
-*/	printf("wtf? %.10000F\n", 2147483647.5555552222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222);
+	printf("wtf? %.10000F\n", 2147483647.5555552222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222);
 	printf("wtf? %.8F\n", 2147483647.55555522222220000992483049823048922222222222222222222222);
 
 	ft_printf("%f\n", 2147483647.55555522222222222222222222222222222222222222222222222222222);
@@ -180,5 +86,12 @@ int		main(void)
 	printf("%l#ld\n", (long int)10);
 	printf("power %d\n", ft_ipower(10, 2));
 	printf("power %f\n", ft_npower(10, -2));
+	printf("%l0.10f", (long double)DBL_MAX);
+*/	printf("%03d test\n", 13);
+	printf("%05d test\n", 13);
+	printf("%3d test\n", 13);
+	printf("%5d test\n", 13);
+	printf("%10d test\n", 13);
+	printf("%13d test\n", 13);
 	return (0);
 }

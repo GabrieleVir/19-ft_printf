@@ -6,7 +6,7 @@
 #    By: gvirga <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/12 23:31:55 by gvirga            #+#    #+#              #
-#    Updated: 2018/12/01 18:37:38 by gabriele         ###   ########.fr        #
+#    Updated: 2018/12/04 22:47:22 by gvirga           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ SRCDIR= ./srcs/
 CC = gcc
 CFLAGS =
 MAIN= ft_printf.c
-FILES = args_functions.c ft_convert_winttochr.c ft_itoa_printf.c morse_converter.c manage_double.c
+FILES = args_functions.c ft_convert_winttochr.c ft_itoa_printf.c \
+		morse_converter.c manage_double.c init.c algo.c
 SRCFILES = $(addprefix $(SRCDIR), $(FILES))
 OBJ= $(subst .c,.o, $(FILES)) $(subst .c,.o, $(MAIN))
 SRCOBJ= $(addprefix $(SRCDIR), $(OBJ))

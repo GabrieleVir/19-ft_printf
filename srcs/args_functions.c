@@ -6,13 +6,13 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 18:54:43 by gvirga            #+#    #+#             */
-/*   Updated: 2018/11/19 06:23:54 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/04 23:15:11 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_strtostr(va_list ap)
+char	*ft_strtostr(va_list ap, char flags, char *test)
 {
 	char		*str;
 
@@ -20,7 +20,7 @@ char	*ft_strtostr(va_list ap)
 	return (str);
 }
 
-char	*ft_percenttostr(va_list ap)
+char	*ft_percenttostr(va_list ap, char flags, char *test)
 {
 	char		*str;
 	
@@ -29,7 +29,7 @@ char	*ft_percenttostr(va_list ap)
 	return (str);
 }
 
-char	*ft_floattostr(va_list ap)
+char	*ft_floattostr(va_list ap, char flags, char *test)
 {
 	char		*str;
 	double		f;
@@ -40,7 +40,7 @@ char	*ft_floattostr(va_list ap)
 	return (str);
 }
 
-char	*ft_chrtostr(va_list ap)
+char	*ft_chrtostr(va_list ap, char flags, char *test)
 {
 	char		*str;
 
@@ -50,7 +50,7 @@ char	*ft_chrtostr(va_list ap)
 	return (str);
 }
 
-char	*ft_ftostr(va_list ap)
+char	*ft_ftostr(va_list ap, char flags, char *test)
 {
 	char		*str;
 
@@ -60,7 +60,7 @@ char	*ft_ftostr(va_list ap)
 	return (str);
 }
 
-char	*ft_inttostr(va_list ap)
+char	*ft_inttostr(va_list ap, char flags, char *test)
 {
 	char		*str;
 
@@ -68,7 +68,7 @@ char	*ft_inttostr(va_list ap)
 	return (str);
 }
 
-char	*ft_biginttostr(va_list ap)
+char	*ft_biginttostr(va_list ap, char flags, char *test)
 {
 	char		*str;
 
@@ -76,17 +76,19 @@ char	*ft_biginttostr(va_list ap)
 	return (str);
 }
 
-char	*ft_octtostr(va_list ap)
+char	*ft_octtostr(va_list ap, char flags, char *test)
 {
 	char				*str;
 	unsigned long		nb;
 
 	nb = va_arg(ap, unsigned int);
 	str = ft_itoa_printf(nb, 8, 1);
+	if (flags & 1)
+		str = ft_strjoin_free("0", str, 2);
 	return (str);
 }
 
-char	*ft_bigocttostr(va_list ap)
+char	*ft_bigocttostr(va_list ap, char flags, char *test)
 {
 	char				*str;
 	unsigned long		nb;
@@ -96,7 +98,7 @@ char	*ft_bigocttostr(va_list ap)
 	return (str);
 }
 
-char	*ft_addtostr(va_list ap)
+char	*ft_addtostr(va_list ap, char flags, char *test)
 {
 	char	*str;
 	void	*nb;
@@ -120,27 +122,31 @@ char	*ft_addtostr(va_list ap)
 	return (str);
 }
 
-char	*ft_hextostr(va_list ap)
+char	*ft_hextostr(va_list ap, char flags, char *test)
 {
 	char			*str;
 	unsigned long	nb;
 
 	nb = va_arg(ap, unsigned long);
 	str = ft_itoa_printf(nb, 16, 1);
+	if (flags & 1)
+		str = ft_strjoin_free("0x", str, 2);
 	return (str);
 }
 
-char	*ft_bighextostr(va_list ap)
+char	*ft_bighextostr(va_list ap, char flags, char *test)
 {
 	char			*str;
 	unsigned long	nb;
 
 	nb = va_arg(ap, unsigned long);
 	str = ft_itoa_printf(nb, 16, 2);
+	if (flags & 1)
+		str = ft_strjoin_free("0X", str, 2);
 	return (str);
 }
 
-char	*ft_udtostr(va_list ap)
+char	*ft_udtostr(va_list ap, char flags, char *test)
 {
 	char			*str;
 	unsigned long	nb;
@@ -150,7 +156,7 @@ char	*ft_udtostr(va_list ap)
 	return (str);
 }
 
-char	*ft_bigudtostr(va_list ap)
+char	*ft_bigudtostr(va_list ap, char flags, char *test)
 {
 	char			*str;
 	unsigned long	nb;
@@ -160,7 +166,7 @@ char	*ft_bigudtostr(va_list ap)
 	return (str);
 }
 
-char	*ft_wcharstrtostr(va_list ap)
+char	*ft_wcharstrtostr(va_list ap, char flags, char *test)
 {
 	char		*str;
 	wchar_t		*tmp_arr;
@@ -180,7 +186,7 @@ char	*ft_wcharstrtostr(va_list ap)
 	return (str);
 }
 
-char	*ft_wchartostr(va_list ap)
+char	*ft_wchartostr(va_list ap, char flags, char *test)
 {
 	char		*str;
 	wchar_t		tmp;
@@ -190,7 +196,7 @@ char	*ft_wchartostr(va_list ap)
 	return (str);
 }
 
-char	*ft_morsetostr(va_list ap)
+char	*ft_morsetostr(va_list ap, char flags, char *test)
 {
 	int		i;
 	char	*str;
