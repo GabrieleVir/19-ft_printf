@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 18:54:43 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/04 23:15:11 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/05 13:01:33 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,15 @@ char	*ft_octtostr(va_list ap, char flags, char *test)
 
 	nb = va_arg(ap, unsigned int);
 	str = ft_itoa_printf(nb, 8, 1);
-	if (flags & 1)
+	if (flags & 1 && flags--)
+	{
+		if (!(test = ft_rchr(str, '#')))
+		{
+			free(str);
+			return (NULL);
+		}
 		str = ft_strjoin_free("0", str, 2);
+	}
 	return (str);
 }
 

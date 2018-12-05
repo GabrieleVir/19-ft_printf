@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:12:46 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/04 23:09:57 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/05 13:19:11 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static int		write_fl_mod(t_params **p)
 	int			i;
 	char		*flags_mod;
 
-	flags_mod = ft_strnew(0);
+	if (!(flags_mod = ft_strnew(0)))
+		return (-1);
 	i = -1;
 	if ((*p)->fl_mod != NULL)
 	{
@@ -46,15 +47,28 @@ static int		write_fl_mod(t_params **p)
 				i++;
 				(*p)->flags |= 1;
 			}
+			if (((*p)->fl_mod)[i] > '0' && ((*p)->fl_mod)[i] < '9')
+			{
+				if (((*p)->fl_mod)[i] == '0')
+				{
+					
+				}
+			}
 			else
 				return (0);
 		}
 	}
 	else
+	{
+		free(flags_mod);
 		return (-1);
+	}
 	free((*p)->fl_mod);
 	if (!((*p)->fl_mod = ft_strdup(flags_mod)))
+	{
+		free(flags_mod);
 		return (-1);
+	}
 	free(flags_mod);
 	return (1);
 }
