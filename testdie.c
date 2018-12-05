@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 20:59:47 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/05 13:41:12 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/05 14:58:57 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int		main(void)
 {
-	printf("%10.2s\n", "Hello");
+	printf("%+s\n", "Hello");
 	printf("%.2s\n", "Hello");
-	printf("%#o\n", 10);
-	printf("%o\n", 10);
-	printf("%#x\n", 10);
+	printf("%+d\n", -10);
+	printf("%+ d\n", 10);
+	printf("%+  d\n", 10);
 	printf("%x\n", 10);
 	return (0);
 }
