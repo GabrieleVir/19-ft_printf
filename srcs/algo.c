@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:12:46 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/05 13:19:11 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/08 06:57:48 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,12 @@ static int		write_fl_mod(t_params **p)
 {
 	int			i;
 	char		*flags_mod;
+	int			has_plus;
 
 	if (!(flags_mod = ft_strnew(0)))
 		return (-1);
 	i = -1;
+	has_plus = 0;
 	if ((*p)->fl_mod != NULL)
 	{
 		while (((*p)->fl_mod)[++i])
@@ -54,6 +56,12 @@ static int		write_fl_mod(t_params **p)
 					
 				}
 			}
+			if (((*p)->fl_mod)[i] == '+')
+			{
+				has_plus = 1;
+				(*p)->flags |= 8;
+				i++;
+			}
 			else
 				return (0);
 		}
@@ -69,6 +77,8 @@ static int		write_fl_mod(t_params **p)
 		free(flags_mod);
 		return (-1);
 	}
+	if (has_plus && (*p)->flags & 16)
+		(*p)->flags -= 16;
 	free(flags_mod);
 	return (1);
 }
