@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 17:48:52 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/01 18:30:48 by gabriele         ###   ########.fr       */
+/*   Updated: 2018/12/10 15:49:22 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+int					ft_ipower(int c, int power);
+double				ft_npower(double c, int power);
 void				ft_putchar(char c);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putwchar(wchar_t c);
@@ -61,8 +63,6 @@ char				*ft_strrchr(const char *s, int c);
 char				*ft_strnstr(const char *h, const char *n, size_t len);
 size_t				ft_strnboccur(char const *str, int c);
 int					ft_atoi(const char *str);
-int					ft_ipower(int n, int power);
-double				ft_npower(unsigned int n, int power);
 int					ft_isalpha(int c);
 int					ft_isalnum(int c);
 int					ft_isascii(int c);
@@ -70,6 +70,7 @@ int					ft_isprint(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 void				ft_memdel(void **ap);
+char				*ft_rchr(char *str, char c);
 char				*ft_strnew(size_t size);
 void				ft_strdel(char **as);
 void				ft_strclr(char *s);
@@ -80,6 +81,8 @@ char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strjoin_free(char const *s1, char const *s2, int n);
+char				*ft_strjoin_freei(char const *s1, char const *s2, int n,
+										int pos);
 char				*ft_strnjoin(char const *s1, char const *s2, size_t len);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
@@ -98,4 +101,5 @@ long long int		ft_atol(const char *str);
 void				push_back(t_list **head, void *content);
 size_t				ft_strchri(const char *s, int c);
 int					ft_ispowerof2(int x);
+int					ft_nbdigit(int nbr);
 #endif

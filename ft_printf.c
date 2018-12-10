@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/04 23:23:54 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/10 18:02:58 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,39 @@ int		main(void)
 	printf("power %d\n", ft_ipower(10, 2));
 	printf("power %f\n", ft_npower(10, -2));
 	printf("%l0.10f", (long double)DBL_MAX);
-*/	printf("%03d test\n", 13);
+*//*	printf("%03d test\n", 13);
 	printf("%05d test\n", 13);
 	printf("%3d test\n", 13);
 	printf("%5d test\n", 13);
 	printf("%10d test\n", 13);
 	printf("%13d test\n", 13);
+	ft_printf("dsf;jsdfj%", "Hello");
+	ft_printf("%s\n", "Hello");*/
+	ft_printf("asfdksajf %+01110d\n", -100);
+	ft_printf("asfdksajf %+01110d\n", -100);
+	ft_printf("%+5+5+10+5d\n", 100);
+	ft_printf("%01110x\n", -100);
+	ft_printf("%01110i\n", -100);
+	ft_printf("%01110u\n", -100);
+	ft_printf("Salut %01110o\n", -100);
+	ft_printf("Petasse %01110O\n", -100);
+	ft_printf("COUCOU %03X\n", 100);
+	ft_printf("YOUPI %010x\n", 100);
+	ft_printf("Trois:%+5d\n", 10);
+	ft_printf("%+5d\n", 10);
+    ft_printf("%5x\n", 10);
+	ft_printf("%5X\n", 10);
+	ft_printf("%+5i\n", 10);
+	ft_printf("%5u\n", 10);
+	ft_printf("%5o\n", 10);
+	ft_printf("%+5D\n", 10);
+	ft_printf("%5p\n", 10);
+	ft_printf("%#05x\n", 10);
+	//printf("%+5c\n", "c");
+	//printf("%5C\n", "d");
+	//printf("%5s\n", "co");
+	/*	ft_printf("%5d\n", -10);
+	ft_printf("%+d\n", 10);
+	ft_printf("%x\n", 10);*/
 	return (0);
 }

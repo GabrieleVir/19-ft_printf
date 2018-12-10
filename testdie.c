@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 20:59:47 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/05 14:58:57 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/10 13:58:08 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int		main(void)
 {
-	printf("%+s\n", "Hello");
-	printf("%.2s\n", "Hello");
-	printf("%+d\n", -10);
-	printf("%+ d\n", 10);
-	printf("%+  d\n", 10);
-	printf("%x\n", 10);
+//	printf("dsf;jsdfj%", "Hello");
+//	printf("% s\n", "Hello");
+//	printf("asfdksajf %-05x\n", NULL);
+//	printf("%5d\n", -10);
+//	printf("%+  d\n", 10);
+	printf("%d\n", 10);
 	return (0);
 }

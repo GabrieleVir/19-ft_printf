@@ -6,11 +6,15 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:11:02 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/04 22:46:31 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/10 16:28:21 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+/*
+** Gestion du null pour args s et S
+*/
 
 static void		fill_args_f(t_params **p)
 {
