@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 17:48:52 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/10 15:49:22 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/11 21:11:38 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int					ft_tolower(int c);
 void				ft_memdel(void **ap);
 char				*ft_rchr(char *str, char c);
 char				*ft_strnew(size_t size);
+char				*ft_strnew_free(size_t size, char *str);
 void				ft_strdel(char **as);
 void				ft_strclr(char *s);
 void				ft_striter(char *s, void (*f)(char *));
@@ -79,6 +80,8 @@ void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 char				*ft_strmap(char const *s, char (*f)(char));
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
+char				*ft_strsub_free(char const *s, unsigned int start,
+									size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strjoin_free(char const *s1, char const *s2, int n);
 char				*ft_strjoin_freei(char const *s1, char const *s2, int n,

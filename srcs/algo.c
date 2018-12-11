@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:12:46 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/10 17:58:38 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/11 20:53:12 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ static int		write_fl_mod(t_params **p)
 	{
 		while (((*p)->fl_mod)[++i])
 		{
+			tmp = 0;
 			if (((*p)->fl_mod)[i] == '#')
 			{
 				flags_mod = ft_strjoin_free(flags_mod, "#", 1);
 				i++;
 				(*p)->flags |= 1;
 			}
-			tmp = 0;
-			if (((*p)->fl_mod)[i] >= '0' && ((*p)->fl_mod)[i] <= '9')
+			else if (((*p)->fl_mod)[i] >= '0' && ((*p)->fl_mod)[i] <= '9')
 			{
 				if (((*p)->fl_mod)[i] == '0')
 				{
@@ -76,7 +76,7 @@ static int		write_fl_mod(t_params **p)
 					if (tmp != 0)
 					{
 						free((*p)->width);
-						if (!((*p)->width = ft_strnew(tmp)))
+						if (!((*p)->width = ft_strnew_free(tmp, (*p)->width)))
 							return (-1);
 						i = i - tmp;
 						while (tmp--)
@@ -94,30 +94,48 @@ static int		write_fl_mod(t_params **p)
 						tmp++;
 						i++;
 					}
-						(*p)->width = (char*)malloc(sizeof(char) * tmp + 1);
-						i = i - tmp;
-						while (tmp--)
-						{
-							(*p)->width[j] = (*p)->fl_mod[i];
-							j++;
-							i++;
-						}
+					if (!((*p)->width = ft_strnew_free(tmp, (*p)->width)))
+						return (-1);
+					i = i - tmp;
+					while (tmp--)
+					{
+						(*p)->width[j] = (*p)->fl_mod[i];
+						j++;
+						i++;
 					}
-					//(*p)->width = ft_atoi(((*p)->fl_mod) + i);
-					//printf("fl_mod: %s\n", ft_nbdigit((*p)->width));
-					//printf("nb_digit: %s\n", ft_nbdigit((*p)->width));
-					//printf("width: %s\n", (*p)->width);
-				//	i += ft_nbdigit((*p)->width);
 				}
-				if (((*p)->fl_mod)[i] == '+')
+			}
+			else if (((*p)->fl_mod)[i] == '+')
+			{
+				has_plus = 1;
+				(*p)->flags |= 8;
+			}
+			else if (((*p)->fl_mod)[i] == '-')
+			{
+				has_minus = 1;
+				(*p)->flags |= 32;
+			}
+			else if (((*p)->fl_mod)[i] == ' ')
+				(*p)->flags |= 16;
+			else if (((*p)->fl_mod)[i] == '.')
+			{
+				i++;
+				tmp = 0;
+				j = 0;
+				while (((*p)->fl_mod)[i] >= '0' && ((*p)->fl_mod)[i] <= '9')
 				{
-					has_plus = 1;
-					(*p)->flags |= 8;
+					tmp++;
+					i++;
 				}
-				if (((*p)->fl_mod)[i] == '-')
+				if (!((*p)->precision = ft_strnew_free(tmp, (*p)->precision)))
+					return (-1);
+				i = i - tmp;
+				while (tmp--)
 				{
-					has_minus = 1;
-					(*p)->flags |= 32;
+					(*p)->precision[j] = (*p)->fl_mod[i];
+					j++;
+					i++;
+				}
 			}
 		}
 	}
@@ -160,7 +178,8 @@ int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 			{
 				if (str[i + 1] == (*p)->args[(*p)->args_i])
 				{
-					(*p)->prec = -1;
+					if (!((*p)->precision = ft_strdup("-1")))
+						return (-1);
 					(*p)->width = NULL;
 					if ((*p)->start - i != 0)
 					{
@@ -172,7 +191,8 @@ int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 							return (-1);
 					}
 					(*p)->tmp2 = (*p)->args_f[(*p)->args_i]
-						(ap, (*p)->flags, ft_atoi((*p)->width), (*p)->prec);
+						(ap, (*p)->flags, ft_atoi((*p)->width), 
+						 ft_atoi((*p)->precision));
 					(*p)->tmp = ft_strjoin_free((*p)->buf, (*p)->tmp2, 3);
 					(*p)->buf = (*p)->tmp;
 					stop = 0;
