@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:12:46 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/12 10:23:45 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/12 13:27:56 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,42 @@ static int		before_percentage(const char *str, int *i, t_params **p)
 }
 
 /*
+** The bits of the modifiers variable :
+** 1: ll 2: l 3: h 4: hh 5: L
+*/
+
+static int		modifier_mng(t_params **p, int *i)
+{
+	int		return_value;
+
+	return_value = -1;
+	if (((*p)->fl_mod)[(*i)] == 'h')
+	{
+		(*p)->modifiers |= 4;
+		if (((*p)->fl_mod[(*i) + 1] && ((*p)->fl_mod)[(*i) + 1] == 'h') 
+				&& ++(*i))
+			(*p)->modifiers |= 8;
+		return_value = 1;
+	}
+	else if (((*p)->fl_mod)[(*i)] == 'l')
+	{
+		(*p)->modifiers |= 2;
+		if (((*p)->fl_mod[(*i) + 1] && ((*p)->fl_mod)[(*i) + 1] == 'l') 
+				&& ++(*i))
+			(*p)->modifiers |= 1;
+		return_value = 1;
+	}
+	else if (((*p)->fl_mod)[(*i)] == 'L')
+	{
+		(*p)->modifiers |= 16;
+		return_value = 1;
+	}
+	return (return_value);
+}
+
+/*
 ** The bits of the flags variable :
 ** 1: # 2: - 3: 0 4: + 5: space 6
-** Initialize fl_mod and flags
 */
 
 static int		write_fl_mod(t_params **p)
@@ -115,6 +148,9 @@ static int		write_fl_mod(t_params **p)
 					(*p)->precision[++j] = (*p)->fl_mod[i++];
 				i -= 1;
 			}
+			else
+				modifier_mng(p, &i);
+			//i -= 1;
 		}
 	}
 	else
@@ -139,6 +175,7 @@ static int		write_fl_mod(t_params **p)
 int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 {
 	int		stop;
+	t_args	s;
 
 	stop = 1;
 	while (str[++i])
@@ -160,18 +197,21 @@ int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 						return (-1);
 					if (!((*p)->width = ft_strdup("0")))
 						return (-1);
+					(*p)->modifiers = 0;
+					(*p)->flags = 0;
 					if ((*p)->start - i != 0)
 					{
-						(*p)->flags = 0;
 						(*p)->fl_mod = ft_strsub(str, (*p)->start + 1, i);
 						if ((stop = write_fl_mod(&(*p))) == 0)
 							break;
 						else if (stop == -1)
 							return (-1);
 					}
-					(*p)->tmp2 = (*p)->args_f[(*p)->args_i]
-						(ap, (*p)->flags, ft_atoi((*p)->width), 
-						 ft_atoi((*p)->precision));
+					s.fy = ft_atoi((*p)->width);
+					s.prec = ft_atoi((*p)->precision);
+					s.mod = (*p)->modifiers;
+					s.f = (*p)->flags;
+					(*p)->tmp2 = (*p)->args_f[(*p)->args_i](ap, s);
 					(*p)->buf = ft_strjoin_free((*p)->buf, (*p)->tmp2, 3);
 					stop = 0;
 					break;

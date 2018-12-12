@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 17:34:55 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/12 11:23:16 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/12 14:09:41 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,40 +26,40 @@ char	*calc_space_width(int width, int len_str)
 	return (str);
 }
 
-char	*ft_strtostr(va_list ap, char f, int fy, int prec)
+char	*ft_strtostr(va_list ap, t_args s)
 {
 	char		*str;
 
 	str = ft_strdup(va_arg(ap, char*));
-	if (str && !(f & 4) && fy != 0)
-		str = !(f & 2) ? 
-			ft_strjoin_free(calc_space_width(fy, 
+	if (str && !(s.f & 4) && s.fy != 0)
+		str = !(s.f & 2) ? 
+			ft_strjoin_free(calc_space_width(s.fy, 
 						ft_strlen(str)), str, 2) : 
-			ft_strjoin_free(str, calc_space_width(fy, ft_strlen(str)), 2);
-	if (prec < ft_strlen(str))
-		str = ft_strsub_free(str, 0, prec);
+			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
+	if (s.prec < ft_strlen(str))
+		str = ft_strsub_free(str, 0, s.prec);
 	return (str);
 }
 
-char	*ft_percenttostr(va_list ap, char f, int fy, int prec)
+char	*ft_percenttostr(va_list ap, t_args s)
 {
 	char		*str;
 	
 	ap = 0;
 	str = ft_strdup("%");
-	if (str && !(f & 4) && (fy != 0))
+	if (str && !(s.f & 4) && (s.fy != 0))
 	{
-		if (fy == 0)
-			fy = prec;
-		str = !(f & 2) ? 
-			ft_strjoin_free(calc_space_width(fy, 
+		if (s.fy == 0)
+			s.fy = s.prec;
+		str = !(s.f & 2) ? 
+			ft_strjoin_free(calc_space_width(s.fy, 
 						ft_strlen(str)), str, 2) : 
-			ft_strjoin_free(str, calc_space_width(fy, ft_strlen(str)), 2);
+			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
 	return (str);
 }
 
-char	*ft_floattostr(va_list ap, char f, int fy, int prec)
+char	*ft_floattostr(va_list ap, t_args s)
 {
 	char		*str;
 	double		fl;
@@ -70,26 +70,26 @@ char	*ft_floattostr(va_list ap, char f, int fy, int prec)
 	return (str);
 }
 
-char	*ft_chrtostr(va_list ap, char f, int fy, int prec)
+char	*ft_chrtostr(va_list ap, t_args s)
 {
 	char		*str;
 
 	str = (char*)malloc(sizeof(*str) * 2);
 	str[0] = va_arg(ap, int);
 	str[1] = '\0';
-	if (str && !(f & 4) && (fy != 0))
+	if (str && !(s.f & 4) && (s.fy != 0))
 	{
-		if (fy == 0)
-			fy = prec;
-		str = !(f & 2) ? 
-			ft_strjoin_free(calc_space_width(fy, 
+		if (s.fy == 0)
+			s.fy = s.prec;
+		str = !(s.f & 2) ? 
+			ft_strjoin_free(calc_space_width(s.fy, 
 						ft_strlen(str)), str, 2) : 
-			ft_strjoin_free(str, calc_space_width(fy, ft_strlen(str)), 2);
+			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
 	return (str);
 }
 
-char	*ft_ftostr(va_list ap, char f, int fy, int prec)
+char	*ft_ftostr(va_list ap, t_args s)
 {
 	char		*str;
 
@@ -115,7 +115,7 @@ char	*zero_f(int fy, int len_str)
 	return (nb_zeros);
 }
 
-char	*ft_inttostr(va_list ap, char f, int fy, int prec)
+char	*ft_inttostr(va_list ap, t_args s)
 {
 	char		*str;
 	int			nb;
@@ -126,45 +126,45 @@ char	*ft_inttostr(va_list ap, char f, int fy, int prec)
 	nb = va_arg(ap, int);
 	str = ft_itoa_base(nb, 10);
 	size = 0;
-	if (prec == 0 && nb == 0)
+	if (s.prec == 0 && nb == 0)
 	{
 		str = ft_strdup_free("", str);
 		is_zero = 1;
 	}
-	if (prec != -1 && !is_zero)
+	if (s.prec != -1 && !is_zero)
 	{
-		str = !(f & 8) ? ft_strjoin_free(zero_f(prec, ft_strlen(str)), str, 3)
-			: ft_strjoin_freei(str, zero_f(prec, ft_strlen(str)), 3, 1);
-		f -= (f & 4) ? 4 : 0;
+		str = !(s.f & 8) ? ft_strjoin_free(zero_f(s.prec, ft_strlen(str)), str, 3)
+			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str)), 3, 1);
+		s.f -= (s.f & 4) ? 4 : 0;
 	}
-	if (str && f & 4 && (fy != 0) && !is_zero)
+	if (str && s.f & 4 && (s.fy != 0) && !is_zero)
 	{
 		if (nb >= 0 && !is_zero)
 		{
-			size = (f & 8) ? ft_strlen(str) + 1 : ft_strlen(str);
-			str = !(f & 16) ?
-				ft_strjoin_free(zero_f(fy, size), str, 3) :
-				ft_strjoin_free(zero_f(fy, size + 1), str, 3);
+			size = (s.f & 8) ? ft_strlen(str) + 1 : ft_strlen(str);
+			str = !(s.f & 16) ?
+				ft_strjoin_free(zero_f(s.fy, size), str, 3) :
+				ft_strjoin_free(zero_f(s.fy, size + 1), str, 3);
 		}
 		else if (nb <= 0 && !is_zero)
 			str = ft_strjoin_freei(str,
-					zero_f(fy, ft_strlen(str)), 3, 1);
+					zero_f(s.fy, ft_strlen(str)), 3, 1);
 	}
-	if (str && f & 8 && ft_atoi(str) >= 0)
+	if (str && s.f & 8 && ft_atoi(str) >= 0)
 		str = ft_strjoin_free("+", str, 2);
-	if (str && !(f & 4) && (fy != 0) && !is_zero)
+	if (str && !(s.f & 4) && (s.fy != 0) && !is_zero)
 	{
-		str = !(f & 2) ? 
-			ft_strjoin_free(calc_space_width(fy, 
+		str = !(s.f & 2) ? 
+			ft_strjoin_free(calc_space_width(s.fy, 
 						ft_strlen(str)), str, 2) : 
-			ft_strjoin_free(str, calc_space_width(fy, ft_strlen(str)), 2);
+			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
-	if ((f & 16) && nb >= 0)
+	if ((s.f & 16) && nb >= 0)
 		str = ft_strjoin_free(" ", str, 2);
 	return (str);
 }
 
-char	*ft_biginttostr(va_list ap, char f, int fy, int prec)
+char	*ft_biginttostr(va_list ap, t_args s)
 {
 	char		*str;
 	long int	nb;
@@ -173,38 +173,38 @@ char	*ft_biginttostr(va_list ap, char f, int fy, int prec)
 	is_zero = 0;
 	nb = va_arg(ap, long int);
 	str = ft_itoa_printf(nb, 10, 1);
-	if (nb == 0 && prec == 0)
+	if (nb == 0 && s.prec == 0)
 	{
 		str = ft_strdup_free("", str);
 		is_zero = 1;
 	}
-	if (prec != -1 && !is_zero)
+	if (s.prec != -1 && !is_zero)
 	{
-		str = !(f & 8) ? ft_strjoin_free(zero_f(prec, ft_strlen(str)), str, 3)
-			: ft_strjoin_freei(str, zero_f(prec, ft_strlen(str)), 3, 1);
-		f -= (f & 4) ? 4 : 0;
+		str = !(s.f & 8) ? ft_strjoin_free(zero_f(s.prec, ft_strlen(str)), str, 3)
+			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str)), 3, 1);
+		s.f -= (s.f & 4) ? 4 : 0;
 	}
-	if (str && f & 4 && (fy != 0) && !is_zero)
+	if (str && s.f & 4 && (s.fy != 0) && !is_zero)
 	{
 		if (nb >= 0)
-			str = ft_strjoin_free(zero_f(fy, ft_strlen(str)), str, 3);
+			str = ft_strjoin_free(zero_f(s.fy, ft_strlen(str)), str, 3);
 		else
 			str = ft_strjoin_freei(str, 
-					zero_f(fy, ft_strlen(str)), 3, 1);
+					zero_f(s.fy, ft_strlen(str)), 3, 1);
 	}
-	if (str && f & 8 && ft_atoi(str) >= 0)
+	if (str && s.f & 8 && ft_atoi(str) >= 0)
 		str = ft_strjoin_free("+", str, 2);
-	if (str && !(f & 4) && (fy != 0) && !is_zero)
+	if (str && !(s.f & 4) && (s.fy != 0) && !is_zero)
 	{
-		str = !(f & 2) ? 
-			ft_strjoin_free(calc_space_width(fy, 
+		str = !(s.f & 2) ? 
+			ft_strjoin_free(calc_space_width(s.fy, 
 						ft_strlen(str)), str, 2) : 
-			ft_strjoin_free(str, calc_space_width(fy, ft_strlen(str)), 2);
+			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
 	return (str);
 }
 
-char	*ft_octtostr(va_list ap, char f, int fy, int prec)
+char	*ft_octtostr(va_list ap, t_args s)
 {
 	char				*str;
 	unsigned long		nb;
@@ -213,32 +213,32 @@ char	*ft_octtostr(va_list ap, char f, int fy, int prec)
 	is_zero = 0;
 	nb = va_arg(ap, unsigned int);
 	str = ft_itoa_printf(nb, 8, 1);
-	if (nb == 0 && prec == 0)
+	if (nb == 0 && s.prec == 0)
 	{
 		str = ft_strdup_free("", str);
 		is_zero = 1;
 	}
-	if (f & 1 && nb != 0)
+	if (s.f & 1 && nb != 0)
 		str = ft_strjoin_free("0", str, 2);
-	if (prec != -1 && !is_zero)
+	if (s.prec != -1 && !is_zero)
 	{
-		str = !(f & 8) ? ft_strjoin_free(zero_f(prec, ft_strlen(str)), str, 3)
-			: ft_strjoin_freei(str, zero_f(prec, ft_strlen(str)), 3, 1);
-		f -= (f & 4) ? 4 : 0;
+		str = !(s.f & 8) ? ft_strjoin_free(zero_f(s.prec, ft_strlen(str)), str, 3)
+			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str)), 3, 1);
+		s.f -= (s.f & 4) ? 4 : 0;
 	}
-	if (str && f & 4 && (fy != 0) && !is_zero)
-		str = ft_strjoin_free(zero_f(fy, ft_strlen(str)), str, 3);
-	if (str && !(f & 4) && (fy != 0) && !is_zero)
+	if (str && s.f & 4 && (s.fy != 0) && !is_zero)
+		str = ft_strjoin_free(zero_f(s.fy, ft_strlen(str)), str, 3);
+	if (str && !(s.f & 4) && (s.fy != 0) && !is_zero)
 	{
-		str = !(f & 2) ? 
-			ft_strjoin_free(calc_space_width(fy, 
+		str = !(s.f & 2) ? 
+			ft_strjoin_free(calc_space_width(s.fy, 
 						ft_strlen(str)), str, 2) : 
-			ft_strjoin_free(str, calc_space_width(fy, ft_strlen(str)), 2);
+			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
 	return (str);
 }
 
-char	*ft_bigocttostr(va_list ap, char f, int fy, int prec)
+char	*ft_bigocttostr(va_list ap, t_args s)
 {
 	char				*str;
 	unsigned long		nb;
@@ -247,30 +247,30 @@ char	*ft_bigocttostr(va_list ap, char f, int fy, int prec)
 	is_zero = 0;
 	nb = va_arg(ap, unsigned long);
 	str = ft_itoa_printf(nb, 8, 1);
-	if (nb == 0 && prec == 0)
+	if (nb == 0 && s.prec == 0)
 	{
 		str = ft_strdup_free("", str);
 		is_zero = 1;
 	}
-	if (prec != -1 && !is_zero)
+	if (s.prec != -1 && !is_zero)
 	{
-		str = !(f & 8) ? ft_strjoin_free(zero_f(prec, ft_strlen(str)), str, 3)
-			: ft_strjoin_freei(str, zero_f(prec, ft_strlen(str)), 3, 1);
-		f -= (f & 4) ? 4 : 0;
+		str = !(s.f & 8) ? ft_strjoin_free(zero_f(s.prec, ft_strlen(str)), str, 3)
+			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str)), 3, 1);
+		s.f -= (s.f & 4) ? 4 : 0;
 	}
-	if (str && f & 4 && (fy != 0) && !is_zero)
-		str = ft_strjoin_free(zero_f(fy, ft_strlen(str)), str, 3);
-	if (str && !(f & 4) && (fy != 0) && !is_zero)
+	if (str && s.f & 4 && (s.fy != 0) && !is_zero)
+		str = ft_strjoin_free(zero_f(s.fy, ft_strlen(str)), str, 3);
+	if (str && !(s.f & 4) && (s.fy != 0) && !is_zero)
 	{
-		str = !(f & 2) ? 
-			ft_strjoin_free(calc_space_width(fy, 
+		str = !(s.f & 2) ? 
+			ft_strjoin_free(calc_space_width(s.fy, 
 						ft_strlen(str)), str, 2) : 
-			ft_strjoin_free(str, calc_space_width(fy, ft_strlen(str)), 2);
+			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
 	return (str);
 }
 
-char	*ft_addtostr(va_list ap, char f, int fy, int prec)
+char	*ft_addtostr(va_list ap, t_args s)
 {
 	char	*str;
 	void	*nb;
@@ -291,17 +291,17 @@ char	*ft_addtostr(va_list ap, char f, int fy, int prec)
 	}
 	str[0] = '0';
 	str[1] = 'x';
-	if (str && !(f & 4) && (fy != 0))
+	if (str && !(s.f & 4) && (s.fy != 0))
 	{
-		str = !(f & 2) ? 
-			ft_strjoin_free(calc_space_width(fy, 
+		str = !(s.f & 2) ? 
+			ft_strjoin_free(calc_space_width(s.fy, 
 						ft_strlen(str)), str, 2) : 
-			ft_strjoin_free(str, calc_space_width(fy, ft_strlen(str)), 2);
+			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
 	return (str);
 }
 
-char	*ft_hextostr(va_list ap, char f, int fy, int prec)
+char	*ft_hextostr(va_list ap, t_args s)
 {
 	char			*str;
 	unsigned long	nb;
@@ -310,35 +310,35 @@ char	*ft_hextostr(va_list ap, char f, int fy, int prec)
 	is_zero = 0;
 	nb = va_arg(ap, unsigned long);
 	str = ft_itoa_printf(nb, 16, 1);
-	if (nb == 0 && prec == 0)
+	if (nb == 0 && s.prec == 0)
 	{
 		str = ft_strdup_free("", str);
 		is_zero = 1;
 	}
-	if (f & 1 && nb != 0)
+	if (s.f & 1 && nb != 0)
 		str = ft_strjoin_free("0x", str, 2);
-	if (prec != -1 && !is_zero)
+	if (s.prec != -1 && !is_zero)
 	{
-		str = !(f & 1) ? ft_strjoin_free(zero_f(prec, ft_strlen(str)), str, 3)
-			: ft_strjoin_freei(str, zero_f(prec, ft_strlen(str) - 2), 3, 2);
-		f -= (f & 4) ? 4 : 0;
+		str = !(s.f & 1) ? ft_strjoin_free(zero_f(s.prec, ft_strlen(str)), str, 3)
+			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str) - 2), 3, 2);
+		s.f -= (s.f & 4) ? 4 : 0;
 	}
-	if (str && f & 4 && !(f & 1) && (fy != 0) && !is_zero)
-		str = ft_strjoin_free(zero_f(fy, ft_strlen(str)), str, 3);
-	else if (str && f & 4 && f & 1 && (fy != 0))
+	if (str && s.f & 4 && !(s.f & 1) && (s.fy != 0) && !is_zero)
+		str = ft_strjoin_free(zero_f(s.fy, ft_strlen(str)), str, 3);
+	else if (str && s.f & 4 && s.f & 1 && (s.fy != 0))
 		str = ft_strjoin_freei(str,
-				zero_f(fy, ft_strlen(str) - 2), 3, 2);
-	if (str && !(f & 4) && (fy != 0) && !is_zero)
+				zero_f(s.fy, ft_strlen(str) - 2), 3, 2);
+	if (str && !(s.f & 4) && (s.fy != 0) && !is_zero)
 	{
-		str = !(f & 2) ? 
-			ft_strjoin_free(calc_space_width(fy, 
+		str = !(s.f & 2) ? 
+			ft_strjoin_free(calc_space_width(s.fy, 
 						ft_strlen(str)), str, 2) : 
-			ft_strjoin_free(str, calc_space_width(fy, ft_strlen(str)), 2);
+			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
 	return (str);
 }
 
-char	*ft_bighextostr(va_list ap, char f, int fy, int prec)
+char	*ft_bighextostr(va_list ap, t_args s)
 {
 	char			*str;
 	unsigned long	nb;
@@ -347,35 +347,35 @@ char	*ft_bighextostr(va_list ap, char f, int fy, int prec)
 	is_zero = 0;
 	nb = va_arg(ap, unsigned long);
 	str = ft_itoa_printf(nb, 16, 2);
-	if (nb == 0 && prec == 0)
+	if (nb == 0 && s.prec == 0)
 	{
 		str = ft_strdup_free("", str);
 		is_zero = 1;
 	}
-	if (f & 1 && nb != 0)
+	if (s.f & 1 && nb != 0)
 		str = ft_strjoin_free("0X", str, 2);
-	if (prec != -1 && !is_zero)
+	if (s.prec != -1 && !is_zero)
 	{
-		str = !(f & 1) ? ft_strjoin_free(zero_f(prec, ft_strlen(str)), str, 3)
-			: ft_strjoin_freei(str, zero_f(prec, ft_strlen(str) - 2), 3, 2);
-		f -= (f & 4) ? 4 : 0;
+		str = !(s.f & 1) ? ft_strjoin_free(zero_f(s.prec, ft_strlen(str)), str, 3)
+			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str) - 2), 3, 2);
+		s.f -= (s.f & 4) ? 4 : 0;
 	}
-	if (str && f & 4 && !(f & 1) && (fy != 0))
-		str = ft_strjoin_free(zero_f(fy, ft_strlen(str)), str, 3);
-	else if (str && f & 4 && f & 1 && (fy != 0))
+	if (str && s.f & 4 && !(s.f & 1) && (s.fy != 0))
+		str = ft_strjoin_free(zero_f(s.fy, ft_strlen(str)), str, 3);
+	else if (str && s.f & 4 && s.f & 1 && (s.fy != 0))
 		str = ft_strjoin_freei(str,
-				zero_f(fy, ft_strlen(str)), 3, 2);
-	if (str && !(f & 4) && (fy != 0) && !is_zero)
+				zero_f(s.fy, ft_strlen(str)), 3, 2);
+	if (str && !(s.f & 4) && (s.fy != 0) && !is_zero)
 	{
-		str = !(f & 2) ? 
-			ft_strjoin_free(calc_space_width(fy, 
+		str = !(s.f & 2) ? 
+			ft_strjoin_free(calc_space_width(s.fy, 
 						ft_strlen(str)), str, 2) : 
-			ft_strjoin_free(str, calc_space_width(fy, ft_strlen(str)), 2);
+			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
 	return (str);
 }
 
-char	*ft_udtostr(va_list ap, char f, int fy, int prec)
+char	*ft_udtostr(va_list ap, t_args s)
 {
 	char			*str;
 	unsigned long	nb;
@@ -384,30 +384,30 @@ char	*ft_udtostr(va_list ap, char f, int fy, int prec)
 	is_zero = 0;
 	nb = va_arg(ap, unsigned int);
 	str = ft_itoa_printf(nb, 10, 1);
-	if (nb == 0 && prec == 0)
+	if (nb == 0 && s.prec == 0)
 	{
 		str = ft_strdup_free("", str);
 		is_zero = 1;
 	}
-	if (prec != -1 && !is_zero)
+	if (s.prec != -1 && !is_zero)
 	{
-		str = !(f & 1) ? ft_strjoin_free(zero_f(prec, ft_strlen(str)), str, 3)
-			: ft_strjoin_freei(str, zero_f(prec, ft_strlen(str)), 3, 0);
-		f -= (f & 4) ? 4 : 0;
+		str = !(s.f & 1) ? ft_strjoin_free(zero_f(s.prec, ft_strlen(str)), str, 3)
+			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str)), 3, 0);
+		s.f -= (s.f & 4) ? 4 : 0;
 	}
-	if (str && (f & 4) && (fy != 0) && !is_zero)
-		str = ft_strjoin_free(zero_f(fy, ft_strlen(str)), str, 3);
-	if (str && !(f & 4) && (fy != 0) && !is_zero)
+	if (str && (s.f & 4) && (s.fy != 0) && !is_zero)
+		str = ft_strjoin_free(zero_f(s.fy, ft_strlen(str)), str, 3);
+	if (str && !(s.f & 4) && (s.fy != 0) && !is_zero)
 	{
-		str = !(f & 2) ? 
-			ft_strjoin_free(calc_space_width(fy, 
+		str = !(s.f & 2) ? 
+			ft_strjoin_free(calc_space_width(s.fy, 
 						ft_strlen(str)), str, 2) : 
-			ft_strjoin_free(str, calc_space_width(fy, ft_strlen(str)), 2);
+			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
 	return (str);
 }
 
-char	*ft_bigudtostr(va_list ap, char f, int fy, int prec)
+char	*ft_bigudtostr(va_list ap, t_args s)
 {
 	char			*str;
 	unsigned long	nb;
@@ -416,30 +416,30 @@ char	*ft_bigudtostr(va_list ap, char f, int fy, int prec)
 	is_zero = 0;
 	nb = va_arg(ap, unsigned long);
 	str = ft_itoa_printf(nb, 10, 1);
-	if (nb == 0 && prec == 0)
+	if (nb == 0 && s.prec == 0)
 	{
 		str = ft_strdup_free("", str);
 		is_zero = 1;
 	}
-	if (prec != -1 && !is_zero)
+	if (s.prec != -1 && !is_zero)
 	{
-		str = !(f & 1) ? ft_strjoin_free(zero_f(prec, ft_strlen(str)), str, 3)
-			: ft_strjoin_freei(str, zero_f(prec, ft_strlen(str)), 3, 0);
-		f -= (f & 4) ? 4 : 0;
+		str = !(s.f & 1) ? ft_strjoin_free(zero_f(s.prec, ft_strlen(str)), str, 3)
+			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str)), 3, 0);
+		s.f -= (s.f & 4) ? 4 : 0;
 	}
-	if (str && f & 4 && (fy != 0) && !is_zero)
-		str = ft_strjoin_free(zero_f(fy, ft_strlen(str)), str, 3);
-	if (str && !(f & 4) && (fy != 0))
+	if (str && s.f & 4 && (s.fy != 0) && !is_zero)
+		str = ft_strjoin_free(zero_f(s.fy, ft_strlen(str)), str, 3);
+	if (str && !(s.f & 4) && (s.fy != 0))
 	{
-		str = !(f & 2) ? 
-			ft_strjoin_free(calc_space_width(fy, 
+		str = !(s.f & 2) ? 
+			ft_strjoin_free(calc_space_width(s.fy, 
 						ft_strlen(str)), str, 2) : 
-			ft_strjoin_free(str, calc_space_width(fy, ft_strlen(str)), 2);
+			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
 	return (str);
 }
 
-char	*ft_wcharstrtostr(va_list ap, char f, int fy, int prec)
+char	*ft_wcharstrtostr(va_list ap, t_args s)
 {
 	char		*str;
 	wchar_t		*tmp_arr;
@@ -456,36 +456,36 @@ char	*ft_wcharstrtostr(va_list ap, char f, int fy, int prec)
 		str = ft_strjoin_free(tmp, tmp2, 3);
 		tmp_arr++;
 	}
-	if (str && !(f & 4) && (fy != 0))
+	if (str && !(s.f & 4) && (s.fy != 0))
 	{
-		if (fy == 0)
-			fy = prec;
-		str = !(f & 2) ? 
-			ft_strjoin_free(calc_space_width(fy, 
+		if (s.fy == 0)
+			s.fy = s.prec;
+		str = !(s.f & 2) ? 
+			ft_strjoin_free(calc_space_width(s.fy, 
 						ft_strlen(str)), str, 2) : 
-			ft_strjoin_free(str, calc_space_width(fy, ft_strlen(str)), 2);
+			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
 	return (str);
 }
 
-char	*ft_wchartostr(va_list ap, char f, int fy, int prec)
+char	*ft_wchartostr(va_list ap, t_args s)
 {
 	char		*str;
 	wchar_t		tmp;
 
 	tmp = va_arg(ap, wint_t);
 	str = ft_convert_winttochr(tmp);
-	if (str && !(f & 4) && (fy != 0))
+	if (str && !(s.f & 4) && (s.fy != 0))
 	{
-		str = !(f & 2) ? 
-			ft_strjoin_free(calc_space_width(fy, 
+		str = !(s.f & 2) ? 
+			ft_strjoin_free(calc_space_width(s.fy, 
 						ft_strlen(str)), str, 2) : 
-			ft_strjoin_free(str, calc_space_width(fy, ft_strlen(str)), 2);
+			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
 	return (str);
 }
 
-char	*ft_morsetostr(va_list ap, char f, int fy, int prec)
+char	*ft_morsetostr(va_list ap, t_args s)
 {
 	int		i;
 	char	*str;
