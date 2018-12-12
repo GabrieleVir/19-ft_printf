@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:12:46 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/11 20:53:12 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/12 10:23:45 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int		before_percentage(const char *str, int *i, t_params **p)
 
 /*
 ** The bits of the flags variable :
-** 1: # 2: nan 3: 0 4: + 5: space 6: - 7: width 8: precision 
+** 1: # 2: - 3: 0 4: + 5: space 6
 ** Initialize fl_mod and flags
 */
 
@@ -43,7 +43,6 @@ static int		write_fl_mod(t_params **p)
 	int			tmp;
 	int			j;
 
-	j = 0;
 	if (!(flags_mod = ft_strnew(0)))
 		return (-1);
 	if (!((*p)->width = ft_strnew(0)))
@@ -56,53 +55,39 @@ static int		write_fl_mod(t_params **p)
 		while (((*p)->fl_mod)[++i])
 		{
 			tmp = 0;
+			j = -1;
 			if (((*p)->fl_mod)[i] == '#')
-			{
-				flags_mod = ft_strjoin_free(flags_mod, "#", 1);
-				i++;
 				(*p)->flags |= 1;
-			}
 			else if (((*p)->fl_mod)[i] >= '0' && ((*p)->fl_mod)[i] <= '9')
 			{
 				if (((*p)->fl_mod)[i] == '0')
 				{
 					(*p)->flags |= 4;
 					i++;
-					while(((*p)->fl_mod)[i] >= '0' && ((*p)->fl_mod)[i] <= '9')
-					{
+					while(((*p)->fl_mod)[i] >= '0' && ((*p)->fl_mod)[i] <= '9'
+							&& ((*p)->fl_mod)[i] != '\0' && ++i)
 						tmp++;
-						i++;
-					}
 					if (tmp != 0)
 					{
-						free((*p)->width);
 						if (!((*p)->width = ft_strnew_free(tmp, (*p)->width)))
 							return (-1);
 						i = i - tmp;
 						while (tmp--)
-						{
-							(*p)->width[j] = (*p)->fl_mod[i];
-							j++;
-							i++;
-						}
+							(*p)->width[++j] = (*p)->fl_mod[i++];
+						i -= 1;
 					}
 				}
 				else
 				{
-					while(((*p)->fl_mod)[i] >= '0' && ((*p)->fl_mod)[i] <= '9')
-					{
+					while(((*p)->fl_mod)[i] >= '0' && ((*p)->fl_mod)[i] <= '9'
+							&& ((*p)->fl_mod)[i] != '\0' && ++i)
 						tmp++;
-						i++;
-					}
 					if (!((*p)->width = ft_strnew_free(tmp, (*p)->width)))
 						return (-1);
 					i = i - tmp;
 					while (tmp--)
-					{
-						(*p)->width[j] = (*p)->fl_mod[i];
-						j++;
-						i++;
-					}
+						(*p)->width[++j] = (*p)->fl_mod[i++];
+					i -= 1;
 				}
 			}
 			else if (((*p)->fl_mod)[i] == '+')
@@ -113,29 +98,22 @@ static int		write_fl_mod(t_params **p)
 			else if (((*p)->fl_mod)[i] == '-')
 			{
 				has_minus = 1;
-				(*p)->flags |= 32;
+				(*p)->flags |= 2;
 			}
 			else if (((*p)->fl_mod)[i] == ' ')
 				(*p)->flags |= 16;
 			else if (((*p)->fl_mod)[i] == '.')
 			{
 				i++;
-				tmp = 0;
-				j = 0;
-				while (((*p)->fl_mod)[i] >= '0' && ((*p)->fl_mod)[i] <= '9')
-				{
+				while (((*p)->fl_mod)[i] >= '0' && ((*p)->fl_mod)[i] <= '9' &&
+						(*p)->fl_mod[i] != '\0' && ++i)
 					tmp++;
-					i++;
-				}
-				if (!((*p)->precision = ft_strnew_free(tmp, (*p)->precision)))
+				if (!((*p)->precision = ft_strdup_free("0", (*p)->precision)))
 					return (-1);
 				i = i - tmp;
 				while (tmp--)
-				{
-					(*p)->precision[j] = (*p)->fl_mod[i];
-					j++;
-					i++;
-				}
+					(*p)->precision[++j] = (*p)->fl_mod[i++];
+				i -= 1;
 			}
 		}
 	}
@@ -180,7 +158,8 @@ int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 				{
 					if (!((*p)->precision = ft_strdup("-1")))
 						return (-1);
-					(*p)->width = NULL;
+					if (!((*p)->width = ft_strdup("0")))
+						return (-1);
 					if ((*p)->start - i != 0)
 					{
 						(*p)->flags = 0;
@@ -193,8 +172,7 @@ int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 					(*p)->tmp2 = (*p)->args_f[(*p)->args_i]
 						(ap, (*p)->flags, ft_atoi((*p)->width), 
 						 ft_atoi((*p)->precision));
-					(*p)->tmp = ft_strjoin_free((*p)->buf, (*p)->tmp2, 3);
-					(*p)->buf = (*p)->tmp;
+					(*p)->buf = ft_strjoin_free((*p)->buf, (*p)->tmp2, 3);
 					stop = 0;
 					break;
 				}

@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 23:24:06 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/05 13:31:04 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/12 01:12:13 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,8 +157,8 @@ int				main(int argc, char **argv)
 	unsigned long	m;
 	unsigned long	entier;
 
-	printf("%.1000Lf\n", LDBL_MAX + LDBL_MAX);
-	split(&s, &e, &m, LDBL_MAX);
+	printf("%.10f\n", 123.3444590000001);
+	split(&s, &e, &m, 123.3444590000001);
 	printf("sign : %d\n", s);
 	printf("exponant : %d\n", e);
 	ft_putstr("mantissa : ");
@@ -167,9 +167,9 @@ int				main(int argc, char **argv)
 	entier = ft_entier(e, m, s);
 	printf("entier: %lu\n", entier);
 	if (e < 0)
-		printf("%.30f", ft_pow(-1, s) * cal_mantissa(m));
+		printf("%.30f", ft_pow(-1, s) * cal_mantissa(m) * ft_pow(2, e));
 	else
-		printf("%.30f", ft_pow(-1, s) * cal_mantissa(m) * ft_pow(2, 1024) * 0);
+		printf("%.30f", ft_pow(-1, s) * cal_mantissa(m) * ft_pow(2, e));
 	ft_putchar('\n');
 	return (0);
 }

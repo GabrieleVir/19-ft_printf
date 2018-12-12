@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/11 20:57:56 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/12 11:22:39 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,17 +116,20 @@ int		main(void)
 	ft_printf("%5p\n", 10);
 	ft_printf("%#05x\n", 10);
 	*/
-	ft_printf("%+0#5d\n", 100);
+	/*ft_printf("%+0#5d\n", 100);
 	printf("%-+5d\n", 100);
 	ft_printf("%-+5d\n", 100);
 	printf("salut :%#.o\n", 0);
 	ft_printf("salut :%#.o\n", 0);
 	printf("salut :%.d\n", 0);
-	ft_printf("salut :%.555d\n", 0);
-	printf("salut :%.10s\n", "hello");
+	ft_printf("salut :%.555d\n", 0);*/
 	//printf("%+5c\n", "c");
-	//printf("%5C\n", "d");
-	//printf("%5s\n", "co");
+	//ft_printf("salut :%-5.10d\n", 100);
+	//printf("salut :%.10D\n", 1000);
+	ft_printf("salut :%.10s\n", "hello");
+	printf("salut :%.10s\n", "hello");
+	printf("%    .d\n", 0);
+	ft_printf("%    .d\n", 0);
 	/*	ft_printf("%5d\n", -10);
 	ft_printf("%+d\n", 10);
 	ft_printf("%x\n", 10);*/
