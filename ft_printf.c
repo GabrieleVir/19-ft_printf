@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 08:54:57 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/12 11:22:39 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/14 00:58:59 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,9 @@ int		main(void)
 	//printf("salut :%.10D\n", 1000);
 	ft_printf("salut :%.10s\n", "hello");
 	printf("salut :%.10s\n", "hello");
-	printf("%    .d\n", 0);
-	ft_printf("%    .d\n", 0);
+	printf("% .10ld\n", -5);
+	ft_printf("%0.15d\n", INT_MAX + 4);
+	ft_printf("% .10D\n", 5);
 	/*	ft_printf("%5d\n", -10);
 	ft_printf("%+d\n", 10);
 	ft_printf("%x\n", 10);*/

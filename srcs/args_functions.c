@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 17:34:55 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/12 14:09:41 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/14 11:41:07 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*calc_space_width(int width, int len_str)
 	return (str);
 }
 
-char	*ft_strtostr(va_list ap, t_args s)
+char	*ft_strtostr(va_list ap, t_args s, char mod)
 {
 	char		*str;
 
@@ -41,7 +41,7 @@ char	*ft_strtostr(va_list ap, t_args s)
 	return (str);
 }
 
-char	*ft_percenttostr(va_list ap, t_args s)
+char	*ft_percenttostr(va_list ap, t_args s, char mod)
 {
 	char		*str;
 	
@@ -59,7 +59,7 @@ char	*ft_percenttostr(va_list ap, t_args s)
 	return (str);
 }
 
-char	*ft_floattostr(va_list ap, t_args s)
+char	*ft_floattostr(va_list ap, t_args s, char mod)
 {
 	char		*str;
 	double		fl;
@@ -70,7 +70,7 @@ char	*ft_floattostr(va_list ap, t_args s)
 	return (str);
 }
 
-char	*ft_chrtostr(va_list ap, t_args s)
+char	*ft_chrtostr(va_list ap, t_args s, char mod)
 {
 	char		*str;
 
@@ -89,7 +89,7 @@ char	*ft_chrtostr(va_list ap, t_args s)
 	return (str);
 }
 
-char	*ft_ftostr(va_list ap, t_args s)
+char	*ft_ftostr(va_list ap, t_args s, char mod)
 {
 	char		*str;
 
@@ -115,7 +115,7 @@ char	*zero_f(int fy, int len_str)
 	return (nb_zeros);
 }
 
-char	*ft_inttostr(va_list ap, t_args s)
+char	*ft_inttostr(va_list ap, t_args s, char mod)
 {
 	char		*str;
 	int			nb;
@@ -123,7 +123,14 @@ char	*ft_inttostr(va_list ap, t_args s)
 	int			is_zero;
 	
 	is_zero = 0;
-	nb = va_arg(ap, int);
+	if (mod == 0)
+		nb = va_arg(ap, int);
+	else if (mod & 1)
+		nb = va_arg(ap, long long);
+	else if (mod & 4)
+		nb = va_arg(ap, short);
+	else if (mod & 8)
+		nb = va_arg(ap, signed char);
 	str = ft_itoa_base(nb, 10);
 	size = 0;
 	if (s.prec == 0 && nb == 0)
@@ -133,8 +140,9 @@ char	*ft_inttostr(va_list ap, t_args s)
 	}
 	if (s.prec != -1 && !is_zero)
 	{
-		str = !(s.f & 8) ? ft_strjoin_free(zero_f(s.prec, ft_strlen(str)), str, 3)
-			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str)), 3, 1);
+		str = !(nb < 0) ? 
+			ft_strjoin_free(zero_f(s.prec, ft_strlen(str)), str, 3)
+			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str) - 1), 3, 1);
 		s.f -= (s.f & 4) ? 4 : 0;
 	}
 	if (str && s.f & 4 && (s.fy != 0) && !is_zero)
@@ -164,7 +172,7 @@ char	*ft_inttostr(va_list ap, t_args s)
 	return (str);
 }
 
-char	*ft_biginttostr(va_list ap, t_args s)
+char	*ft_biginttostr(va_list ap, t_args s, char mod)
 {
 	char		*str;
 	long int	nb;
@@ -180,8 +188,9 @@ char	*ft_biginttostr(va_list ap, t_args s)
 	}
 	if (s.prec != -1 && !is_zero)
 	{
-		str = !(s.f & 8) ? ft_strjoin_free(zero_f(s.prec, ft_strlen(str)), str, 3)
-			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str)), 3, 1);
+		str = !(s.f & 8) ? 
+			ft_strjoin_free(zero_f(s.prec, ft_strlen(str)), str, 3)
+			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str) - 1), 3, 1);
 		s.f -= (s.f & 4) ? 4 : 0;
 	}
 	if (str && s.f & 4 && (s.fy != 0) && !is_zero)
@@ -201,10 +210,12 @@ char	*ft_biginttostr(va_list ap, t_args s)
 						ft_strlen(str)), str, 2) : 
 			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
+	if ((s.f & 16) && nb >= 0)
+		str = ft_strjoin_free(" ", str, 2);
 	return (str);
 }
 
-char	*ft_octtostr(va_list ap, t_args s)
+char	*ft_octtostr(va_list ap, t_args s, char mod)
 {
 	char				*str;
 	unsigned long		nb;
@@ -238,7 +249,7 @@ char	*ft_octtostr(va_list ap, t_args s)
 	return (str);
 }
 
-char	*ft_bigocttostr(va_list ap, t_args s)
+char	*ft_bigocttostr(va_list ap, t_args s, char mod)
 {
 	char				*str;
 	unsigned long		nb;
@@ -270,7 +281,7 @@ char	*ft_bigocttostr(va_list ap, t_args s)
 	return (str);
 }
 
-char	*ft_addtostr(va_list ap, t_args s)
+char	*ft_addtostr(va_list ap, t_args s, char mod)
 {
 	char	*str;
 	void	*nb;
@@ -301,7 +312,7 @@ char	*ft_addtostr(va_list ap, t_args s)
 	return (str);
 }
 
-char	*ft_hextostr(va_list ap, t_args s)
+char	*ft_hextostr(va_list ap, t_args s, char mod)
 {
 	char			*str;
 	unsigned long	nb;
@@ -338,7 +349,7 @@ char	*ft_hextostr(va_list ap, t_args s)
 	return (str);
 }
 
-char	*ft_bighextostr(va_list ap, t_args s)
+char	*ft_bighextostr(va_list ap, t_args s, char mod)
 {
 	char			*str;
 	unsigned long	nb;
@@ -375,7 +386,7 @@ char	*ft_bighextostr(va_list ap, t_args s)
 	return (str);
 }
 
-char	*ft_udtostr(va_list ap, t_args s)
+char	*ft_udtostr(va_list ap, t_args s, char mod)
 {
 	char			*str;
 	unsigned long	nb;
@@ -407,7 +418,7 @@ char	*ft_udtostr(va_list ap, t_args s)
 	return (str);
 }
 
-char	*ft_bigudtostr(va_list ap, t_args s)
+char	*ft_bigudtostr(va_list ap, t_args s, char mod)
 {
 	char			*str;
 	unsigned long	nb;
@@ -439,7 +450,7 @@ char	*ft_bigudtostr(va_list ap, t_args s)
 	return (str);
 }
 
-char	*ft_wcharstrtostr(va_list ap, t_args s)
+char	*ft_wcharstrtostr(va_list ap, t_args s, char mod)
 {
 	char		*str;
 	wchar_t		*tmp_arr;
@@ -468,7 +479,7 @@ char	*ft_wcharstrtostr(va_list ap, t_args s)
 	return (str);
 }
 
-char	*ft_wchartostr(va_list ap, t_args s)
+char	*ft_wchartostr(va_list ap, t_args s, char mod)
 {
 	char		*str;
 	wchar_t		tmp;
@@ -485,7 +496,7 @@ char	*ft_wchartostr(va_list ap, t_args s)
 	return (str);
 }
 
-char	*ft_morsetostr(va_list ap, t_args s)
+char	*ft_morsetostr(va_list ap, t_args s, char mod)
 {
 	int		i;
 	char	*str;

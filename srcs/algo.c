@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:12:46 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/12 13:27:56 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/14 11:30:40 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int		modifier_mng(t_params **p, int *i)
 
 /*
 ** The bits of the flags variable :
-** 1: # 2: - 3: 0 4: + 5: space 6
+** 1: # 2: - 3: 0 4: + 5: space
 */
 
 static int		write_fl_mod(t_params **p)
@@ -107,8 +107,8 @@ static int		write_fl_mod(t_params **p)
 						i = i - tmp;
 						while (tmp--)
 							(*p)->width[++j] = (*p)->fl_mod[i++];
-						i -= 1;
 					}
+					i -= 1;
 				}
 				else
 				{
@@ -149,8 +149,8 @@ static int		write_fl_mod(t_params **p)
 				i -= 1;
 			}
 			else
-				modifier_mng(p, &i);
-			//i -= 1;
+				if (!modifier_mng(p, &i))
+					return (-1);
 		}
 	}
 	else
@@ -171,6 +171,23 @@ static int		write_fl_mod(t_params **p)
 	free(flags_mod);
 	return (1);
 }
+
+/*
+** change mod change the function used during the management of the ap argument
+** args_i 4 = 'd' args_i 6 = 'o' args_i 12 = 'c' args_i 0 = 's' 
+*/
+
+static void		change_mod(int *args_i, char mod)
+{
+	if (mod & 2 && !(mod & 1))
+	{
+		if (*args_i == 4 || *args_i == 6 || *args_i == 8
+				|| *args_i == 12 || *args_i == 0)
+			args_i += 1;
+	}
+}
+
+
 
 int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 {
@@ -211,7 +228,8 @@ int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 					s.prec = ft_atoi((*p)->precision);
 					s.mod = (*p)->modifiers;
 					s.f = (*p)->flags;
-					(*p)->tmp2 = (*p)->args_f[(*p)->args_i](ap, s);
+					change_mod(&((*p)->args_i), s.mod);
+					(*p)->tmp2 = (*p)->args_f[(*p)->args_i](ap, s, s.mod);
 					(*p)->buf = ft_strjoin_free((*p)->buf, (*p)->tmp2, 3);
 					stop = 0;
 					break;
