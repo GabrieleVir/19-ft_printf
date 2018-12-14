@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:12:46 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/14 11:30:40 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/14 17:42:07 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,22 +177,79 @@ static int		write_fl_mod(t_params **p)
 ** args_i 4 = 'd' args_i 6 = 'o' args_i 12 = 'c' args_i 0 = 's' 
 */
 
-static void		change_mod(int *args_i, char mod)
+static void		change_mod_int(int args_i, char mod, t_type **px, va_list ap)
 {
-	if (mod & 2 && !(mod & 1))
+	if (args_i == 3 || args_i == 5)
 	{
-		if (*args_i == 4 || *args_i == 6 || *args_i == 8
-				|| *args_i == 12 || *args_i == 0)
-			args_i += 1;
+		if (mod == 0)
+			(*px)->im = va_arg(ap, int);
+		else if (mod & 1)
+			(*px)->im = (intmax_t)va_arg(ap, long long);
+		else if (mod & 2)
+			(*px)->im = (intmax_t)va_arg(ap, long);
+		else if (mod & 4)
+			(*px)->im = (intmax_t)(short)va_arg(ap, int);
+		else if (mod & 8)
+			(*px)->im = (intmax_t)(signed char)va_arg(ap, int);
 	}
+	else if (args_i == 4)
+			(*px)->im = (intmax_t)va_arg(ap, long);
+	else
+		return ;
 }
 
+static void		change_mod_uint(int args_i, char mod, t_type **px, va_list ap)
+{
+	if (args_i == 6 || args_i == 8 || args_i == 10 || args_i == 11)
+	{
+		if (mod == 0)
+			(*px)->uim = (uintmax_t)va_arg(ap, unsigned int);
+		else if (mod & 1)
+			(*px)->uim = (uintmax_t)va_arg(ap, unsigned long long);
+		else if (mod & 2)
+			(*px)->uim = (uintmax_t)va_arg(ap, unsigned long);
+		else if (mod & 4)
+			(*px)->uim = (uintmax_t)(unsigned short)va_arg(ap, unsigned int);
+		else if (mod & 8)
+			(*px)->uim = (uintmax_t)(unsigned char)va_arg(ap, unsigned int);
+	}
+	else if (args_i == 7 || args_i == 9)
+		(*px)->uim = (uintmax_t)va_arg(ap, unsigned long);
+	else
+		return ;
+}
 
+static void		change_mod_wc(int args_i, char mod, t_type **px, va_list ap)
+{
+	if (args_i == 0)
+	{
+		if (mod == 2)
+			(*px)->wc = (wchar_t*)va_arg(ap, wchar_t*);
+		else
+			(*px)->wc = (wchar_t*)va_arg(ap, char *);
+	}
+	else if (args_i == 12)
+	{
+		if (mod == 2)
+			(*px)->im = (intmax_t)va_arg(ap, wint_t);
+		else
+			(*px)->im = (intmax_t)va_arg(ap, int);
+	}
+	else if (args_i == 1)
+		(*px)->wc = (wchar_t*)va_arg(ap, wchar_t*);
+	else if (args_i == 13)
+		(*px)->im = (intmax_t)va_arg(ap, wint_t);
+	else if (args_i == 14)
+			(*px)->wc = (wchar_t*)va_arg(ap, char *);
+	else
+		return ;
+}
 
 int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 {
 	int		stop;
 	t_args	s;
+	t_type	*px;
 
 	stop = 1;
 	while (str[++i])
@@ -228,8 +285,11 @@ int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 					s.prec = ft_atoi((*p)->precision);
 					s.mod = (*p)->modifiers;
 					s.f = (*p)->flags;
-					change_mod(&((*p)->args_i), s.mod);
-					(*p)->tmp2 = (*p)->args_f[(*p)->args_i](ap, s, s.mod);
+					px = (t_type*)malloc(sizeof(t_type));
+					change_mod_int((*p)->args_i, s.mod, &px, ap);
+					change_mod_uint((*p)->args_i, s.mod, &px, ap);
+					change_mod_wc((*p)->args_i, s.mod, &px, ap);
+					(*p)->tmp2 = (*p)->args_f[(*p)->args_i](px, s, s.mod);
 					(*p)->buf = ft_strjoin_free((*p)->buf, (*p)->tmp2, 3);
 					stop = 0;
 					break;

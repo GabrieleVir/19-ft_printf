@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 17:34:55 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/14 11:41:07 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/14 17:54:50 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ char	*calc_space_width(int width, int len_str)
 	return (str);
 }
 
-char	*ft_strtostr(va_list ap, t_args s, char mod)
+char	*ft_strtostr(t_type *px, t_args s, char mod)
 {
 	char		*str;
 
-	str = ft_strdup(va_arg(ap, char*));
+	str = ft_strdup((char*)px->wc);
 	if (str && !(s.f & 4) && s.fy != 0)
 		str = !(s.f & 2) ? 
 			ft_strjoin_free(calc_space_width(s.fy, 
@@ -41,11 +41,11 @@ char	*ft_strtostr(va_list ap, t_args s, char mod)
 	return (str);
 }
 
-char	*ft_percenttostr(va_list ap, t_args s, char mod)
+char	*ft_percenttostr(t_type *px, t_args s, char mod)
 {
 	char		*str;
-	
-	ap = 0;
+
+	px = NULL;
 	str = ft_strdup("%");
 	if (str && !(s.f & 4) && (s.fy != 0))
 	{
@@ -59,23 +59,23 @@ char	*ft_percenttostr(va_list ap, t_args s, char mod)
 	return (str);
 }
 
-char	*ft_floattostr(va_list ap, t_args s, char mod)
+char	*ft_floattostr(t_type *px, t_args s, char mod)
 {
 	char		*str;
 	double		fl;
 
-	fl = va_arg(ap, double);
+	fl = px->df;
 	str = ft_strnew(0);
 	//str = manage_float(va_arg(ap, double));
 	return (str);
 }
 
-char	*ft_chrtostr(va_list ap, t_args s, char mod)
+char	*ft_chrtostr(t_type *px, t_args s, char mod)
 {
 	char		*str;
 
 	str = (char*)malloc(sizeof(*str) * 2);
-	str[0] = va_arg(ap, int);
+	str[0] = px->im;
 	str[1] = '\0';
 	if (str && !(s.f & 4) && (s.fy != 0))
 	{
@@ -89,12 +89,12 @@ char	*ft_chrtostr(va_list ap, t_args s, char mod)
 	return (str);
 }
 
-char	*ft_ftostr(va_list ap, t_args s, char mod)
+char	*ft_ftostr(t_type *px, t_args s, char mod)
 {
 	char		*str;
 
 	str = (char*)malloc(sizeof(*str) * 2);
-	str[0] = va_arg(ap, int);
+	str[0] = 'a';
 	str[1] = '\0';
 	return (str);
 }
@@ -115,46 +115,37 @@ char	*zero_f(int fy, int len_str)
 	return (nb_zeros);
 }
 
-char	*ft_inttostr(va_list ap, t_args s, char mod)
+char	*ft_inttostr(t_type *px, t_args s, char mod)
 {
 	char		*str;
-	int			nb;
 	size_t		size;
 	int			is_zero;
 	
 	is_zero = 0;
-	if (mod == 0)
-		nb = va_arg(ap, int);
-	else if (mod & 1)
-		nb = va_arg(ap, long long);
-	else if (mod & 4)
-		nb = va_arg(ap, short);
-	else if (mod & 8)
-		nb = va_arg(ap, signed char);
-	str = ft_itoa_base(nb, 10);
+	str = ft_itoa_base(px->im, 10);
 	size = 0;
-	if (s.prec == 0 && nb == 0)
+	if (s.prec == 0 && px->im == 0)
 	{
 		str = ft_strdup_free("", str);
 		is_zero = 1;
 	}
 	if (s.prec != -1 && !is_zero)
 	{
-		str = !(nb < 0) ? 
+		str = !(px->im < 0) ? 
 			ft_strjoin_free(zero_f(s.prec, ft_strlen(str)), str, 3)
 			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str) - 1), 3, 1);
 		s.f -= (s.f & 4) ? 4 : 0;
 	}
 	if (str && s.f & 4 && (s.fy != 0) && !is_zero)
 	{
-		if (nb >= 0 && !is_zero)
+		if (px->im >= 0 && !is_zero)
 		{
 			size = (s.f & 8) ? ft_strlen(str) + 1 : ft_strlen(str);
 			str = !(s.f & 16) ?
 				ft_strjoin_free(zero_f(s.fy, size), str, 3) :
 				ft_strjoin_free(zero_f(s.fy, size + 1), str, 3);
 		}
-		else if (nb <= 0 && !is_zero)
+		else if (px->im <= 0 && !is_zero)
 			str = ft_strjoin_freei(str,
 					zero_f(s.fy, ft_strlen(str)), 3, 1);
 	}
@@ -167,21 +158,19 @@ char	*ft_inttostr(va_list ap, t_args s, char mod)
 						ft_strlen(str)), str, 2) : 
 			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
-	if ((s.f & 16) && nb >= 0)
+	if ((s.f & 16) && px->im >= 0)
 		str = ft_strjoin_free(" ", str, 2);
 	return (str);
 }
 
-char	*ft_biginttostr(va_list ap, t_args s, char mod)
+char	*ft_biginttostr(t_type *px, t_args s, char mod)
 {
 	char		*str;
-	long int	nb;
 	int			is_zero;
 
 	is_zero = 0;
-	nb = va_arg(ap, long int);
-	str = ft_itoa_printf(nb, 10, 1);
-	if (nb == 0 && s.prec == 0)
+	str = ft_itoa_printf(px->im, 10, 1);
+	if (px->im == 0 && s.prec == 0)
 	{
 		str = ft_strdup_free("", str);
 		is_zero = 1;
@@ -195,7 +184,7 @@ char	*ft_biginttostr(va_list ap, t_args s, char mod)
 	}
 	if (str && s.f & 4 && (s.fy != 0) && !is_zero)
 	{
-		if (nb >= 0)
+		if (px->im >= 0)
 			str = ft_strjoin_free(zero_f(s.fy, ft_strlen(str)), str, 3);
 		else
 			str = ft_strjoin_freei(str, 
@@ -210,26 +199,24 @@ char	*ft_biginttostr(va_list ap, t_args s, char mod)
 						ft_strlen(str)), str, 2) : 
 			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
-	if ((s.f & 16) && nb >= 0)
+	if ((s.f & 16) && px->im >= 0)
 		str = ft_strjoin_free(" ", str, 2);
 	return (str);
 }
 
-char	*ft_octtostr(va_list ap, t_args s, char mod)
+char	*ft_octtostr(t_type *px, t_args s, char mod)
 {
 	char				*str;
-	unsigned long		nb;
 	int					is_zero;
 
 	is_zero = 0;
-	nb = va_arg(ap, unsigned int);
-	str = ft_itoa_printf(nb, 8, 1);
-	if (nb == 0 && s.prec == 0)
+	str = ft_itoa_printf(px->uim, 8, 1);
+	if (px->uim == 0 && s.prec == 0)
 	{
 		str = ft_strdup_free("", str);
 		is_zero = 1;
 	}
-	if (s.f & 1 && nb != 0)
+	if (s.f & 1 && px->uim != 0)
 		str = ft_strjoin_free("0", str, 2);
 	if (s.prec != -1 && !is_zero)
 	{
@@ -249,16 +236,14 @@ char	*ft_octtostr(va_list ap, t_args s, char mod)
 	return (str);
 }
 
-char	*ft_bigocttostr(va_list ap, t_args s, char mod)
+char	*ft_bigocttostr(t_type *px, t_args s, char mod)
 {
 	char				*str;
-	unsigned long		nb;
 	int					is_zero;
 
 	is_zero = 0;
-	nb = va_arg(ap, unsigned long);
-	str = ft_itoa_printf(nb, 8, 1);
-	if (nb == 0 && s.prec == 0)
+	str = ft_itoa_printf(px->uim, 8, 1);
+	if (px->uim == 0 && s.prec == 0)
 	{
 		str = ft_strdup_free("", str);
 		is_zero = 1;
@@ -281,14 +266,14 @@ char	*ft_bigocttostr(va_list ap, t_args s, char mod)
 	return (str);
 }
 
-char	*ft_addtostr(va_list ap, t_args s, char mod)
+char	*ft_addtostr(t_type *px, t_args s, char mod)
 {
 	char	*str;
 	void	*nb;
 	int		len;
 	char	*tmp;
 
-	nb = va_arg(ap, void*);
+	nb = NULL;
 	tmp = ft_itoa_printf((unsigned long)nb, 16, 1);
 	len = ft_strlen(tmp);
 	str = ft_strnew(len + 2);
@@ -312,21 +297,19 @@ char	*ft_addtostr(va_list ap, t_args s, char mod)
 	return (str);
 }
 
-char	*ft_hextostr(va_list ap, t_args s, char mod)
+char	*ft_hextostr(t_type *px, t_args s, char mod)
 {
 	char			*str;
-	unsigned long	nb;
 	int				is_zero;
 
 	is_zero = 0;
-	nb = va_arg(ap, unsigned long);
-	str = ft_itoa_printf(nb, 16, 1);
-	if (nb == 0 && s.prec == 0)
+	str = ft_itoa_printf(px->uim, 16, 1);
+	if (px->uim == 0 && s.prec == 0)
 	{
 		str = ft_strdup_free("", str);
 		is_zero = 1;
 	}
-	if (s.f & 1 && nb != 0)
+	if (s.f & 1 && px->uim != 0)
 		str = ft_strjoin_free("0x", str, 2);
 	if (s.prec != -1 && !is_zero)
 	{
@@ -349,21 +332,19 @@ char	*ft_hextostr(va_list ap, t_args s, char mod)
 	return (str);
 }
 
-char	*ft_bighextostr(va_list ap, t_args s, char mod)
+char	*ft_bighextostr(t_type *px, t_args s, char mod)
 {
 	char			*str;
-	unsigned long	nb;
 	int				is_zero;
 
 	is_zero = 0;
-	nb = va_arg(ap, unsigned long);
-	str = ft_itoa_printf(nb, 16, 2);
-	if (nb == 0 && s.prec == 0)
+	str = ft_itoa_printf(px->uim, 16, 2);
+	if (px->uim == 0 && s.prec == 0)
 	{
 		str = ft_strdup_free("", str);
 		is_zero = 1;
 	}
-	if (s.f & 1 && nb != 0)
+	if (s.f & 1 && px->uim != 0)
 		str = ft_strjoin_free("0X", str, 2);
 	if (s.prec != -1 && !is_zero)
 	{
@@ -386,16 +367,14 @@ char	*ft_bighextostr(va_list ap, t_args s, char mod)
 	return (str);
 }
 
-char	*ft_udtostr(va_list ap, t_args s, char mod)
+char	*ft_udtostr(t_type *px, t_args s, char mod)
 {
 	char			*str;
-	unsigned long	nb;
 	int				is_zero;
 
 	is_zero = 0;
-	nb = va_arg(ap, unsigned int);
-	str = ft_itoa_printf(nb, 10, 1);
-	if (nb == 0 && s.prec == 0)
+	str = ft_itoa_printf(px->uim, 10, 1);
+	if (px->uim == 0 && s.prec == 0)
 	{
 		str = ft_strdup_free("", str);
 		is_zero = 1;
@@ -418,16 +397,14 @@ char	*ft_udtostr(va_list ap, t_args s, char mod)
 	return (str);
 }
 
-char	*ft_bigudtostr(va_list ap, t_args s, char mod)
+char	*ft_bigudtostr(t_type *px, t_args s, char mod)
 {
 	char			*str;
-	unsigned long	nb;
 	int				is_zero;
 
 	is_zero = 0;
-	nb = va_arg(ap, unsigned long);
-	str = ft_itoa_printf(nb, 10, 1);
-	if (nb == 0 && s.prec == 0)
+	str = ft_itoa_printf(px->uim, 10, 1);
+	if (px->uim == 0 && s.prec == 0)
 	{
 		str = ft_strdup_free("", str);
 		is_zero = 1;
@@ -450,14 +427,14 @@ char	*ft_bigudtostr(va_list ap, t_args s, char mod)
 	return (str);
 }
 
-char	*ft_wcharstrtostr(va_list ap, t_args s, char mod)
+char	*ft_wcharstrtostr(t_type *px, t_args s, char mod)
 {
 	char		*str;
 	wchar_t		*tmp_arr;
 	char		*tmp;
 	char		*tmp2;
 
-	tmp_arr = va_arg(ap, wchar_t*);
+	tmp_arr = px->wc;
 	if (!(str = ft_strnew(0)))
 		return (NULL);
 	while (*tmp_arr)
@@ -479,12 +456,12 @@ char	*ft_wcharstrtostr(va_list ap, t_args s, char mod)
 	return (str);
 }
 
-char	*ft_wchartostr(va_list ap, t_args s, char mod)
+char	*ft_wchartostr(t_type *px, t_args s, char mod)
 {
 	char		*str;
 	wchar_t		tmp;
 
-	tmp = va_arg(ap, wint_t);
+	tmp = px->im;
 	str = ft_convert_winttochr(tmp);
 	if (str && !(s.f & 4) && (s.fy != 0))
 	{
@@ -496,7 +473,7 @@ char	*ft_wchartostr(va_list ap, t_args s, char mod)
 	return (str);
 }
 
-char	*ft_morsetostr(va_list ap, t_args s, char mod)
+char	*ft_morsetostr(t_type *px, t_args s, char mod)
 {
 	int		i;
 	char	*str;
@@ -504,6 +481,6 @@ char	*ft_morsetostr(va_list ap, t_args s, char mod)
 	i = -1;
 	if (!(str = ft_strnew(0)))
 		return (NULL);
-	str = morse_converter(va_arg(ap, char*));
+	str = NULL;
 	return (str);
 }
