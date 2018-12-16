@@ -6,7 +6,7 @@
 /*   By: jfinet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 14:50:02 by jfinet            #+#    #+#             */
-/*   Updated: 2018/12/11 19:11:48 by rhunders         ###   ########.fr       */
+/*   Updated: 2018/12/16 05:51:22 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int main()
 
 	printf("HEXA\n");
 	//1
+	printf("ref : '%010.x'\n", 0);
+	ft_printf("test: '%010.x'\n", 0);
 	printf("ref : '%010x'\n", 542);
 	ft_printf("test: '%010x'\n", 542);
 	printf("ref : '%#010x'\n", 542);
@@ -126,4 +128,3 @@ int main()
 	ft_printf("ft_printf7   :|% 03u|\n", 0);
 	return (0);
 }
-

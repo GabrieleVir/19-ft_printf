@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:12:46 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/14 17:42:07 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/16 05:23:52 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,15 +137,16 @@ static int		write_fl_mod(t_params **p)
 				(*p)->flags |= 16;
 			else if (((*p)->fl_mod)[i] == '.')
 			{
+				//printf("(*p)->fl_mod: %s\n", (*p)->fl_mod);
 				i++;
 				while (((*p)->fl_mod)[i] >= '0' && ((*p)->fl_mod)[i] <= '9' &&
 						(*p)->fl_mod[i] != '\0' && ++i)
 					tmp++;
-				if (!((*p)->precision = ft_strdup_free("0", (*p)->precision)))
+				if (!((*p)->prec = ft_strdup_free("0", (*p)->prec)))
 					return (-1);
 				i = i - tmp;
 				while (tmp--)
-					(*p)->precision[++j] = (*p)->fl_mod[i++];
+					(*p)->prec[++j] = (*p)->fl_mod[i++];
 				i -= 1;
 			}
 			else
@@ -267,22 +268,32 @@ int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 			{
 				if (str[i + 1] == (*p)->args[(*p)->args_i])
 				{
-					if (!((*p)->precision = ft_strdup("-1")))
-						return (-1);
-					if (!((*p)->width = ft_strdup("0")))
-						return (-1);
+					if ((!(*p)->prec || ft_strcmp("-1", (*p)->prec)))
+						if (!((*p)->prec = ft_strdup("-1")))
+							return (-1);
+					if ((!(*p)->width || ft_strcmp("0", (*p)->width)))
+						if (!((*p)->width = ft_strdup("0")))
+							return (-1);
 					(*p)->modifiers = 0;
 					(*p)->flags = 0;
 					if ((*p)->start - i != 0)
 					{
-						(*p)->fl_mod = ft_strsub(str, (*p)->start + 1, i);
+						/*printf("prec1: %d\n", ft_atoi((*p)->prec));
+						printf("(*p)->start: %d\n", (*p)->start);
+						printf("i: %d\n", i);*/
+						(*p)->fl_mod = ft_strsub(str, (*p)->start + 1, i - 
+								(*p)->start);
 						if ((stop = write_fl_mod(&(*p))) == 0)
 							break;
 						else if (stop == -1)
 							return (-1);
+//						printf("flags: %d\n", (*p)->flags);
+//						printf("prec2: %d\n", ft_atoi((*p)->prec));
 					}
 					s.fy = ft_atoi((*p)->width);
-					s.prec = ft_atoi((*p)->precision);
+					s.prec = ft_atoi((*p)->prec);
+					//printf("prec: %d\n", ft_atoi((*p)->prec));
+//					printf("width: %d\n", s.fy);
 					s.mod = (*p)->modifiers;
 					s.f = (*p)->flags;
 					px = (t_type*)malloc(sizeof(t_type));
@@ -298,6 +309,7 @@ int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 			}
 			i++;
 		}
+		stop = 1;
 	}
 	return (1);
 }

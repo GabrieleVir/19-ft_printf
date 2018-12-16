@@ -6,7 +6,7 @@
 #    By: gvirga <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/12 23:31:55 by gvirga            #+#    #+#              #
-#    Updated: 2018/12/12 02:20:16 by gvirga           ###   ########.fr        #
+#    Updated: 2018/12/16 02:57:30 by gvirga           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ LIBFT_DIR = libft/
 SRCDIR= ./srcs/
 CC = gcc
 CFLAGS =
-MAIN= ft_printf.c
+MAIN= lamort.c
 FILES = args_functions.c ft_convert_winttochr.c ft_itoa_printf.c \
 		morse_converter.c manage_double.c init.c algo.c
 SRCFILES = $(addprefix $(SRCDIR), $(FILES))
