@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 17:48:52 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/12 04:34:10 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/17 14:02:22 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 char				*ft_itoa(int n);
-char				*ft_itoa_base(int nbr, int base);
+char				*ft_itoa_base(intmax_t nbr, int base);
 void				*ft_memset(void *b, int c, size_t len);
 void				*ft_memalloc(size_t size);
 void				ft_bzero(void *s, size_t n);

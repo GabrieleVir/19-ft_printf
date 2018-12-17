@@ -6,7 +6,7 @@
 #    By: gvirga <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/12 23:31:55 by gvirga            #+#    #+#              #
-#    Updated: 2018/12/17 06:58:12 by gvirga           ###   ########.fr        #
+#    Updated: 2018/12/17 08:53:50 by gvirga           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ END=\033[0m
 VOMI=\033[0;35m
 VOMIETALEE=\033[44m
 
-#$(VERBOSE).SILENT:
+$(VERBOSE).SILENT:
 
 .PHONY: all clean fclean re
 

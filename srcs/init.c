@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:11:02 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/17 04:32:03 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/17 08:58:24 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,16 @@ int				ft_printf(const char *str, ...)
 {
 	va_list		ap;
 	t_params	*p;
+	int			return_value;
 
 	if (!(p = (t_params*)malloc(sizeof(t_params))))
 		return (-1);
 	fill_args_f(&p);
 	va_start(ap, str);
-	ft_mng_str(str, p->i, &p, ap);
+	return_value = ft_mng_str(str, p->i, &p, ap);
 	ft_putstr(p->buf);
 	free(p->buf);
 	free(p);
 	va_end(ap);
-	return (0);
+	return (return_value);
 }

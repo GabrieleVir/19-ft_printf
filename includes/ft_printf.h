@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/16 03:08:14 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/17 14:49:50 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*ft_bighextostr(t_type *px, t_args s, char mod);
 char	*ft_udtostr(t_type *px, t_args s, char mod);
 char	*ft_bigudtostr(t_type *px, t_args s, char mod);
 char	*ft_morsetostr(t_type *px, t_args s, char mod);
-char	*ft_itoa_printf(unsigned long nbr, int base, int radix);
+char	*ft_itoa_printf(uintmax_t nbr, int base, int radix);
 char	*morse_converter(char *str);
 int		ft_printf(const char *str, ...);
 char	*ft_convert_winttochr(wint_t tmp);

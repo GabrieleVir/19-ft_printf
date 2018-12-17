@@ -6,20 +6,20 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 23:24:50 by gvirga            #+#    #+#             */
-/*   Updated: 2018/11/19 06:23:06 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/17 14:49:28 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		nb_digit_base(unsigned long nbr, int base)
+static int		nb_digit_base(uintmax_t nbr, int base)
 {
 	int		nbr_digit;
 
 	if (base <= 1)
 		return (-1);
 	nbr_digit = 1;
-	while (nbr >= (unsigned long)base)
+	while (nbr >= base)
 	{
 		nbr /= base;
 		nbr_digit++;
@@ -27,7 +27,7 @@ static int		nb_digit_base(unsigned long nbr, int base)
 	return (nbr_digit);
 }
 
-static char	*strnbr_conversion(unsigned long nbr, int base, int radix)
+static char	*strnbr_conversion(uintmax_t nbr, int base, int radix)
 {
 	int		nb_digit;
 	int		modulo;
@@ -56,7 +56,7 @@ static char	*strnbr_conversion(unsigned long nbr, int base, int radix)
 	return (strnbr);
 }
 
-char		*ft_itoa_printf(unsigned long nbr, int base, int radix)
+char		*ft_itoa_printf(uintmax_t nbr, int base, int radix)
 {
 	if (base <= 1 || base > 16)
 		return (NULL);

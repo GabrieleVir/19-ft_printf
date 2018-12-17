@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:12:46 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/17 03:45:21 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/17 15:06:36 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,19 @@ static int		modifier_mng(t_params **p, int *i)
 {
 	int		return_value;
 
-	return_value = -1;
+	return_value = 1;
 	if (((*p)->fl_mod)[(*i)] == 'h')
-	{
-		(*p)->modifiers |= 4;
-		if (((*p)->fl_mod[(*i) + 1] && ((*p)->fl_mod)[(*i) + 1] == 'h') 
-				&& ++(*i))
-			(*p)->modifiers |= 8;
-		return_value = 1;
-	}
+		(*p)->modifiers |= ((*p)->fl_mod[(*i) + 1] && 
+				((*p)->fl_mod)[(*i) + 1] == 'h') && ++(*i) ? 8 : 4;
 	else if (((*p)->fl_mod)[(*i)] == 'l')
-	{
-		(*p)->modifiers |= 2;
-		if (((*p)->fl_mod[(*i) + 1] && ((*p)->fl_mod)[(*i) + 1] == 'l') 
-				&& ++(*i))
-			(*p)->modifiers |= 1;
-		return_value = 1;
-	}
+		(*p)->modifiers |= ((*p)->fl_mod[(*i) + 1] && 
+				((*p)->fl_mod)[(*i) + 1] == 'l') && ++(*i) ? 1 : 2;
 	else if (((*p)->fl_mod)[(*i)] == 'L')
-	{
 		(*p)->modifiers |= 16;
-		return_value = 1;
-	}
+	else if (((*p)->fl_mod)[(*i)] == 'j')
+		(*p)->modifiers |= 32;
+	else
+		return_value = -1;
 	return (return_value);
 }
 
@@ -175,7 +166,7 @@ static int		write_fl_mod(t_params **p)
 
 /*
 ** change mod change the function used during the management of the ap argument
-** args_i 4 = 'd' args_i 6 = 'o' args_i 12 = 'c' args_i 0 = 's' 
+** args_i 3 = 'd' args_i 5 = 'o' args_i 12 = 'c' args_i 0 = 's' 
 */
 
 static void		change_mod_int(int args_i, char mod, t_type **px, va_list ap)
@@ -192,6 +183,8 @@ static void		change_mod_int(int args_i, char mod, t_type **px, va_list ap)
 			(*px)->im = (intmax_t)(short)va_arg(ap, int);
 		else if (mod & 8)
 			(*px)->im = (intmax_t)(signed char)va_arg(ap, int);
+		else if (mod & 32)
+			(*px)->im = va_arg(ap, intmax_t);
 	}
 	else if (args_i == 4)
 			(*px)->im = (intmax_t)va_arg(ap, long);
@@ -206,13 +199,18 @@ static void		change_mod_uint(int args_i, char mod, t_type **px, va_list ap)
 		if (mod == 0)
 			(*px)->uim = (uintmax_t)va_arg(ap, unsigned int);
 		else if (mod & 1)
+		{
 			(*px)->uim = (uintmax_t)va_arg(ap, unsigned long long);
+			printf("(*px)->uim: %lld", (unsigned long long)(*px)->uim);
+		}
 		else if (mod & 2)
 			(*px)->uim = (uintmax_t)va_arg(ap, unsigned long);
 		else if (mod & 4)
 			(*px)->uim = (uintmax_t)(unsigned short)va_arg(ap, unsigned int);
 		else if (mod & 8)
 			(*px)->uim = (uintmax_t)(unsigned char)va_arg(ap, unsigned int);
+		else if (mod & 32)
+			(*px)->uim = va_arg(ap, uintmax_t);
 	}
 	else if (args_i == 7 || args_i == 9)
 		(*px)->uim = (uintmax_t)va_arg(ap, unsigned long);
@@ -311,5 +309,10 @@ int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 		}
 		stop = 1;
 	}
-	return (1);
+	if (i == 0)
+	{
+		(*p)->buf = NULL;
+		return (0);
+	}
+	return ((int)ft_strlen((*p)->buf));
 }
