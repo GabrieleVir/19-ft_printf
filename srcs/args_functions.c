@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 17:34:55 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/16 06:01:05 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/17 04:31:40 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ char	*ft_inttostr(t_type *px, t_args s, char mod)
 	{
 		str = !(px->im < 0) ? 
 			ft_strjoin_free(zero_f(s.prec, ft_strlen(str)), str, 3)
-			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str) - 1), 3, 1);
+			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str) + 1), 3, 1);
 		s.f -= (s.f & 4) ? 4 : 0;
 	}
 	if (str && s.f & 4 && (s.fy != 0) && !is_zero)
@@ -151,14 +151,14 @@ char	*ft_inttostr(t_type *px, t_args s, char mod)
 	}
 	if (str && s.f & 8 && ft_atoi(str) >= 0)
 		str = ft_strjoin_free("+", str, 2);
-	if (str && !(s.f & 4) && (s.fy != 0))
+	if (str && (!(s.f & 4) || ((s.f & 4) && is_zero)) && (s.fy != 0))
 	{
 		str = !(s.f & 2) ? 
 			ft_strjoin_free(calc_space_width(s.fy, 
 						ft_strlen(str)), str, 2) : 
 			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
-	if ((s.f & 16) && px->im >= 0)
+	if ((s.f & 16) && px->im >= 0 && (s.fy == 0 || (s.f & 4 && !is_zero)))
 		str = ft_strjoin_free(" ", str, 2);
 	return (str);
 }
@@ -179,7 +179,7 @@ char	*ft_biginttostr(t_type *px, t_args s, char mod)
 	{
 		str = !(s.f & 8) ? 
 			ft_strjoin_free(zero_f(s.prec, ft_strlen(str)), str, 3)
-			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str) - 1), 3, 1);
+			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str) + 1), 3, 1);
 		s.f -= (s.f & 4) ? 4 : 0;
 	}
 	if (str && s.f & 4 && (s.fy != 0) && !is_zero)
@@ -192,14 +192,14 @@ char	*ft_biginttostr(t_type *px, t_args s, char mod)
 	}
 	if (str && s.f & 8 && ft_atoi(str) >= 0)
 		str = ft_strjoin_free("+", str, 2);
-	if (str && !(s.f & 4) && (s.fy != 0))
+	if (str && (!(s.f & 4) || ((s.f & 4) && is_zero)) && (s.fy != 0))
 	{
 		str = !(s.f & 2) ? 
 			ft_strjoin_free(calc_space_width(s.fy, 
 						ft_strlen(str)), str, 2) : 
 			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
-	if ((s.f & 16) && px->im >= 0)
+	if ((s.f & 16) && px->im >= 0 && (s.fy == 0 || (s.f & 4 && !is_zero)))
 		str = ft_strjoin_free(" ", str, 2);
 	return (str);
 }
@@ -313,19 +313,20 @@ char	*ft_hextostr(t_type *px, t_args s, char mod)
 		str = ft_strjoin_free("0x", str, 2);
 	if (s.prec != -1 && !is_zero)
 	{
-		str = !(s.f & 1) ? 
+		str = (!(s.f & 1) || px->uim == 0) ? 
 			ft_strjoin_free(zero_f(s.prec, ft_strlen(str)), str, 3)
 			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str)), 3, 2);
 		s.f -= (s.f & 4) ? 4 : 0;
 	}
 	if (str && s.f & 4 && !(s.f & 1) && (s.fy != 0) && !is_zero)
 		str = ft_strjoin_free(zero_f(s.fy, ft_strlen(str)), str, 3);
-	else if (str && s.f & 4 && s.f & 1 && (s.fy != 0))
+	else if (str && s.f & 4 && s.f & 1 && (s.fy != 0) && !is_zero)
 	{
-		str = ft_strjoin_freei(str,
-			zero_f(s.fy, ft_strlen(str)), 3, 2);
+		str = px->uim == 0 ? 
+			ft_strjoin_free(zero_f(s.fy, ft_strlen(str)), str, 3) :
+			ft_strjoin_freei(str, zero_f(s.fy, ft_strlen(str)), 3, 2);
 	}
-	if (str && (!(s.f & 4) || (s.f & 4 && is_zero)) && (s.fy != 0))
+	if (str && (!(s.f & 4) || ((s.f & 4) && is_zero)) && (s.fy != 0))
 	{
 		str = !(s.f & 2) ? 
 			ft_strjoin_free(calc_space_width(s.fy, 
@@ -392,7 +393,7 @@ char	*ft_udtostr(t_type *px, t_args s, char mod)
 	}
 	if (str && (s.f & 4) && (s.fy != 0) && !is_zero)
 		str = ft_strjoin_free(zero_f(s.fy, ft_strlen(str)), str, 3);
-	if (str && !(s.f & 4) && (s.fy != 0))
+	if (str && (!(s.f & 4) || (s.f & 4 && is_zero)) && (s.fy != 0))
 	{
 		str = !(s.f & 2) ? 
 			ft_strjoin_free(calc_space_width(s.fy, 
@@ -423,7 +424,7 @@ char	*ft_bigudtostr(t_type *px, t_args s, char mod)
 	}
 	if (str && s.f & 4 && (s.fy != 0) && !is_zero)
 		str = ft_strjoin_free(zero_f(s.fy, ft_strlen(str)), str, 3);
-	if (str && !(s.f & 4) && (s.fy != 0))
+	if (str && (!(s.f & 4) || (s.f & 4 && is_zero)) && (s.fy != 0))
 	{
 		str = !(s.f & 2) ? 
 			ft_strjoin_free(calc_space_width(s.fy, 
