@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 17:34:55 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/17 15:09:16 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/17 15:13:31 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*ft_floattostr(t_type *px, t_args s, char mod)
 
 	fl = px->df;
 	str = ft_strnew(0);
-	//str = manage_float(va_arg(ap, double));
+	/*str = manage_float(va_arg(ap, double));*/
 	return (str);
 }
 
