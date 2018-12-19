@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 17:34:55 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/17 15:13:31 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/19 17:22:45 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,20 @@ char	*calc_space_width(int width, int len_str)
 char	*ft_strtostr(t_type *px, t_args s, char mod)
 {
 	char		*str;
+	size_t		size_str;
 
-	str = ft_strdup((char*)px->wc);
+	if (px->wc)
+		str = ft_strdup((char*)px->wc);
+	else
+		str = ft_strdup("(null)");
+	size_str = ft_strlen(str);
+	if (s.prec < ft_strlen(str))
+		str = ft_strsub_free(str, 0, s.prec);
 	if (str && !(s.f & 4) && s.fy > ft_strlen(str))
 		str = !(s.f & 2) ? 
 			ft_strjoin_free(calc_space_width(s.fy, 
 						ft_strlen(str)), str, 2) : 
 			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
-	if (s.prec < ft_strlen(str))
-		str = ft_strsub_free(str, 0, s.prec);
 	return (str);
 }
 
@@ -73,18 +78,23 @@ char	*ft_floattostr(t_type *px, t_args s, char mod)
 char	*ft_chrtostr(t_type *px, t_args s, char mod)
 {
 	char		*str;
+	char		*tmp;
+	char		*tmp2;
 
 	str = (char*)malloc(sizeof(*str) * 2);
 	str[0] = px->im;
 	str[1] = '\0';
 	if (str && !(s.f & 4) && (s.fy > ft_strlen(str)))
 	{
+		tmp = calc_space_width(s.fy, 1);
 		if (s.fy == 0)
 			s.fy = s.prec;
-		str = !(s.f & 2) ? 
-			ft_strjoin_free(calc_space_width(s.fy, 
-						ft_strlen(str)), str, 2) : 
-			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
+		tmp2 = !(s.f & 2) ? 
+			ft_memljoin(tmp, str, ft_strlen(tmp), 1) :
+			ft_memljoin(str, tmp, 1, ft_strlen(tmp));
+		free(tmp);
+		free(str);
+		str = tmp2;
 	}
 	return (str);
 }
@@ -133,7 +143,7 @@ char	*ft_inttostr(t_type *px, t_args s, char mod)
 	{
 		str = !(px->im < 0) ? 
 			ft_strjoin_free(zero_f(s.prec, ft_strlen(str)), str, 3)
-			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str) + 1), 3, 1);
+			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str) - 1), 3, 1);
 		s.f -= (s.f & 4) ? 4 : 0;
 	}
 	if (str && s.f & 4 && (s.fy > ft_strlen(str)) && !is_zero)
@@ -180,7 +190,7 @@ char	*ft_biginttostr(t_type *px, t_args s, char mod)
 	{
 		str = !(s.f & 8) ? 
 			ft_strjoin_free(zero_f(s.prec, ft_strlen(str)), str, 3)
-			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str) + 1), 3, 1);
+			: ft_strjoin_freei(str, zero_f(s.prec, ft_strlen(str) - 1), 3, 1);
 		s.f -= (s.f & 4) ? 4 : 0;
 	}
 	if (str && s.f & 4 && (s.fy > ft_strlen(str)) && !is_zero)
@@ -272,12 +282,10 @@ char	*ft_bigocttostr(t_type *px, t_args s, char mod)
 char	*ft_addtostr(t_type *px, t_args s, char mod)
 {
 	char	*str;
-	void	*nb;
 	int		len;
 	char	*tmp;
 
-	nb = NULL;
-	tmp = ft_itoa_printf((unsigned long)nb, 16, 1);
+	tmp = ft_itoa_printf((unsigned long)px->uim, 16, 1);
 	len = ft_strlen(tmp);
 	str = ft_strnew(len + 2);
 	str = tmp;

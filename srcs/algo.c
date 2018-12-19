@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:12:46 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/17 15:06:36 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/19 15:21:35 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,10 +199,7 @@ static void		change_mod_uint(int args_i, char mod, t_type **px, va_list ap)
 		if (mod == 0)
 			(*px)->uim = (uintmax_t)va_arg(ap, unsigned int);
 		else if (mod & 1)
-		{
 			(*px)->uim = (uintmax_t)va_arg(ap, unsigned long long);
-			printf("(*px)->uim: %lld", (unsigned long long)(*px)->uim);
-		}
 		else if (mod & 2)
 			(*px)->uim = (uintmax_t)va_arg(ap, unsigned long);
 		else if (mod & 4)
@@ -214,8 +211,8 @@ static void		change_mod_uint(int args_i, char mod, t_type **px, va_list ap)
 	}
 	else if (args_i == 7 || args_i == 9)
 		(*px)->uim = (uintmax_t)va_arg(ap, unsigned long);
-	else
-		return ;
+	else if (args_i == 2)
+		(*px)->uim = (uintmax_t)va_arg(ap, void*);
 }
 
 static void		change_mod_wc(int args_i, char mod, t_type **px, va_list ap)
@@ -240,8 +237,6 @@ static void		change_mod_wc(int args_i, char mod, t_type **px, va_list ap)
 		(*px)->im = (intmax_t)va_arg(ap, wint_t);
 	else if (args_i == 14)
 			(*px)->wc = (wchar_t*)va_arg(ap, char *);
-	else
-		return ;
 }
 
 int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
@@ -314,5 +309,6 @@ int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 		(*p)->buf = NULL;
 		return (0);
 	}
-	return ((int)ft_strlen((*p)->buf));
+	return ((*p)->args_i == 2 && px->im == 0 ? (int)ft_strlen((*p)->buf) + 1 : 
+			(int)ft_strlen((*p)->buf));
 }

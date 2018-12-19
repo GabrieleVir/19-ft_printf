@@ -6,7 +6,7 @@
 #    By: gvirga <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/12 23:31:55 by gvirga            #+#    #+#              #
-#    Updated: 2018/12/17 08:53:50 by gvirga           ###   ########.fr        #
+#    Updated: 2018/12/19 17:23:42 by gvirga           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ ft_memdel.o ft_lstnew.o ft_lstdelone.o ft_lstdel.o ft_lstadd.o ft_itoa_base.o \
 ft_lstiter.o ft_lstmap.o ft_lstcpy.o ft_wordcount.o ft_atol.o ft_push_back.o \
 ft_strnboccur.o ft_strjoin_free.o ft_ipower.o ft_npower.o ft_rchr.o \
 ft_nbdigit.o ft_strjoin_freei.o ft_strnew_free.o ft_strsub_free.o \
-ft_strdup_free.o
+ft_strdup_free.o ft_putlstr.o ft_memljoin.o
 SRCOBJ2 = $(addprefix tmp_obj/, $(OBJ2))
 RED=\033[0;31m
 YELLOW=\033[0;33m
