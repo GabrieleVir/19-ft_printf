@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 21:03:17 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/19 21:15:00 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/19 21:35:27 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		main(void)
 	str[0] = ' ';
 	str[1] = 'a';
 	str[2] = '\0';
-	str = ft_memljoin(c, str, 1, 3);
-	ft_putlstr(str, 2);
+//	str = ft_memljoin(c, str, 1, 2);
+	ft_putlstr(str, 1);
 	return (0);
 }

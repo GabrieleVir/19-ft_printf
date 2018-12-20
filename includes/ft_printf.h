@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/17 14:49:50 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/19 21:59:29 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct			s_type
 	uintmax_t			uim;
 	wchar_t				*wc;
 	double				df;
+	int					nb_z;
 }						t_type;
 
 typedef struct			s_params
@@ -49,6 +50,7 @@ typedef struct			s_params
 	char				*width;
 	char				*prec;
 	char				modifiers;
+	int					nb_z;
 }						t_params;
 
 char	*ft_strtostr(t_type *px, t_args s, char mod);

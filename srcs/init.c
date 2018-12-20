@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:11:02 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/19 16:55:35 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/19 22:03:46 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ int				ft_printf(const char *str, ...)
 		return (-1);
 	fill_args_f(&p);
 	va_start(ap, str);
+	p->nb_z = 0;
 	return_value = ft_mng_str(str, p->i, &p, ap);
-	ft_putlstr(p->buf, return_value);
+	ft_putlstr(p->buf, p->nb_z);
 	free(p->buf);
 	free(p);
 	va_end(ap);

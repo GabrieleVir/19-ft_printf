@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 17:34:55 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/19 17:22:45 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/19 21:58:21 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ char	*ft_chrtostr(t_type *px, t_args s, char mod)
 	char		*tmp2;
 
 	str = (char*)malloc(sizeof(*str) * 2);
+	if (px->im == 0)
+		px->nb_z += 1;
 	str[0] = px->im;
 	str[1] = '\0';
 	if (str && !(s.f & 4) && (s.fy > ft_strlen(str)))

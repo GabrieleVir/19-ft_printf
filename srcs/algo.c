@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:12:46 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/19 15:21:35 by gvirga           ###   ########.fr       */
+/*   Updated: 2018/12/19 22:07:33 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,11 +290,13 @@ int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 					s.mod = (*p)->modifiers;
 					s.f = (*p)->flags;
 					px = (t_type*)malloc(sizeof(t_type));
+					px->nb_z = (*p)->nb_z;
 					change_mod_int((*p)->args_i, s.mod, &px, ap);
 					change_mod_uint((*p)->args_i, s.mod, &px, ap);
 					change_mod_wc((*p)->args_i, s.mod, &px, ap);
 					(*p)->tmp2 = (*p)->args_f[(*p)->args_i](px, s, s.mod);
 					(*p)->buf = ft_strjoin_free((*p)->buf, (*p)->tmp2, 3);
+					(*p)->nb_z = px->nb_z;
 					stop = 0;
 					break;
 				}
@@ -309,6 +311,6 @@ int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 		(*p)->buf = NULL;
 		return (0);
 	}
-	return ((*p)->args_i == 2 && px->im == 0 ? (int)ft_strlen((*p)->buf) + 1 : 
+	return (((*p)->args_i == 12 && px->im == 0) ? (int)ft_strlen((*p)->buf) + 1 : 
 			(int)ft_strlen((*p)->buf));
 }
