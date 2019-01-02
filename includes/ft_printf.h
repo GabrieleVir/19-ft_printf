@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/19 21:59:29 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/02 16:06:01 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ typedef struct			s_type
 	wchar_t				*wc;
 	double				df;
 	int					nb_z;
+	int					nb_chr;
 }						t_type;
 
 typedef struct			s_params
 {
-	char				args[17];
-	char				*(*args_f[17]) (t_type*, t_args, char);
+	char				args[14];
+	char				*(*args_f[14]) (t_type*, t_args, char);
 	char				*buf;
 	int					args_i;
 	int					start;

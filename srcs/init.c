@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:11:02 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/19 22:03:46 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/02 16:05:51 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,21 @@
 
 static void		fill_args_f(t_params **p)
 {
-	(*p)->args_f[16] = &ft_floattostr;
-	(*p)->args_f[15] = &ft_percenttostr;
-	(*p)->args_f[14] = &ft_morsetostr;
-	(*p)->args_f[13] = &ft_wchartostr;
-	(*p)->args_f[12] = &ft_chrtostr;
-	(*p)->args_f[11] = &ft_bighextostr;
-	(*p)->args_f[10] = &ft_hextostr;
-	(*p)->args_f[9] = &ft_bigudtostr;
-	(*p)->args_f[8] = &ft_udtostr;
-	(*p)->args_f[7] = &ft_bigocttostr;
-	(*p)->args_f[6] = &ft_octtostr;
-	(*p)->args_f[5] = &ft_inttostr;
-	(*p)->args_f[4] = &ft_biginttostr;
-	(*p)->args_f[3] = &ft_inttostr;
-	(*p)->args_f[2] = &ft_addtostr;
-	(*p)->args_f[1] = &ft_wcharstrtostr;
+	(*p)->args_f[13] = &ft_floattostr;
+	(*p)->args_f[12] = &ft_percenttostr;
+	(*p)->args_f[11] = &ft_chrtostr;
+	(*p)->args_f[10] = &ft_bighextostr;
+	(*p)->args_f[9] = &ft_hextostr;
+	(*p)->args_f[8] = &ft_bigudtostr;
+	(*p)->args_f[7] = &ft_udtostr;
+	(*p)->args_f[6] = &ft_bigocttostr;
+	(*p)->args_f[5] = &ft_octtostr;
+	(*p)->args_f[4] = &ft_inttostr;
+	(*p)->args_f[3] = &ft_biginttostr;
+	(*p)->args_f[2] = &ft_inttostr;
+	(*p)->args_f[1] = &ft_addtostr;
 	(*p)->args_f[0] = &ft_strtostr;
-	ft_strcpy((*p)->args, "sSpdDioOuUxXcCm%fF");
+	ft_strcpy((*p)->args, "spdDioOuUxXc%fF");
 	(*p)->i = -1;
 	(*p)->buf = NULL;
 }
@@ -51,8 +48,17 @@ int				ft_printf(const char *str, ...)
 	fill_args_f(&p);
 	va_start(ap, str);
 	p->nb_z = 0;
-	return_value = ft_mng_str(str, p->i, &p, ap);
-	ft_putlstr(p->buf, p->nb_z);
+	if (ft_strcmp("", str) != 0)
+	{
+		return_value = ft_mng_str(str, p->i, &p, ap);
+		if (p->buf)
+			ft_putlstr(p->buf, 0);
+	}
+	else
+	{
+		return_value = 0;
+		p->buf = NULL;
+	}
 	free(p->buf);
 	free(p);
 	va_end(ap);

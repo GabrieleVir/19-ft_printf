@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/17 08:51:56 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/19 19:47:49 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/02 16:15:06 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 
 int		main(void)
 {
-	ft_printf("%c\n is a string", 0);
-	printf("%c\n is a string", 0);
+	ft_printf("{%}");
+	printf("%s%p%d%d%p%s%p%p%s", "a", &free, 1, 2, 
+			&malloc, "b", &free, &malloc, "c");
 /*	printf("%zi\n", LLONG_MIN);
 	printf("%zd\n", LLONG_MIN);
 	printf("% p|%+p\n", 42, 42);

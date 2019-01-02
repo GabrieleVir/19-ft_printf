@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 17:34:55 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/19 21:58:21 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/02 16:04:13 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -444,63 +444,5 @@ char	*ft_bigudtostr(t_type *px, t_args s, char mod)
 						ft_strlen(str)), str, 2) : 
 			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
 	}
-	return (str);
-}
-
-char	*ft_wcharstrtostr(t_type *px, t_args s, char mod)
-{
-	char		*str;
-	wchar_t		*tmp_arr;
-	char		*tmp;
-	char		*tmp2;
-
-	tmp_arr = px->wc;
-	if (!(str = ft_strnew(0)))
-		return (NULL);
-	while (*tmp_arr)
-	{
-		tmp = ft_convert_winttochr((wint_t)*tmp_arr);
-		tmp2 = str;
-		str = ft_strjoin_free(tmp, tmp2, 3);
-		tmp_arr++;
-	}
-	if (str && !(s.f & 4) && (s.fy > ft_strlen(str)))
-	{
-		if (s.fy == 0)
-			s.fy = s.prec;
-		str = !(s.f & 2) ? 
-			ft_strjoin_free(calc_space_width(s.fy, 
-						ft_strlen(str)), str, 2) : 
-			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
-	}
-	return (str);
-}
-
-char	*ft_wchartostr(t_type *px, t_args s, char mod)
-{
-	char		*str;
-	wchar_t		tmp;
-
-	tmp = px->im;
-	str = ft_convert_winttochr(tmp);
-	if (str && !(s.f & 4) && (s.fy > ft_strlen(str)))
-	{
-		str = !(s.f & 2) ? 
-			ft_strjoin_free(calc_space_width(s.fy, 
-						ft_strlen(str)), str, 2) : 
-			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 2);
-	}
-	return (str);
-}
-
-char	*ft_morsetostr(t_type *px, t_args s, char mod)
-{
-	int		i;
-	char	*str;
-
-	i = -1;
-	if (!(str = ft_strnew(0)))
-		return (NULL);
-	str = NULL;
 	return (str);
 }

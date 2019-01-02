@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:12:46 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/19 22:07:33 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/02 16:15:25 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int		modifier_mng(t_params **p, int *i)
 	else if (((*p)->fl_mod)[(*i)] == 'j')
 		(*p)->modifiers |= 32;
 	else
-		return_value = -1;
+		return_value = 0;
 	return (return_value);
 }
 
@@ -171,7 +171,7 @@ static int		write_fl_mod(t_params **p)
 
 static void		change_mod_int(int args_i, char mod, t_type **px, va_list ap)
 {
-	if (args_i == 3 || args_i == 5)
+	if (args_i == 2 || args_i == 5)
 	{
 		if (mod == 0)
 			(*px)->im = va_arg(ap, int);
@@ -186,7 +186,7 @@ static void		change_mod_int(int args_i, char mod, t_type **px, va_list ap)
 		else if (mod & 32)
 			(*px)->im = va_arg(ap, intmax_t);
 	}
-	else if (args_i == 4)
+	else if (args_i == 3)
 			(*px)->im = (intmax_t)va_arg(ap, long);
 	else
 		return ;
@@ -194,7 +194,7 @@ static void		change_mod_int(int args_i, char mod, t_type **px, va_list ap)
 
 static void		change_mod_uint(int args_i, char mod, t_type **px, va_list ap)
 {
-	if (args_i == 6 || args_i == 8 || args_i == 10 || args_i == 11)
+	if (args_i == 5 || args_i == 7 || args_i == 9 || args_i == 11)
 	{
 		if (mod == 0)
 			(*px)->uim = (uintmax_t)va_arg(ap, unsigned int);
@@ -209,34 +209,18 @@ static void		change_mod_uint(int args_i, char mod, t_type **px, va_list ap)
 		else if (mod & 32)
 			(*px)->uim = va_arg(ap, uintmax_t);
 	}
-	else if (args_i == 7 || args_i == 9)
+	else if (args_i == 6 || args_i == 8)
 		(*px)->uim = (uintmax_t)va_arg(ap, unsigned long);
-	else if (args_i == 2)
+	else if (args_i == 1)
 		(*px)->uim = (uintmax_t)va_arg(ap, void*);
 }
 
 static void		change_mod_wc(int args_i, char mod, t_type **px, va_list ap)
 {
 	if (args_i == 0)
-	{
-		if (mod == 2)
-			(*px)->wc = (wchar_t*)va_arg(ap, wchar_t*);
-		else
-			(*px)->wc = (wchar_t*)va_arg(ap, char *);
-	}
-	else if (args_i == 12)
-	{
-		if (mod == 2)
-			(*px)->im = (intmax_t)va_arg(ap, wint_t);
-		else
-			(*px)->im = (intmax_t)va_arg(ap, int);
-	}
-	else if (args_i == 1)
-		(*px)->wc = (wchar_t*)va_arg(ap, wchar_t*);
-	else if (args_i == 13)
-		(*px)->im = (intmax_t)va_arg(ap, wint_t);
-	else if (args_i == 14)
-			(*px)->wc = (wchar_t*)va_arg(ap, char *);
+		(*px)->wc = (wchar_t*)va_arg(ap, char *);
+	else if (args_i == 11)
+		(*px)->im = (intmax_t)va_arg(ap, int);
 }
 
 int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
@@ -246,6 +230,10 @@ int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 	t_type	*px;
 
 	stop = 1;
+	if ((px = (t_type*)malloc(sizeof(t_type))) == NULL)
+		return (-1);
+	px->nb_chr = 0;
+	px->nb_z = 0;
 	while (str[++i])
 	{
 		(*p)->start = i;
@@ -279,7 +267,11 @@ int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 						if ((stop = write_fl_mod(&(*p))) == 0)
 							break;
 						else if (stop == -1)
-							return (-1);
+						{
+							i -= 2;
+							stop = 0;
+							break;
+						}
 //						printf("flags: %d\n", (*p)->flags);
 //						printf("prec2: %d\n", ft_atoi((*p)->prec));
 					}
@@ -289,13 +281,19 @@ int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 //					printf("width: %d\n", s.fy);
 					s.mod = (*p)->modifiers;
 					s.f = (*p)->flags;
-					px = (t_type*)malloc(sizeof(t_type));
 					px->nb_z = (*p)->nb_z;
 					change_mod_int((*p)->args_i, s.mod, &px, ap);
 					change_mod_uint((*p)->args_i, s.mod, &px, ap);
 					change_mod_wc((*p)->args_i, s.mod, &px, ap);
 					(*p)->tmp2 = (*p)->args_f[(*p)->args_i](px, s, s.mod);
 					(*p)->buf = ft_strjoin_free((*p)->buf, (*p)->tmp2, 3);
+					if (px->nb_z != (*p)->nb_z)
+					{
+						ft_putlstr((*p)->buf, 1);
+						px->nb_chr += ft_strlen((*p)->buf) + 1;
+						free((*p)->buf);
+						(*p)->buf = NULL;
+					}
 					(*p)->nb_z = px->nb_z;
 					stop = 0;
 					break;
@@ -305,12 +303,15 @@ int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
 			i++;
 		}
 		stop = 1;
+		if ((*p)->args_i == 15)
+			i = (*p)->start;
 	}
 	if (i == 0)
 	{
 		(*p)->buf = NULL;
 		return (0);
 	}
-	return (((*p)->args_i == 12 && px->im == 0) ? (int)ft_strlen((*p)->buf) + 1 : 
-			(int)ft_strlen((*p)->buf));
+	if ((*p)->buf)
+		px->nb_chr += ft_strlen((*p)->buf);
+	return (px->nb_chr);
 }
