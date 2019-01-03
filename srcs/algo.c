@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:12:46 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/02 16:15:25 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/03 11:39:36 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ static int		write_fl_mod(t_params **p)
 
 static void		change_mod_int(int args_i, char mod, t_type **px, va_list ap)
 {
-	if (args_i == 2 || args_i == 5)
+	if (args_i == 2 || args_i == 4)
 	{
 		if (mod == 0)
 			(*px)->im = va_arg(ap, int);
@@ -194,7 +194,7 @@ static void		change_mod_int(int args_i, char mod, t_type **px, va_list ap)
 
 static void		change_mod_uint(int args_i, char mod, t_type **px, va_list ap)
 {
-	if (args_i == 5 || args_i == 7 || args_i == 9 || args_i == 11)
+	if (args_i == 5 || args_i == 7 || args_i == 9 || args_i == 10)
 	{
 		if (mod == 0)
 			(*px)->uim = (uintmax_t)va_arg(ap, unsigned int);

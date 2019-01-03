@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:11:02 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/02 16:05:51 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/03 11:26:30 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int				ft_printf(const char *str, ...)
 		return_value = 0;
 		p->buf = NULL;
 	}
-	free(p->buf);
+	if (p->buf)
+		free(p->buf);
 	free(p);
 	va_end(ap);
 	return (return_value);
