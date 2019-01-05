@@ -6,7 +6,7 @@
 #    By: gvirga <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/12 23:31:55 by gvirga            #+#    #+#              #
-#    Updated: 2018/12/19 17:23:42 by gvirga           ###   ########.fr        #
+#    Updated: 2019/01/05 09:33:17 by gvirga           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,10 @@ SRCDIR= ./srcs/
 CC = gcc
 CFLAGS =
 MAIN= lamort.c
-FILES = args_functions.c ft_convert_winttochr.c ft_itoa_printf.c \
-		morse_converter.c manage_double.c init.c algo.c
+FILES = double_functions.c utils2_mng_str.c error.c  ft_itoa_printf.c \
+		im_functions.c manage_double.c init.c algo.c notype_functions.c \
+		uim_functions.c uim2_functions.c utils.c utils_mng_str.c \
+		wc_functions.c utils_uim.c utils_im.c fill_uim_im_or_wc.c
 SRCFILES = $(addprefix $(SRCDIR), $(FILES))
 OBJ= $(subst .c,.o, $(FILES))
 SRCOBJ= $(addprefix $(SRCDIR), $(OBJ))
@@ -53,7 +55,7 @@ END=\033[0m
 VOMI=\033[0;35m
 VOMIETALEE=\033[44m
 
-$(VERBOSE).SILENT:
+#$(VERBOSE).SILENT:
 
 .PHONY: all clean fclean re
 
@@ -62,24 +64,24 @@ all: $(NAME)
 $(NAME): $(SRCOBJ)
 	make --no-print-directory -C $(LIBFT_DIR)
 	mkdir tmp_obj;cd tmp_obj;ar -x ../$(LIBFT_DIR)$(LIBFT)
-	echo "Compilation of source files $(VOMIETALEE)<$(NAME)>$(END)..."
+	@echo "Compilation of source files $(VOMIETALEE)<$(NAME)>$(END)..."
 	mv $(OBJ) $(SRCDIR)
 	ar $(LFLAGS) $@ $(SRCOBJ) $(LIBFT_DIR)$(LIBFT) $(SRCOBJ2)
 	rm -rf tmp_obj
 	ranlib $(NAME)
-	echo "$(YELLOW)Building <$(NAME)>$(END)"
-	echo "$(GREEN)SUCCESS$(END)"
+	@echo "$(YELLOW)Building <$(NAME)>$(END)"
+	@echo "$(GREEN)SUCCESS$(END)"
 
 $(SRCDIR)%.o: $(SRCDIR)%.c
-	$(CC) $(CFLAGS) -c $(SRCFILES) -I $(INC_DIR)
+	@$(CC) $(CFLAGS) -c $(SRCFILES) -I $(INC_DIR)
 
 clean:
 	rm -Rf $(SRCOBJ)
-	echo "$(RED)Suppression$(END) source files of $(VOMIETALEE)<$(NAME)>$(END)..."
+	@echo "$(RED)Suppression$(END) source files of $(VOMIETALEE)<$(NAME)>$(END)..."
 
 fclean: clean
 	rm -f $(NAME)
-	echo "$(RED)Suppression$(END) of the lib  $(VOMIETALEE)<$(NAME)>$(END)"
+	@echo "$(RED)Suppression$(END) of the lib  $(VOMIETALEE)<$(NAME)>$(END)"
 	make --no-print-directory -C $(LIBFT_DIR) fclean
 
 re: fclean all

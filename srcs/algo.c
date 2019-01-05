@@ -6,21 +6,21 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:12:46 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/03 11:39:36 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/05 12:00:13 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int		before_percentage(const char *str, int *i, t_params **p)
+static int		until_percentage(const char *str, t_params **p)
 {
-	while (str[(*i)] != '%' && str[(*i)] != '\0')
-		(*i)++;
+	while (str[((*p)->i)] != '%' && str[((*p)->i)] != '\0')
+		((*p)->i)++;
 	if (!(*p)->buf)
-		(*p)->buf = ft_strsub(str, (*p)->start, (*i) - (*p)->start);
+		(*p)->buf = ft_strsub(str, (*p)->start, ((*p)->i) - (*p)->start);
 	else
 	{
-		(*p)->tmp2 = ft_strsub(str, (*p)->start, (*i) - (*p)->start);
+		(*p)->tmp2 = ft_strsub(str, (*p)->start, ((*p)->i) - (*p)->start);
 		(*p)->buf = ft_strjoin_free((*p)->buf, (*p)->tmp2, 3);
 	}
 	if (!(*p)->buf)
@@ -28,290 +28,164 @@ static int		before_percentage(const char *str, int *i, t_params **p)
 	return (1);
 }
 
-/*
-** The bits of the modifiers variable :
-** 1: ll 2: l 3: h 4: hh 5: L
-*/
-
-static int		modifier_mng(t_params **p, int *i)
+int		before_percentage(const char *str, t_params **p)
 {
-	int		return_value;
-
-	return_value = 1;
-	if (((*p)->fl_mod)[(*i)] == 'h')
-		(*p)->modifiers |= ((*p)->fl_mod[(*i) + 1] && 
-				((*p)->fl_mod)[(*i) + 1] == 'h') && ++(*i) ? 8 : 4;
-	else if (((*p)->fl_mod)[(*i)] == 'l')
-		(*p)->modifiers |= ((*p)->fl_mod[(*i) + 1] && 
-				((*p)->fl_mod)[(*i) + 1] == 'l') && ++(*i) ? 1 : 2;
-	else if (((*p)->fl_mod)[(*i)] == 'L')
-		(*p)->modifiers |= 16;
-	else if (((*p)->fl_mod)[(*i)] == 'j')
-		(*p)->modifiers |= 32;
-	else
-		return_value = 0;
-	return (return_value);
+		(*p)->start = (*p)->i;
+		if ((until_percentage(str, &(*p))) == -1)
+			return (0);
+		if (str[(*p)->i] == '\0')
+			return (0);
+		(*p)->start = (*p)->i;
+		return (1);
 }
-
-/*
-** The bits of the flags variable :
-** 1: # 2: - 3: 0 4: + 5: space
-*/
-
 static int		write_fl_mod(t_params **p)
 {
-	int			i;
-	char		*flags_mod;
-	int			has_plus;
-	int			has_minus;
-	int			tmp;
-	int			j;
+	t_fl_mod_params fl_p;
+	int				flags_return;
 
-	if (!(flags_mod = ft_strnew(0)))
-		return (-1);
-	if (!((*p)->width = ft_strnew(0)))
-		return (-1);
-	i = -1;
-	has_plus = 0;
-	has_minus = 0;
+	init_pos_variables(&fl_p);
 	if ((*p)->fl_mod != NULL)
 	{
-		while (((*p)->fl_mod)[++i])
+		while (((*p)->fl_mod)[++(fl_p.i)])
 		{
-			tmp = 0;
-			j = -1;
-			if (((*p)->fl_mod)[i] == '#')
-				(*p)->flags |= 1;
-			else if (((*p)->fl_mod)[i] >= '0' && ((*p)->fl_mod)[i] <= '9')
+			fl_p.tmp = 0;
+			fl_p.j = -1;
+			flags_return = half_of_flags(&(*p), &fl_p);
+			if (!flags_return)
 			{
-				if (((*p)->fl_mod)[i] == '0')
-				{
-					(*p)->flags |= 4;
-					i++;
-					while(((*p)->fl_mod)[i] >= '0' && ((*p)->fl_mod)[i] <= '9'
-							&& ((*p)->fl_mod)[i] != '\0' && ++i)
-						tmp++;
-					if (tmp != 0)
-					{
-						if (!((*p)->width = ft_strnew_free(tmp, (*p)->width)))
-							return (-1);
-						i = i - tmp;
-						while (tmp--)
-							(*p)->width[++j] = (*p)->fl_mod[i++];
-					}
-					i -= 1;
-				}
-				else
-				{
-					while(((*p)->fl_mod)[i] >= '0' && ((*p)->fl_mod)[i] <= '9'
-							&& ((*p)->fl_mod)[i] != '\0' && ++i)
-						tmp++;
-					if (!((*p)->width = ft_strnew_free(tmp, (*p)->width)))
-						return (-1);
-					i = i - tmp;
-					while (tmp--)
-						(*p)->width[++j] = (*p)->fl_mod[i++];
-					i -= 1;
-				}
-			}
-			else if (((*p)->fl_mod)[i] == '+')
-			{
-				has_plus = 1;
-				(*p)->flags |= 8;
-			}
-			else if (((*p)->fl_mod)[i] == '-')
-			{
-				has_minus = 1;
-				(*p)->flags |= 2;
-			}
-			else if (((*p)->fl_mod)[i] == ' ')
-				(*p)->flags |= 16;
-			else if (((*p)->fl_mod)[i] == '.')
-			{
-				//printf("(*p)->fl_mod: %s\n", (*p)->fl_mod);
-				i++;
-				while (((*p)->fl_mod)[i] >= '0' && ((*p)->fl_mod)[i] <= '9' &&
-						(*p)->fl_mod[i] != '\0' && ++i)
-					tmp++;
-				if (!((*p)->prec = ft_strdup_free("0", (*p)->prec)))
+				if (!(flags_return = rest_of_flags(&(*p), &fl_p)))
 					return (-1);
-				i = i - tmp;
-				while (tmp--)
-					(*p)->prec[++j] = (*p)->fl_mod[i++];
-				i -= 1;
 			}
-			else
-				if (!modifier_mng(p, &i))
-					return (-1);
+			if (flags_return == -1)
+				return (-1);
 		}
 	}
 	else
-	{
-		free(flags_mod);
 		return (-1);
-	}
-	free((*p)->fl_mod);
-	if (!((*p)->fl_mod = ft_strdup(flags_mod)))
-	{
-		free(flags_mod);
-		return (-1);
-	}
-	if (has_plus && (*p)->flags & 16)
-		(*p)->flags -= 16;
-	if (has_minus && (*p)->flags & 4)
-		(*p)->flags -= 4;
-	free(flags_mod);
+	empty_fl_and_adjust_flags(&(*p), fl_p);
 	return (1);
 }
 
 /*
-** change mod change the function used during the management of the ap argument
-** args_i 3 = 'd' args_i 5 = 'o' args_i 12 = 'c' args_i 0 = 's' 
+** Going to separate this function in 4 parts
 */
 
-static void		change_mod_int(int args_i, char mod, t_type **px, va_list ap)
+int		part_one_init_variables(int *stop, t_type **px, t_params **p)
 {
-	if (args_i == 2 || args_i == 4)
-	{
-		if (mod == 0)
-			(*px)->im = va_arg(ap, int);
-		else if (mod & 1)
-			(*px)->im = (intmax_t)va_arg(ap, long long);
-		else if (mod & 2)
-			(*px)->im = (intmax_t)va_arg(ap, long);
-		else if (mod & 4)
-			(*px)->im = (intmax_t)(short)va_arg(ap, int);
-		else if (mod & 8)
-			(*px)->im = (intmax_t)(signed char)va_arg(ap, int);
-		else if (mod & 32)
-			(*px)->im = va_arg(ap, intmax_t);
-	}
-	else if (args_i == 3)
-			(*px)->im = (intmax_t)va_arg(ap, long);
-	else
-		return ;
-}
-
-static void		change_mod_uint(int args_i, char mod, t_type **px, va_list ap)
-{
-	if (args_i == 5 || args_i == 7 || args_i == 9 || args_i == 10)
-	{
-		if (mod == 0)
-			(*px)->uim = (uintmax_t)va_arg(ap, unsigned int);
-		else if (mod & 1)
-			(*px)->uim = (uintmax_t)va_arg(ap, unsigned long long);
-		else if (mod & 2)
-			(*px)->uim = (uintmax_t)va_arg(ap, unsigned long);
-		else if (mod & 4)
-			(*px)->uim = (uintmax_t)(unsigned short)va_arg(ap, unsigned int);
-		else if (mod & 8)
-			(*px)->uim = (uintmax_t)(unsigned char)va_arg(ap, unsigned int);
-		else if (mod & 32)
-			(*px)->uim = va_arg(ap, uintmax_t);
-	}
-	else if (args_i == 6 || args_i == 8)
-		(*px)->uim = (uintmax_t)va_arg(ap, unsigned long);
-	else if (args_i == 1)
-		(*px)->uim = (uintmax_t)va_arg(ap, void*);
-}
-
-static void		change_mod_wc(int args_i, char mod, t_type **px, va_list ap)
-{
-	if (args_i == 0)
-		(*px)->wc = (wchar_t*)va_arg(ap, char *);
-	else if (args_i == 11)
-		(*px)->im = (intmax_t)va_arg(ap, int);
-}
-
-int				ft_mng_str(const char *str, int i, t_params **p, va_list ap)
-{
-	int		stop;
-	t_args	s;
-	t_type	*px;
-
-	stop = 1;
-	if ((px = (t_type*)malloc(sizeof(t_type))) == NULL)
+	(*p)->stop = 1;
+	if (((*px) = (t_type*)malloc(sizeof(t_type))) == NULL)
 		return (-1);
-	px->nb_chr = 0;
-	px->nb_z = 0;
-	while (str[++i])
-	{
-		(*p)->start = i;
-		if ((before_percentage(str, &i, p)) == -1)
-			return (-1);
-		if (str[i] == '\0')
-			break;
-		(*p)->start = i;
-		while (stop && str[i + 1] != '\0')
-		{
-			(*p)->args_i = 0;
-			while ((*p)->args[(*p)->args_i])
-			{
-				if (str[i + 1] == (*p)->args[(*p)->args_i])
-				{
-					if ((!(*p)->prec || ft_strcmp("-1", (*p)->prec)))
-						if (!((*p)->prec = ft_strdup("-1")))
-							return (-1);
-					if ((!(*p)->width || ft_strcmp("0", (*p)->width)))
-						if (!((*p)->width = ft_strdup("0")))
-							return (-1);
-					(*p)->modifiers = 0;
-					(*p)->flags = 0;
-					if ((*p)->start - i != 0)
-					{
-						/*printf("prec1: %d\n", ft_atoi((*p)->prec));
-						printf("(*p)->start: %d\n", (*p)->start);
-						printf("i: %d\n", i);*/
-						(*p)->fl_mod = ft_strsub(str, (*p)->start + 1, i - 
-								(*p)->start);
-						if ((stop = write_fl_mod(&(*p))) == 0)
-							break;
-						else if (stop == -1)
-						{
-							i -= 2;
-							stop = 0;
-							break;
-						}
-//						printf("flags: %d\n", (*p)->flags);
-//						printf("prec2: %d\n", ft_atoi((*p)->prec));
-					}
-					s.fy = ft_atoi((*p)->width);
-					s.prec = ft_atoi((*p)->prec);
-					//printf("prec: %d\n", ft_atoi((*p)->prec));
-//					printf("width: %d\n", s.fy);
-					s.mod = (*p)->modifiers;
-					s.f = (*p)->flags;
-					px->nb_z = (*p)->nb_z;
-					change_mod_int((*p)->args_i, s.mod, &px, ap);
-					change_mod_uint((*p)->args_i, s.mod, &px, ap);
-					change_mod_wc((*p)->args_i, s.mod, &px, ap);
-					(*p)->tmp2 = (*p)->args_f[(*p)->args_i](px, s, s.mod);
-					(*p)->buf = ft_strjoin_free((*p)->buf, (*p)->tmp2, 3);
-					if (px->nb_z != (*p)->nb_z)
-					{
-						ft_putlstr((*p)->buf, 1);
-						px->nb_chr += ft_strlen((*p)->buf) + 1;
-						free((*p)->buf);
-						(*p)->buf = NULL;
-					}
-					(*p)->nb_z = px->nb_z;
-					stop = 0;
-					break;
-				}
-				((*p)->args_i)++;
-			}
-			i++;
-		}
-		stop = 1;
-		if ((*p)->args_i == 15)
-			i = (*p)->start;
-	}
-	if (i == 0)
+	(*px)->nb_chr = 0;
+	(*px)->nb_z = 0;
+	(*p)->prec = NULL;
+	(*p)->width = NULL;
+	(*px)->wc = NULL;
+	return (1);
+}
+
+int		last_part_free_and_return_value(t_params **p, t_type **px)
+{
+	int		return_value;
+
+	if ((*p)->i == 0)
 	{
 		(*p)->buf = NULL;
 		return (0);
 	}
 	if ((*p)->buf)
-		px->nb_chr += ft_strlen((*p)->buf);
-	return (px->nb_chr);
+	{
+		(*px)->nb_chr += ft_strlen((*p)->buf);
+		return_value = (*px)->nb_chr;
+	}
+	else
+		return_value = 0;
+	free((*px));
+	return (return_value);
+}
+
+int				after_percentage(const char *str, t_params **p, t_type **px,
+								va_list ap)
+{
+	if (str[(*p)->i + 1] == (*p)->args[(*p)->args_i])
+	{
+		if ((!(*p)->prec))
+			if (!((*p)->prec = ft_strdup("-1")))
+				return (-1);
+		if ((!(*p)->width))
+			if (!((*p)->width = ft_strdup("0")))
+				return (free_when_error(&(*p)->prec));
+		(*p)->modifiers = 0;
+		(*p)->flags = 0;
+		if ((*p)->start - ((*p)->i) != 0)
+		{
+			(*p)->fl_mod = ft_strsub(str, (*p)->start + 1,
+					((*p)->i) - (*p)->start);
+			if (((*p)->stop = write_fl_mod(&(*p))) == 0)
+				return (2);
+			else if ((*p)->stop == -1)
+			{
+				((*p)->i) -= 2;
+				(*p)->stop = 0;
+				return (2);
+			}
+		}
+		(*p)->s.fy = ft_atoi((*p)->width);
+		free((*p)->width);
+		(*p)->width = NULL;
+		(*p)->s.prec = ft_atoi((*p)->prec);
+		free((*p)->prec);
+		(*p)->prec = NULL;
+		(*p)->s.mod = (*p)->modifiers;
+		(*p)->s.f = (*p)->flags;
+		(*p)->nb_z = (*p)->nb_z;
+		change_mod_int((*p)->args_i, (*p)->s.mod, &(*px), ap);
+		change_mod_uint((*p)->args_i, (*p)->s.mod, &(*px), ap);
+		change_mod_wc((*p)->args_i, (*p)->s.mod, &(*px), ap);
+		(*p)->tmp2 = (*p)->args_f[(*p)->args_i](*px, (*p)->s, (*p)->s.mod);
+		(*p)->buf = ft_strjoin_free((*p)->buf, (*p)->tmp2, 3);
+		if ((*px)->nb_z != (*p)->nb_z)
+		{
+			ft_putlstr((*p)->buf, 1);
+			(*px)->nb_chr += ft_strlen((*p)->buf) + 1;
+			free((*p)->buf);
+			(*p)->buf = NULL;
+		}
+		(*p)->nb_z = (*px)->nb_z;
+		(*p)->stop = 0;
+		return (2);
+	}
+	return (1);
+}
+
+int				ft_mng_str(const char *str, t_params **p, va_list ap)
+{
+	int		stop;
+	t_type	*px;
+	int		return_value;
+
+	if ((part_one_init_variables(&stop, &px, &(*p))) == -1)
+		return (-1);
+	while (str[++((*p)->i)])
+	{
+		if (!(before_percentage(str, &(*p))))
+			break ;
+		while ((*p)->stop && str[(*p)->i + 1] != '\0')
+		{
+			(*p)->args_i = 0;
+			while ((*p)->args[(*p)->args_i])
+			{
+				return_value = after_percentage(str, &(*p), &px, ap);
+				if (return_value == 2)
+					break ;
+				else if (return_value == -1)
+					return (-1);
+				((*p)->args_i)++;
+			}
+			((*p)->i)++;
+		}
+		(*p)->stop = 1;
+		if ((*p)->args_i == 15)
+			(*p)->i = (*p)->start;
+	}
+	return last_part_free_and_return_value(&(*p), &px);
 }

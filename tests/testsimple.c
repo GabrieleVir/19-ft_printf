@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/17 08:51:56 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/02 16:15:06 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/05 11:44:15 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,17 @@
 
 int		main(void)
 {
-	ft_printf("{%}");
-	printf("%s%p%d%d%p%s%p%p%s", "a", &free, 1, 2, 
-			&malloc, "b", &free, &malloc, "c");
+	ft_printf("%C", L'該');
+	//ft_printf("%C %S", "bonjour ", L'該', 42, &free, 42, L"لحم خنزير");
+//	printf("printf:{%5p}\n", 0);
+//	ft_printf("{%03.2d}", 420);
+//	ft_printf("{%03.2d}", 110);
+//	ft_printf("{%03.2d}", 12510);
+//	ft_printf("{%03.2d}", 0);
+//	ft_printf("{%03.2d}", 0);
+//	printf("{%05.%}");
+//	printf("{%0.5%}");
+	//printf("{%-4d}", NULL);
 /*	printf("%zi\n", LLONG_MIN);
 	printf("%zd\n", LLONG_MIN);
 	printf("% p|%+p\n", 42, 42);

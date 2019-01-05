@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args_functions.c                                   :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/10 17:34:55 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/05 10:05:14 by gvirga           ###   ########.fr       */
+/*   Created: 2019/01/05 09:05:57 by gvirga            #+#    #+#             */
+/*   Updated: 2019/01/05 09:10:25 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_floattostr(t_type *px, t_args s, char mod)
+int				free_when_error(char **str)
 {
-	char		*str;
-	double		fl;
-
-	fl = px->df;
-	str = ft_strnew(0);
-	str = NULL;
-	return (str);
-}
-
-char	*ft_ftostr(t_type *px, t_args s, char mod)
-{
-	char		*str;
-
-	str = (char*)malloc(sizeof(*str) * 2);
-	str[0] = 'a';
-	str[1] = '\0';
-	return (str);
+	free(*str);
+	return (-1);
 }

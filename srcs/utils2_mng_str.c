@@ -1,34 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args_functions.c                                   :+:      :+:    :+:   */
+/*   utils2_mng_str.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/10 17:34:55 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/05 10:05:14 by gvirga           ###   ########.fr       */
+/*   Created: 2019/01/05 09:10:05 by gvirga            #+#    #+#             */
+/*   Updated: 2019/01/05 09:10:15 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_floattostr(t_type *px, t_args s, char mod)
+void			init_pos_variables(t_fl_mod_params *fl_p)
 {
-	char		*str;
-	double		fl;
-
-	fl = px->df;
-	str = ft_strnew(0);
-	str = NULL;
-	return (str);
-}
-
-char	*ft_ftostr(t_type *px, t_args s, char mod)
-{
-	char		*str;
-
-	str = (char*)malloc(sizeof(*str) * 2);
-	str[0] = 'a';
-	str[1] = '\0';
-	return (str);
+	(*fl_p).i = -1;
+	(*fl_p).has_plus = 0;
+	(*fl_p).has_minus = 0;
 }

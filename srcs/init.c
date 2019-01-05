@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:11:02 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/03 11:26:30 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/05 11:54:53 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int				ft_printf(const char *str, ...)
 	p->nb_z = 0;
 	if (ft_strcmp("", str) != 0)
 	{
-		return_value = ft_mng_str(str, p->i, &p, ap);
+		return_value = ft_mng_str(str, &p, ap);
 		if (p->buf)
 			ft_putlstr(p->buf, 0);
 	}
