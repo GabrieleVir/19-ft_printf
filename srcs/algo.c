@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:12:46 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/05 12:00:13 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/05 12:13:25 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		last_part_free_and_return_value(t_params **p, t_type **px)
 		return_value = (*px)->nb_chr;
 	}
 	else
-		return_value = 0;
+		return_value = (*px)->nb_chr;
 	free((*px));
 	return (return_value);
 }
@@ -147,6 +147,9 @@ int				after_percentage(const char *str, t_params **p, t_type **px,
 		{
 			ft_putlstr((*p)->buf, 1);
 			(*px)->nb_chr += ft_strlen((*p)->buf) + 1;
+			if ((*p)->buf + ft_strlen((*p)->buf) != '\0')
+				(*px)->nb_chr += ft_strlen((*p)->buf + ft_strlen(
+							(*p)->buf));
 			free((*p)->buf);
 			(*p)->buf = NULL;
 		}
