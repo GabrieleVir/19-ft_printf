@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/05 11:15:59 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/05 14:19:56 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void					im_flag_zero(char **str, t_args *s, t_type *px,
 						int is_zero);
 int						half_of_flags(t_params **p, t_fl_mod_params *fl_p);
 int						rest_of_flags(t_params **p, t_fl_mod_params *fl_p);
-void					init_pos_variables(t_fl_mod_params *fl_p);
 void					empty_fl_and_adjust_flags(t_params **p,
 						t_fl_mod_params f_p);
 char					*calc_space_width(int width, int len_str);
@@ -117,5 +116,18 @@ char					*ft_dtoa(double nbr, int precision);
 int						ft_mng_str(const char *str, t_params **p,
 						va_list ap);
 int						free_when_error(char **str);
+int						after_percentage(const char *str, t_params **p,
+						t_type **px, va_list ap);
+int						init_after_percentage(t_params **p);
+void					init_pos_variables(t_fl_mod_params *fl_p);
+int						before_percentage(const char *str, t_params **p);
+void					case_char_equal_zero(t_params **p, t_type **px);
+void					init_variables_for_change_mod(t_params **p);
+int						fl_are_present(const char *str, t_params **p);
+int						last_part_free_and_return_value(t_params **p,
+						t_type **px);
+int						part_one_init_variables(int *stop, t_type **px,
+						t_params **p);
+int						write_fl_mod(t_params **p);
 
 #endif
