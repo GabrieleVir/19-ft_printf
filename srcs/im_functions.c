@@ -6,13 +6,13 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 12:37:54 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/04 02:06:52 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/06 19:31:21 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char		*ft_chrtostr(t_type *px, t_args s, char mod)
+char		*ft_chrtostr(t_type *px, t_args s)
 {
 	char		*str;
 	char		*tmp;
@@ -38,7 +38,7 @@ char		*ft_chrtostr(t_type *px, t_args s, char mod)
 	return (str);
 }
 
-char		*ft_inttostr(t_type *px, t_args s, char mod)
+char		*ft_inttostr(t_type *px, t_args s)
 {
 	char		*str;
 	int			is_zero;
@@ -62,7 +62,7 @@ char		*ft_inttostr(t_type *px, t_args s, char mod)
 	return (str);
 }
 
-char		*ft_biginttostr(t_type *px, t_args s, char mod)
+char		*ft_biginttostr(t_type *px, t_args s)
 {
 	char		*str;
 	int			is_zero;
@@ -78,7 +78,8 @@ char		*ft_biginttostr(t_type *px, t_args s, char mod)
 	}
 	if (str && s.f & 8 && ft_atoi(str) >= 0)
 		str = ft_strjoin_free("+", str, 2);
-	if (str && (!(s.f & 4) || ((s.f & 4) && is_zero)) && s.fy > ft_strlen(str))
+	if (str && (!(s.f & 4) || ((s.f & 4) && is_zero)) &&
+			s.fy > ft_strlen(str))
 	{
 		str = !(s.f & 2) ?
 			ft_strjoin_free(calc_space_width(s.fy, ft_strlen(str)), str, 3) :

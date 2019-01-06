@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 23:24:50 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/05 09:32:07 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/06 17:57:57 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int		nb_digit_base(uintmax_t nbr, int base)
 	if (base <= 1)
 		return (-1);
 	nbr_digit = 1;
-	while (nbr >= base)
+	while (nbr >= (uintmax_t)base)
 	{
 		nbr /= base;
 		nbr_digit++;

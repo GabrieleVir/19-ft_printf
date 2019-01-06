@@ -6,31 +6,39 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 12:46:31 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/05 01:04:17 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/06 19:52:34 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_addtostr(t_type *px, t_args s, char mod)
+char	*ft_addtostr(t_type *px, t_args s)
 {
 	char	*str;
 	char	*tmp;
 	int		len;
 
+	str = ft_strnew(0);
+	len = 0;
 	if ((tmp = ft_itoa_printf((unsigned long)px->uim, 16, 1)))
 	{
 		len = ft_strlen(tmp);
+		free(str);
 		str = ft_strnew(len + 2);
 		str = tmp;
 	}
+	while (len >= 0)
+	{
+		str[len + 2] = str[len];
+		len--;
+	}
 	if (!str || !tmp)
 		return (NULL);
-	uim_add_managment(&str, &s, px, len);
+	uim_add_managment(&str, &s);
 	return (str);
 }
 
-char	*ft_hextostr(t_type *px, t_args s, char mod)
+char	*ft_hextostr(t_type *px, t_args s)
 {
 	char			*str;
 	int				is_zero;
@@ -43,7 +51,8 @@ char	*ft_hextostr(t_type *px, t_args s, char mod)
 	if (!str)
 		return (NULL);
 	uim_precision_hex(&str, &s, px, is_zero);
-	if (str && s.f & 4 && !(s.f & 1) && (s.fy > ft_strlen(str)) && !is_zero)
+	if (str && s.f & 4 && !(s.f & 1) &&
+			(s.fy > ft_strlen(str)) && !is_zero)
 		str = ft_strjoin_free(zero_f(s.fy, ft_strlen(str)), str, 3);
 	if (str && (!(s.f & 4) || ((s.f & 4) && is_zero)) &&
 			(s.fy > ft_strlen(str)))
@@ -55,7 +64,7 @@ char	*ft_hextostr(t_type *px, t_args s, char mod)
 	return (str);
 }
 
-char	*ft_bighextostr(t_type *px, t_args s, char mod)
+char	*ft_bighextostr(t_type *px, t_args s)
 {
 	char			*str;
 	int				is_zero;
@@ -68,16 +77,17 @@ char	*ft_bighextostr(t_type *px, t_args s, char mod)
 	if (!str)
 		return (NULL);
 	uim2_precision_hex(&str, &s, px, is_zero);
-	if (str && (!(s.f & 4) || (s.f & 4 && is_zero)) && (s.fy > s.len))
+	if (str && (!(s.f & 4) || (s.f & 4 && is_zero)) &&
+			(s.fy > ft_strlen(str)))
 	{
 		str = !(s.f & 2) ?
-			ft_strjoin_free(calc_space_width(s.fy, s.len), str, 3) :
+			ft_strjoin_free(calc_space_width(s.fy, ft_strlen(str)), str, 3) :
 			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 3);
 	}
 	return (str);
 }
 
-char	*ft_udtostr(t_type *px, t_args s, char mod)
+char	*ft_udtostr(t_type *px, t_args s)
 {
 	char			*str;
 	int				is_zero;
@@ -94,7 +104,8 @@ char	*ft_udtostr(t_type *px, t_args s, char mod)
 	}
 	if (str && (s.f & 4) && (s.fy > ft_strlen(str)) && !is_zero)
 		str = ft_strjoin_free(zero_f(s.fy, ft_strlen(str)), str, 3);
-	if (str && (!(s.f & 4) || (s.f & 4 && is_zero)) && (s.fy > ft_strlen(str)))
+	if (str && (!(s.f & 4) || (s.f & 4 && is_zero)) &&
+			(s.fy > ft_strlen(str)))
 	{
 		str = !(s.f & 2) ?
 			ft_strjoin_free(calc_space_width(s.fy, ft_strlen(str)), str, 3) :
@@ -103,7 +114,7 @@ char	*ft_udtostr(t_type *px, t_args s, char mod)
 	return (str);
 }
 
-char	*ft_bigudtostr(t_type *px, t_args s, char mod)
+char	*ft_bigudtostr(t_type *px, t_args s)
 {
 	char			*str;
 	int				is_zero;
@@ -120,7 +131,8 @@ char	*ft_bigudtostr(t_type *px, t_args s, char mod)
 	}
 	if (str && s.f & 4 && (s.fy > ft_strlen(str)) && !is_zero)
 		str = ft_strjoin_free(zero_f(s.fy, ft_strlen(str)), str, 3);
-	if (str && (!(s.f & 4) || (s.f & 4 && is_zero)) && (s.fy > ft_strlen(str)))
+	if (str && (!(s.f & 4) || (s.f & 4 && is_zero)) &&
+			(s.fy > ft_strlen(str)))
 	{
 		str = !(s.f & 2) ?
 			ft_strjoin_free(calc_space_width(s.fy, ft_strlen(str)), str, 3) :

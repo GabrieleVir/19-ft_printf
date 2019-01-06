@@ -6,14 +6,13 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 14:16:06 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/05 14:20:23 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/06 17:28:24 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int				part_one_init_variables(int *stop, t_type **px,
-				t_params **p)
+int				part_one_init_variables(t_type **px, t_params **p)
 {
 	(*p)->stop = 1;
 	if (((*px) = (t_type*)malloc(sizeof(t_type))) == NULL)

@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:12:46 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/05 14:20:24 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/06 17:11:40 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int				ft_mng_str(const char *str, t_params **p, va_list ap)
 	t_type			*px;
 	int				return_value;
 
-	if ((part_one_init_variables(&(*p)->stop, &px, &(*p))) == -1)
+	if ((part_one_init_variables(&px, &(*p))) == -1)
 		return (-1);
 	while (str[++((*p)->i)])
 	{

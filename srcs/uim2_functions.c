@@ -6,13 +6,13 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 12:46:59 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/04 01:24:14 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/06 19:49:25 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_octtostr(t_type *px, t_args s, char mod)
+char	*ft_octtostr(t_type *px, t_args s)
 {
 	char				*str;
 	int					is_zero;
@@ -41,7 +41,7 @@ char	*ft_octtostr(t_type *px, t_args s, char mod)
 	return (str);
 }
 
-char	*ft_bigocttostr(t_type *px, t_args s, char mod)
+char	*ft_bigocttostr(t_type *px, t_args s)
 {
 	char				*str;
 	int					is_zero;

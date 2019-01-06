@@ -6,13 +6,13 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 12:45:53 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/05 09:34:41 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/06 19:35:46 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_percenttostr(t_type *px, t_args s, char mod)
+char	*ft_percenttostr(t_type *px, t_args s)
 {
 	char		*str;
 

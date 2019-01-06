@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 03:19:25 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/05 09:29:50 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/06 19:51:02 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void		change_mod_uint(int args_i, char mod, t_type **px, va_list ap)
 		(*px)->uim = (uintmax_t)va_arg(ap, void*);
 }
 
-void		change_mod_wc(int args_i, char mod, t_type **px, va_list ap)
+void		change_mod_wc(int args_i, t_type **px, va_list ap)
 {
 	if (args_i == 0)
 		(*px)->wc = (wchar_t*)va_arg(ap, char *);
