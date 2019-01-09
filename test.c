@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args_functions.c                                   :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/10 17:34:55 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/07 11:01:42 by gvirga           ###   ########.fr       */
+/*   Created: 2019/01/07 10:36:30 by gvirga            #+#    #+#             */
+/*   Updated: 2019/01/07 11:15:09 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
-char	*ft_floattostr(t_type *px, t_args s)
+int		main(void)
 {
-	char		*str;
-	double		fl;
-
-	fl = px->df;
-	s.prec = 0;
-	str = ft_strnew(0);
-	str = NULL;
-	return (str);
-}
-
-char	*ft_ftostr(t_type *px, t_args s)
-{
-	char		*str;
-
-	str = ft_ftoa((double)(px)->df, s.prec);
-	return (str);
+	ft_printf("test_float: %f", (double)10.5);
+	printf("test_float: %f", (double)10.5);
+	return (0);
 }

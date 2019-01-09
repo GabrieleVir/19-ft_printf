@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/06 19:35:00 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/07 10:59:15 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct			s_type
 	intmax_t			im;
 	uintmax_t			uim;
 	wchar_t				*wc;
-	double				df;
+	long double			df;
 	int					nb_z;
 	int					nb_chr;
 }						t_type;
@@ -72,6 +72,8 @@ void					change_mod_int(int args_i, char mod, t_type **px,
 void					change_mod_uint(int args_i, char mod, t_type **px,
 						va_list ap);
 void					change_mod_wc(int args_i, t_type **px, va_list ap);
+void					change_mod_df(int args_i, char mod, t_type **px,
+						va_list ap);
 void					im2_prec_and_zeros(char **str, t_args *s, t_type *px,
 						int *is_zero);
 void					im_prec_and_zeros(char **str, t_args *s, t_type *px,
@@ -126,5 +128,7 @@ int						last_part_free_and_return_value(t_params **p,
 						t_type **px);
 int						part_one_init_variables(t_type **px, t_params **p);
 int						write_fl_mod(t_params **p);
+char					*ft_ftoa(double nbr, int prec);
+char					*ft_ftostr(t_type *px, t_args s);
 
 #endif

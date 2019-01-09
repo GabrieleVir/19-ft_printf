@@ -6,7 +6,7 @@
 #    By: gvirga <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/12 23:31:55 by gvirga            #+#    #+#              #
-#    Updated: 2019/01/06 17:23:09 by gvirga           ###   ########.fr        #
+#    Updated: 2019/01/07 10:42:21 by gvirga           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ FILES = double_functions.c utils2_mng_str.c error.c ft_itoa_printf.c \
 		im_functions.c manage_double.c algo.c notype_functions.c \
 		uim_functions.c uim2_functions.c utils.c utils_mng_str.c \
 		wc_functions.c utils_uim.c utils_im.c fill_uim_im_or_wc.c \
-		utils3_mng_str.c
+		utils3_mng_str.c ft_ftoa.c
 SRCFILES = $(addprefix $(SRCDIR), $(FILES))
 OBJ= $(subst .c,.o, $(FILES)) main.o
 INC_DIR = ./includes/

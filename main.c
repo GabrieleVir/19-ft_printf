@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:11:02 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/05 11:54:53 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/01/07 10:44:02 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 static void		fill_args_f(t_params **p)
 {
-	(*p)->args_f[13] = &ft_floattostr;
+	(*p)->args_f[13] = &ft_ftostr;
 	(*p)->args_f[12] = &ft_percenttostr;
 	(*p)->args_f[11] = &ft_chrtostr;
 	(*p)->args_f[10] = &ft_bighextostr;
