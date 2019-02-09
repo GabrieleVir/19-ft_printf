@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 17:48:52 by gvirga            #+#    #+#             */
-/*   Updated: 2018/12/19 17:17:05 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/02/08 14:21:12 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,5 @@ void				push_back(t_list **head, void *content);
 size_t				ft_strchri(const char *s, int c);
 int					ft_ispowerof2(int x);
 int					ft_nbdigit(int nbr);
+int					ft_llnbdigit(long long nbr);
 #endif
