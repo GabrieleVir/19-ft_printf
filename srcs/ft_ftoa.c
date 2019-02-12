@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 10:30:00 by gvirga            #+#    #+#             */
-/*   Updated: 2019/02/09 07:27:04 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/02/12 22:10:50 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ typedef struct	s_nbr_part
 	double				dp;
 }						t_nbr_part;
 
-static void	fill_diff_parts(double nbr, int *p, t_nbr_part *part)
+static void	fill_diff_parts(double nbr, t_nbr_part *part)
 {
 	int		nbdigit;
-	int		tmp_prec;
 
 	if (nbr <= LLONG_MIN)
 		(*part).intp = LLONG_MIN;
@@ -33,9 +32,6 @@ static void	fill_diff_parts(double nbr, int *p, t_nbr_part *part)
 	nbdigit = ft_llnbdigit((*part).intp);
 	if (nbdigit > 13)
 		(*part).dp = 0;
-	tmp_prec = (-nbdigit + 14) * 3;
-	if (tmp_prec < *p)
-		*p = tmp_prec;
 	(*part).dp = nbr - (double)(*part).intp;
 	printf("dp: %f\n", (*part).dp);
 }
@@ -81,6 +77,7 @@ static void	join_dec_part(char **str, t_nbr_part part, int prec)
 	long long intp;
 
 	intp = 0;
+	printf("prec: %d\n", prec);
 	while (prec--)
 	{
 		part.dp -= (double)intp;
@@ -92,6 +89,56 @@ static void	join_dec_part(char **str, t_nbr_part part, int prec)
 	part.dp *= 10;
 	intp = (long long)part.dp;
 	*str = ft_strjoin_free(*str, ft_itoa_base(intp, 10), 3);
+	printf("Join_dec_part str: %s\n", *str);
+}
+
+static int	ceiling(char **str, size_t len)
+{
+	if ((*str)[len] == '.')
+		len--;
+	if ((*str)[len] > '5')
+	{
+		if ((*str)[len] == '9')
+		{
+			while ((*str)[len] == '9')
+			{
+				(*str)[len] = '0';
+				len--;
+				if ((*str)[len] == '.')
+					len--;
+				if (len == 0 && (*str)[len] == '9')
+				{
+					(*str)[len] = '0';
+					return (2);
+				}
+			}
+			(*str)[len] += 1;
+		}
+		else
+		{
+			len--;
+			(*str)[len] += 1;
+		}
+		return (0);
+	}
+	return (0);
+}
+
+static void	round_str(char **str)
+{
+	size_t len;
+	size_t	tmp;
+	int		ceiling_in_process;
+
+	len = ft_strlen(*str);
+	tmp = len;
+	len--;
+	printf("currently tested char: %c\n", (*str)[len]);
+	while ((ceiling_in_process = ceiling(str, len)))
+		len--;
+	if (ceiling_in_process == 2)
+		*str = ft_strjoin_free("1", *str, 2);
+	*str = ft_strsub_free(*str, 0, tmp - 1);
 }
 
 char		*ft_ftoa(double nbr, int prec)
@@ -104,14 +151,14 @@ char		*ft_ftoa(double nbr, int prec)
 		prec = 6;
 	if (prec > 49)
 		prec = 49;
-	fill_diff_parts(nbr, &prec, &nbr_part);
-	//round_dp(&nbr_part, prec);
+	fill_diff_parts(nbr, &nbr_part);
 	printf("str before .: %s\n", str);
 	if (prec != 0)
 	{
 		str = ft_itoa_base(nbr_part.intp, 10);
 		str = ft_strjoin_free(str, ".", 1);
 		join_dec_part(&str, nbr_part, prec);
+		round_str(&str);
 		printf("str after .: %s\n", str);
 	}
 	else
