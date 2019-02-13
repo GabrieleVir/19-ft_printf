@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 03:19:25 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/07 11:04:40 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/02/12 23:46:11 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,11 @@ void		change_mod_wc(int args_i, t_type **px, va_list ap)
 
 void		change_mod_df(int args_i, char mod, t_type **px, va_list ap)
 {
-	if (mod == 1)
-		mod = 0;
 	if (args_i == 13)
 	{
-		(*px)->df = va_arg(ap, double);
+		if (mod & 16)
+			(*px)->df = va_arg(ap, long double);
+		else
+			(*px)->df = va_arg(ap, double);
 	}
 }
