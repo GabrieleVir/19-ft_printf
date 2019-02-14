@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 17:34:55 by gvirga            #+#    #+#             */
-/*   Updated: 2019/02/12 23:42:25 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/02/14 03:14:43 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,44 @@ static char	*zeros_after_prec(int prec)
 	return (str);
 }
 
-char		*ft_floattostr(t_type *px, t_args s)
+static void	width_dmng(t_args s, char **str)
 {
-	char		*str;
-	double		fl;
+	char	*tmp;
 
-	fl = px->df;
-	s.prec = 0;
-	str = ft_strnew(0);
-	str = NULL;
-	return (str);
+	if (s.f & 4 && ((*str)[0] == '+' || (*str)[0] == '-'))
+	{
+		tmp = ft_strjoin_free(zero_f(s.fy, ft_strlen(*str)), *str + 1, 1);
+		tmp = (*str)[0] == '+' ? ft_strjoin_free("+", tmp, 2)
+							: ft_strjoin_free("-", tmp, 2);
+		free(*str);
+		*str = tmp;
+	}
+	else if (s.f & 4)
+		*str = ft_strjoin_free(zero_f(s.fy, ft_strlen(*str)), *str, 3);
+	else
+		*str = s.f & 2 ?
+			ft_strjoin_free(*str, calc_space_width(s.fy, ft_strlen(*str)), 3)
+			: ft_strjoin_free(calc_space_width(s.fy,
+						ft_strlen(*str)), *str, 3);
 }
+
+/*
+** Reminder: 1:'#' 2:'-' 4:'0' 8:'+' 16:' '
+*/
 
 char		*ft_ftostr(t_type *px, t_args s)
 {
 	char		*str;
 
-	str = ft_ftoa((double)(px)->df, s.prec);
+	str = ft_ftoa((px)->df, s.prec);
 	if (s.prec > 48)
 		str = ft_strjoin_free(str, zeros_after_prec(s.prec), 3);
+	if (s.prec == 0 && s.f & 1)
+		str = ft_strjoin_free(str, ".", 1);
+	if (str && ((s.f & 8) || (s.f & 16)) && (px)->df >= 0.0)
+		str = (s.f & 8) ? ft_strjoin_free("+", str, 2)
+						: ft_strjoin_free(" ", str, 2);
+	if (str && s.fy > ft_strlen(str))
+		width_dmng(s, &str);
 	return (str);
 }

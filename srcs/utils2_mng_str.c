@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 09:10:05 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/07 10:59:50 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/02/14 03:07:32 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int				after_percentage(const char *str, t_params **p, t_type **px,
 		change_mod_int((*p)->args_i, (*p)->s.mod, &(*px), ap);
 		change_mod_uint((*p)->args_i, (*p)->s.mod, &(*px), ap);
 		change_mod_wc((*p)->args_i, &(*px), ap);
-		change_mod_df((*p)->args_i, (*p)->s.mod,&(*px), ap);
+		change_mod_df((*p)->args_i, (*p)->s.mod, &(*px), ap);
 		(*p)->tmp2 = (*p)->args_f[(*p)->args_i](*px, (*p)->s);
 		(*p)->buf = ft_strjoin_free((*p)->buf, (*p)->tmp2, 3);
 		case_char_equal_zero(&(*p), &(*px));

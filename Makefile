@@ -6,7 +6,7 @@
 #    By: gvirga <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/12 23:31:55 by gvirga            #+#    #+#              #
-#    Updated: 2019/02/08 14:23:07 by gvirga           ###   ########.fr        #
+#    Updated: 2019/02/14 07:30:51 by gvirga           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,15 +19,15 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 MAIN = main.c
 FILES = double_functions.c utils2_mng_str.c error.c ft_itoa_printf.c \
-		im_functions.c manage_double.c algo.c notype_functions.c \
+		im_functions.c algo.c notype_functions.c \
 		uim_functions.c uim2_functions.c utils.c utils_mng_str.c \
 		wc_functions.c utils_uim.c utils_im.c fill_uim_im_or_wc.c \
-		utils3_mng_str.c ft_ftoa.c
+		utils3_mng_str.c
 SRCFILES = $(addprefix $(SRCDIR), $(FILES))
 OBJ= $(subst .c,.o, $(FILES)) main.o
+SRCOBJ = $(addprefix $(SRCDIR), $(OBJ))
 INC_DIR = ./includes/
 LFLAGS =rc
-LIBFT_OBJ = 
 OBJ2=ft_putchar.o ft_putchar_fd.o ft_putstr.o ft_putstr_fd.o ft_putendl.o \
 ft_putendl_fd.o ft_memcpy.o ft_putwchar.o ft_putwstr.o \
 \
@@ -46,7 +46,8 @@ ft_memdel.o ft_lstnew.o ft_lstdelone.o ft_lstdel.o ft_lstadd.o ft_itoa_base.o \
 ft_lstiter.o ft_lstmap.o ft_lstcpy.o ft_wordcount.o ft_atol.o ft_push_back.o \
 ft_strnboccur.o ft_strjoin_free.o ft_ipower.o ft_npower.o ft_rchr.o \
 ft_nbdigit.o ft_strjoin_freei.o ft_strnew_free.o ft_strsub_free.o \
-ft_strdup_free.o ft_putlstr.o ft_memljoin.o ft_llnbdigit.o
+ft_strdup_free.o ft_putlstr.o ft_memljoin.o ft_llnbdigit.o ft_bigpower.o \
+ft_ftoa.o ft_round_str_double.o
 SRCOBJ2 = $(addprefix tmp_obj/, $(OBJ2))
 
 RED=\033[0;31m
@@ -67,6 +68,7 @@ $(NAME): $(OBJ)
 	@mkdir tmp_obj;cd tmp_obj;ar -x ../$(LIBFT_DIR)$(LIBFT)
 	@echo "Compilation of source files $(VOMIETALEE)<$(NAME)>$(END)..."
 	ar $(LFLAGS) $@ $(OBJ) $(LIBFT_DIR)$(LIBFT) $(SRCOBJ2)
+	@mv $(OBJ) ./srcs/
 	@rm -rf tmp_obj
 	ranlib $(NAME)
 	@echo "$(YELLOW)Building <$(NAME)>$(END)"
@@ -76,7 +78,7 @@ $(OBJ): $(SRCFILES)
 	@$(CC) $(CFLAGS) $(MAIN) -c $(SRCFILES) -I $(INC_DIR)
 
 clean:
-	@rm -Rf $(OBJ)
+	@rm -Rf $(SRCOBJ)
 	@echo "$(RED)Suppression$(END) source files of $(VOMIETALEE)<$(NAME)>$(END)..."
 	@make --no-print-directory -C $(LIBFT_DIR) clean
 
