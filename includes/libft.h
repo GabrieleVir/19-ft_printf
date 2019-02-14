@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 17:48:52 by gvirga            #+#    #+#             */
-/*   Updated: 2019/02/14 05:01:38 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/02/14 07:51:10 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ size_t					ft_strchri(const char *s, int c);
 int						ft_ispowerof2(int x);
 int						ft_nbdigit(int nbr);
 int						ft_llnbdigit(long long nbr);
-char					*ft_ftoa(double nbr, int prec);
+char					*ft_ftoa(long double nbr, int prec);
 char					*round_str_double(char *str);
 
 #endif

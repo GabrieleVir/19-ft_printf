@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/07 10:59:15 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/02/14 07:53:16 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,5 @@ int						last_part_free_and_return_value(t_params **p,
 						t_type **px);
 int						part_one_init_variables(t_type **px, t_params **p);
 int						write_fl_mod(t_params **p);
-char					*ft_ftoa(double nbr, int prec);
 char					*ft_ftostr(t_type *px, t_args s);
-
 #endif
