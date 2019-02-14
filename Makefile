@@ -6,7 +6,7 @@
 #    By: gvirga <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/12 23:31:55 by gvirga            #+#    #+#              #
-#    Updated: 2019/02/14 07:30:51 by gvirga           ###   ########.fr        #
+#    Updated: 2019/02/14 07:34:39 by gvirga           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,6 @@ $(NAME): $(OBJ)
 	@mkdir tmp_obj;cd tmp_obj;ar -x ../$(LIBFT_DIR)$(LIBFT)
 	@echo "Compilation of source files $(VOMIETALEE)<$(NAME)>$(END)..."
 	ar $(LFLAGS) $@ $(OBJ) $(LIBFT_DIR)$(LIBFT) $(SRCOBJ2)
-	@mv $(OBJ) ./srcs/
 	@rm -rf tmp_obj
 	ranlib $(NAME)
 	@echo "$(YELLOW)Building <$(NAME)>$(END)"
@@ -78,7 +77,7 @@ $(OBJ): $(SRCFILES)
 	@$(CC) $(CFLAGS) $(MAIN) -c $(SRCFILES) -I $(INC_DIR)
 
 clean:
-	@rm -Rf $(SRCOBJ)
+	@rm -Rf $(OBJ)
 	@echo "$(RED)Suppression$(END) source files of $(VOMIETALEE)<$(NAME)>$(END)..."
 	@make --no-print-directory -C $(LIBFT_DIR) clean
 
