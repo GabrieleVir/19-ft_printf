@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 03:19:25 by gvirga            #+#    #+#             */
-/*   Updated: 2019/02/12 23:46:11 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/02/15 08:26:56 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static void	check_in_d_and_o(t_type **px, char mod, va_list ap)
 		(*px)->im = (intmax_t)(signed char)va_arg(ap, int);
 	else if (mod & 32)
 		(*px)->im = va_arg(ap, intmax_t);
+	else if (mod & 64)
+		(*px)->im = va_arg(ap, size_t);
 }
 
 void		change_mod_int(int args_i, char mod, t_type **px, va_list ap)

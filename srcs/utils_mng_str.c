@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 12:49:29 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/05 09:25:05 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/02/15 08:25:58 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static int		modifier_mng(t_params **p, int *i)
 		(*p)->modifiers |= 16;
 	else if (((*p)->fl_mod)[(*i)] == 'j')
 		(*p)->modifiers |= 32;
+	else if (((*p)->fl_mod)[(*i)] == 'z')
+		(*p)->modifiers |= 64;
 	else
 		return_value = 0;
 	return (return_value);

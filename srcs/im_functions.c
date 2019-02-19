@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 12:37:54 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/06 19:31:21 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/02/19 05:15:56 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ char		*ft_chrtostr(t_type *px, t_args s)
 	return (str);
 }
 
+/*
+** Reminder: 1:'#' 2:'-' 4:'0' 8:'+' 16:' '
+*/
+
 char		*ft_inttostr(t_type *px, t_args s)
 {
 	char		*str;
@@ -47,18 +51,22 @@ char		*ft_inttostr(t_type *px, t_args s)
 	is_zero = 0;
 	str = ft_itoa_base(px->im, 10);
 	im_prec_and_zeros(&str, &s, px, &is_zero);
-	if (s.prec != -1 && !is_zero)
+	if (str && s.f & 8 && px->im >= 0)
+		str = ft_strjoin_free("+", str, 2);
+	if (str && (s.f & 16) && px->im >= 0)
+		str = ft_strjoin_free(" ", str, 2);
+	if (s.prec != -1)
 	{
-		s.len = ft_strlen(str);
-		str = !(px->im < 0) ?
-			ft_strjoin_free(zero_f(s.prec, s.len), str, 3)
-			: ft_strjoin_freei(str, zero_f(s.prec, s.len - 1), 3, 1);
+		s.len = (s.f & 16 && px->im >= 0) || (s.f & 8 && px->im >= 0)
+			? ft_strlen(str) - 1 : ft_strlen(str);
+		s.len -= px->im < 0 ? 1 : 0;
+		str = (px->im < 0) || (px->im >= 0 && ((s.f & 16) || (s.f & 8))) ?
+			ft_strjoin_freei(str, zero_f(s.prec, s.len), 3, 1)
+			: ft_strjoin_free(zero_f(s.prec, s.len), str, 3);
 		s.f -= (s.f & 4) ? 4 : 0;
 	}
 	if (str)
 		im_flag_zero(&str, &s, px, is_zero);
-	if ((s.f & 16) && px->im >= 0 && (s.fy == 0 || (s.f & 4 && !is_zero)))
-		str = ft_strjoin_free(" ", str, 2);
 	return (str);
 }
 
@@ -69,15 +77,17 @@ char		*ft_biginttostr(t_type *px, t_args s)
 
 	is_zero = 0;
 	str = ft_itoa_base(px->im, 10);
+	if (str && s.f & 8 && px->im >= 0)
+		str = ft_strjoin_free("+", str, 2);
+	if (str && (s.f & 16) && px->im >= 0)
+		str = ft_strjoin_free(" ", str, 2);
 	im2_prec_and_zeros(&str, &s, px, &is_zero);
 	if (str && s.f & 4 && (s.fy > ft_strlen(str)) && !is_zero)
 	{
-		str = px->im >= 0 ?
-			ft_strjoin_free(zero_f(s.fy, ft_strlen(str)), str, 3) :
-			ft_strjoin_freei(str, zero_f(s.fy, ft_strlen(str)), 3, 1);
+		str = px->im < 0 || (px->im >= 0 && ((s.f & 16) || (s.f & 8))) ?
+			ft_strjoin_freei(str, zero_f(s.fy, ft_strlen(str)), 3, 1) :
+			ft_strjoin_free(zero_f(s.fy, ft_strlen(str)), str, 3);
 	}
-	if (str && s.f & 8 && ft_atoi(str) >= 0)
-		str = ft_strjoin_free("+", str, 2);
 	if (str && (!(s.f & 4) || ((s.f & 4) && is_zero)) &&
 			s.fy > ft_strlen(str))
 	{
@@ -85,7 +95,5 @@ char		*ft_biginttostr(t_type *px, t_args s)
 			ft_strjoin_free(calc_space_width(s.fy, ft_strlen(str)), str, 3) :
 			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 3);
 	}
-	if ((s.f & 16) && px->im >= 0 && (s.fy == 0 || (s.f & 4 && !is_zero)))
-		str = ft_strjoin_free(" ", str, 2);
 	return (str);
 }
