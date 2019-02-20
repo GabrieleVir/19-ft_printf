@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 12:46:31 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/06 19:52:34 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/02/20 05:56:02 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char	*ft_addtostr(t_type *px, t_args s)
 	{
 		len = ft_strlen(tmp);
 		free(str);
-		str = ft_strnew(len + 2);
 		str = tmp;
 	}
 	while (len >= 0)
@@ -42,14 +41,13 @@ char	*ft_hextostr(t_type *px, t_args s)
 {
 	char			*str;
 	int				is_zero;
+	size_t			len;
 
 	is_zero = 0;
 	str = ft_itoa_printf(px->uim, 16, 1);
 	uim_prec_and_zeros(&str, &s, px, &is_zero);
-	if (s.f & 1 && px->uim != 0)
+	if (str && s.f & 1 && px->uim != 0)
 		str = ft_strjoin_free("0x", str, 2);
-	if (!str)
-		return (NULL);
 	uim_precision_hex(&str, &s, px, is_zero);
 	if (str && s.f & 4 && !(s.f & 1) &&
 			(s.fy > ft_strlen(str)) && !is_zero)
@@ -57,9 +55,10 @@ char	*ft_hextostr(t_type *px, t_args s)
 	if (str && (!(s.f & 4) || ((s.f & 4) && is_zero)) &&
 			(s.fy > ft_strlen(str)))
 	{
+		len = ft_strlen(str);
 		str = !(s.f & 2) ?
-			ft_strjoin_free(calc_space_width(s.fy, ft_strlen(str)), str, 3) :
-			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 3);
+			ft_strjoin_free(calc_space_width(s.fy, len), str, 3) :
+			ft_strjoin_free(str, calc_space_width(s.fy, len), 3);
 	}
 	return (str);
 }
@@ -72,18 +71,14 @@ char	*ft_bighextostr(t_type *px, t_args s)
 	is_zero = 0;
 	str = ft_itoa_printf(px->uim, 16, 2);
 	uim_prec_and_zeros(&str, &s, px, &is_zero);
-	if (s.f & 1 && px->uim != 0)
+	if (str && s.f & 1 && px->uim != 0)
 		str = ft_strjoin_free("0X", str, 2);
-	if (!str)
-		return (NULL);
 	uim2_precision_hex(&str, &s, px, is_zero);
 	if (str && (!(s.f & 4) || (s.f & 4 && is_zero)) &&
 			(s.fy > ft_strlen(str)))
-	{
 		str = !(s.f & 2) ?
 			ft_strjoin_free(calc_space_width(s.fy, ft_strlen(str)), str, 3) :
 			ft_strjoin_free(str, calc_space_width(s.fy, ft_strlen(str)), 3);
-	}
 	return (str);
 }
 

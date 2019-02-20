@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 10:20:42 by gvirga            #+#    #+#             */
-/*   Updated: 2019/02/14 07:53:16 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/02/20 04:17:21 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ typedef struct			s_fl_mod_params
 
 typedef struct			s_params
 {
-	char				args[14];
-	char				*(*args_f[14]) (t_type*, t_args);
+	char				args[15];
+	char				*(*args_f[15]) (t_type*, t_args);
 	char				*buf;
 	int					args_i;
 	int					start;

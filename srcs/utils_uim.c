@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 01:23:25 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/06 19:53:24 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/02/20 04:07:07 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	uim_precision_hex(char **str, t_args *s, t_type *px, int is_zero)
 	(*s).len = ft_strlen(*str);
 	if ((*s).prec != -1 && !is_zero)
 	{
+		(*s).len = ft_strlen(*str) - 2 * ((*s).f & 1 && px->uim != 0);
 		*str = (!((*s).f & 1) || px->uim == 0) ?
 			ft_strjoin_free(zero_f((*s).prec, (*s).len), *str, 3)
 			: ft_strjoin_freei(*str, zero_f((*s).prec, (*s).len), 3, 2);
@@ -50,11 +51,9 @@ void	uim_precision_hex(char **str, t_args *s, t_type *px, int is_zero)
 		*str = ft_strjoin_free(zero_f((*s).fy, (*s).len), *str, 3);
 	else if (*str && (*s).f & 4 && (*s).f & 1 && ((*s).fy > (*s).len) &&
 			!is_zero)
-	{
 		*str = px->uim == 0 ?
 			ft_strjoin_free(zero_f((*s).fy, (*s).len), *str, 3) :
 			ft_strjoin_freei(*str, zero_f((*s).fy, (*s).len), 3, 2);
-	}
 }
 
 void	uim2_precision_hex(char **str, t_args *s, t_type *px, int is_zero)
@@ -62,6 +61,7 @@ void	uim2_precision_hex(char **str, t_args *s, t_type *px, int is_zero)
 	(*s).len = ft_strlen(*str);
 	if ((*s).prec != -1 && !is_zero)
 	{
+		(*s).len = ft_strlen(*str) - 2 * ((*s).f & 1 && px->uim != 0);
 		*str = (!((*s).f & 1) || px->uim == 0) ?
 			ft_strjoin_free(zero_f((*s).prec, (*s).len), *str, 3)
 			: ft_strjoin_freei(*str, zero_f((*s).prec, (*s).len), 3, 2);
@@ -71,5 +71,7 @@ void	uim2_precision_hex(char **str, t_args *s, t_type *px, int is_zero)
 			!is_zero)
 		*str = ft_strjoin_free(zero_f((*s).fy, (*s).len), *str, 3);
 	else if (str && (*s).f & 4 && (*s).f & 1 && ((*s).fy > (*s).len))
-		*str = ft_strjoin_freei(*str, zero_f((*s).fy, (*s).len), 3, 2);
+		*str = px->uim == 0 ?
+			ft_strjoin_free(zero_f((*s).fy, (*s).len), *str, 3)
+			: ft_strjoin_freei(*str, zero_f((*s).fy, (*s).len), 3, 2);
 }

@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 21:11:02 by gvirga            #+#    #+#             */
-/*   Updated: 2019/01/07 10:44:02 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/02/20 06:13:18 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 static void		fill_args_f(t_params **p)
 {
+	(*p)->args_f[14] = &ft_ftostr;
 	(*p)->args_f[13] = &ft_ftostr;
 	(*p)->args_f[12] = &ft_percenttostr;
 	(*p)->args_f[11] = &ft_chrtostr;
@@ -35,6 +36,17 @@ static void		fill_args_f(t_params **p)
 	ft_strcpy((*p)->args, "spdDioOuUxXc%fF");
 	(*p)->i = -1;
 	(*p)->buf = NULL;
+}
+
+void			free_end(t_params **p)
+{
+	if ((*p)->prec)
+		free((*p)->prec);
+	if ((*p)->width)
+		free((*p)->width);
+	if ((*p)->buf)
+		free((*p)->buf);
+	free(*p);
 }
 
 int				ft_printf(const char *str, ...)
@@ -59,9 +71,7 @@ int				ft_printf(const char *str, ...)
 		return_value = 0;
 		p->buf = NULL;
 	}
-	if (p->buf)
-		free(p->buf);
-	free(p);
+	free_end(&p);
 	va_end(ap);
 	return (return_value);
 }

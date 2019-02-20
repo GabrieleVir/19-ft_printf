@@ -6,7 +6,7 @@
 /*   By: gvirga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 03:19:25 by gvirga            #+#    #+#             */
-/*   Updated: 2019/02/15 08:26:56 by gvirga           ###   ########.fr       */
+/*   Updated: 2019/02/20 02:13:06 by gvirga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void		change_mod_uint(int args_i, char mod, t_type **px, va_list ap)
 			(*px)->uim = (uintmax_t)(unsigned char)va_arg(ap, unsigned int);
 		else if (mod & 32)
 			(*px)->uim = va_arg(ap, uintmax_t);
+		else if (mod & 64)
+			(*px)->uim = va_arg(ap, size_t);
 	}
 	else if (args_i == 6 || args_i == 8)
 		(*px)->uim = (uintmax_t)va_arg(ap, unsigned long);
