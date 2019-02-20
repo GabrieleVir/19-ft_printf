@@ -252,64 +252,64 @@ LEAKS partout
 /*int		main(void)
 {
 	printf("printf |000000000000000000000000000000000000000000|yo\n");
-	ft_printf("prinff |42%+42.16hs42|\n", -1168745428);
-	printf("printf |42%+42.16hs42|\n", -1168745428);  
+	ft_printf("prinff |42%+42.16hs42|\n", "coucou");
+	printf("printf |42%+42.16hs42|\n", "coucou");  
 	return (0);
 }*/
 
 /*int		main(void)
 {
 	printf("printf |000000000000000000000000000000000000000000|yo\n");
-	ft_printf("prinff |42%+42.16hhs42|\n", -1168745428);
-	printf("printf |42%+42.16hhs42|\n", -1168745428);
+	ft_printf("prinff |42%+42.16hhs42|\n", "coucou");
+	printf("printf |42%+42.16hhs42|\n", "coucou");
 	return (0);
 }*/
 
 /*int		main(void)
 {
 	printf("printf |000000000000000000000000000000000000000000|yo\n");
-	ft_printf("prinff |42%+42.16ls42|\n", -1168745428);
-	printf("printf |42%+42.16ls42|\n", -1168745428);	
+	ft_printf("prinff |42%+42.16ls42|\n", "coucou");
+	printf("printf |42%+42.16ls42|\n", "coucou");	
 	return (0);
 }*/
 
 /*int		main(void)
 {
 	printf("printf |000000000000000000000000000000000000000000|yo\n");
-	ft_printf("prinff |42%+42.16lls42|\n", -1168745428);	
-	printf("printf |42%+42.16lls42|\n", -1168745428);
+	ft_printf("prinff |42%+42.16lls42|\n", "coucou");	
+	printf("printf |42%+42.16lls42|\n", "coucou");
 	return (0);
 }*/
 
 /*int		main(void)
 {
 	printf("printf |000000000000000000000000000000000000000000|yo\n");
-	ft_printf("prinff |42%+42.16Ls42|\n", -1168745428);	
-	printf("printf |42%+42.16Ls42|\n", -1168745428);
+	ft_printf("prinff |42%+42.16Ls42|\n", "coucou");	
+	printf("printf |42%+42.16Ls42|\n", "coucou");
 	return (0);
 }*/
 
 /*int		main(void)
 {
 	printf("printf |000000000000000000000000000000000000000000|yo\n");
-	ft_printf("prinff |42%+42.16%%s42|\n", -1168745428);		////LEAKS
-	printf("printf |42%+42.16%%s42|\n", -1168745428);
+	ft_printf("prinff |42%+42.16%%s42|\n", "coucou");		////LEAKS
+	printf("printf |42%+42.16%%s42|\n", "coucou");
 	return (0);
 }*/
 
 /*int		main(void)
 {
 	printf("printf |000000000000000000000000000000000000000000|yo\n");
-	ft_printf("prinff |42%+42.16zs42|\n", -1168745428);					
-	printf("printf |42%+42.16zs42|\n", -1168745428);
+	ft_printf("prinff |42%+42.16zs42|\n", "coucou");					
+	printf("printf |42%+42.16zs42|\n", "coucou");
 	return (0);
 }*/
 
 /*int		main(void)
 {
 	printf("printf |000000000000000000000000000000000000000000|yo\n");
-	ft_printf("prinff |42%+42.16js42|\n", -1168745428);
-	printf("printf |42%+42.16js42|\n", -1168745428);
+	ft_printf("prinff |42%+42.16js42|\n", "coucou");
+	printf("printf |42%+42.16js42|\n", "coucou");
 	return (0);
 }*/
 
@@ -627,64 +627,64 @@ LEAKS partout
 /*int		main(void)
 {
 	printf("printf |000000000000000000000000000000000000000000|yo\n");
-	ft_printf("prinff |42%+42.16hc42|\n", -1168745428);
-	printf("printf |42%+42.16hc42|\n", -1168745428);  
+	ft_printf("prinff |42%+42.16hc42|\n", 's');
+	printf("printf |42%+42.16hc42|\n", 's');  
 	return (0);
 }*/
 
 /*int		main(void)
 {
 	printf("printf |000000000000000000000000000000000000000000|yo\n");
-	ft_printf("prinff |42%+42.16hhc42|\n", -1168745428);
-	printf("printf |42%+42.16hhc42|\n", -1168745428);
+	ft_printf("prinff |42%+42.16hhc42|\n", 's');
+	printf("printf |42%+42.16hhc42|\n", 's');
 	return (0);
 }*/
 
 /*int		main(void)
 {
 	printf("printf |000000000000000000000000000000000000000000|yo\n");
-	ft_printf("prinff |42%+42.16lc42|\n", -1168745428);
-	printf("printf |42%+42.16lc42|\n", -1168745428);	
+	ft_printf("prinff |42%+42.16lc42|\n", 's');
+	printf("printf |42%+42.16lc42|\n", 's');	
 	return (0);
 }*/
 
 /*int		main(void)
 {
 	printf("printf |000000000000000000000000000000000000000000|yo\n");
-	ft_printf("prinff |42%+42.16llc42|\n", -1168745428);	
-	printf("printf |42%+42.16llc42|\n", -1168745428);
+	ft_printf("prinff |42%+42.16llc42|\n", 's');	
+	printf("printf |42%+42.16llc42|\n", 's');
 	return (0);
 }*/
 
 /*int		main(void)
 {
 	printf("printf |000000000000000000000000000000000000000000|yo\n");
-	ft_printf("prinff |42%+42.16Lc42|\n", -1168745428);	
-	printf("printf |42%+42.16Lc42|\n", -1168745428);
+	ft_printf("prinff |42%+42.16Lc42|\n", 's');	
+	printf("printf |42%+42.16Lc42|\n", 's');
 	return (0);
 }*/
 
 /*int		main(void)
 {
 	printf("printf |000000000000000000000000000000000000000000|yo\n");
-	ft_printf("prinff |42%+42.16%%c42|\n", -1168745428);		////LEAKS
-	printf("printf |42%+42.16%%c42|\n", -1168745428);
+	ft_printf("prinff |42%+42.16%%c42|\n", 's');		////LEAKS
+	printf("printf |42%+42.16%%c42|\n", 's');
 	return (0);
 }*/
 
 /*int		main(void)
 {
 	printf("printf |000000000000000000000000000000000000000000|yo\n");
-	ft_printf("prinff |42%+42.16zc42|\n", -1168745428);					
-	printf("printf |42%+42.16zc42|\n", -1168745428);
+	ft_printf("prinff |42%+42.16zc42|\n", 's');					
+	printf("printf |42%+42.16zc42|\n", 's');
 	return (0);
 }*/
 
 /*int		main(void)
 {
 	printf("printf |000000000000000000000000000000000000000000|yo\n");
-	ft_printf("prinff |42%+42.16jc42|\n", -1168745428);
-	printf("printf |42%+42.16jc42|\n", -1168745428);
+	ft_printf("prinff |42%+42.16jc42|\n", 's');
+	printf("printf |42%+42.16jc42|\n", 's');
 	return (0);
 }*/
 
