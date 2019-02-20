@@ -688,3 +688,316 @@ LEAKS partout
 	return (0);
 }*/
 
+------------------------------O------------------------
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16O42|\n", -1168745428);
+	printf("printf |42%+42.16O42|\n", -1168745428);   
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16hO42|\n", -1168745428);
+	printf("printf |42%+42.16hO42|\n", -1168745428);  
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16hhO42|\n", -1168745428);
+	printf("printf |42%+42.16hhO42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16lO42|\n", -1168745428);
+	printf("printf |42%+42.16lO42|\n", -1168745428);	
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16llO42|\n", -1168745428);	
+	printf("printf |42%+42.16llO42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16LO42|\n", -1168745428);	
+	printf("printf |42%+42.16LO42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16%%O42|\n", -1168745428);		////LEAKS
+	printf("printf |42%+42.16%%O42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16zO42|\n", -1168745428);					
+	printf("printf |42%+42.16zO42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16jO42|\n", -1168745428);
+	printf("printf |42%+42.16jO42|\n", -1168745428);
+	return (0);
+}*/
+
+-----------------------------o-------------------------
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16o42|\n", -1168745428);
+	printf("printf |42%+42.16o42|\n", -1168745428);   
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16ho42|\n", -1168745428);
+	printf("printf |42%+42.16ho42|\n", -1168745428);  
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16hho42|\n", -1168745428);
+	printf("printf |42%+42.16hho42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16lo42|\n", -1168745428);
+	printf("printf |42%+42.16lo42|\n", -1168745428);	
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16llo42|\n", -1168745428);	
+	printf("printf |42%+42.16llo42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16Lo42|\n", -1168745428);	
+	printf("printf |42%+42.16Lo42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16%%o42|\n", -1168745428);		////LEAKS
+	printf("printf |42%+42.16%%o42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16zo42|\n", -1168745428);					
+	printf("printf |42%+42.16zo42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16jo42|\n", -1168745428);
+	printf("printf |42%+42.16jo42|\n", -1168745428);
+	return (0);
+}*/
+
+-------------------------U----------------------------
+
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16U42|\n", -1168745428);
+	printf("printf |42%+42.16U42|\n", -1168745428);   
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16hU42|\n", -1168745428);
+	printf("printf |42%+42.16hU42|\n", -1168745428);  
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16hhU42|\n", -1168745428);
+	printf("printf |42%+42.16hhU42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16lU42|\n", -1168745428);
+	printf("printf |42%+42.16lU42|\n", -1168745428);	
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16llU42|\n", -1168745428);	
+	printf("printf |42%+42.16llU42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16LU42|\n", -1168745428);	
+	printf("printf |42%+42.16LU42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16%%U42|\n", -1168745428);		////LEAKS
+	printf("printf |42%+42.16%%U42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16zU42|\n", -1168745428);					
+	printf("printf |42%+42.16zU42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16jU42|\n", -1168745428);
+	printf("printf |42%+42.16jU42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |#42%+42.16U42|\n", -1168745428);
+	printf("printf |#42%+42.16U42|\n", -1168745428);   
+	return (0);
+}*/
+
+----------------------------u----------------------------------
+
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16u42|\n", -1168745428);
+	printf("printf |42%+42.16u42|\n", -1168745428);   
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16hu42|\n", -1168745428);
+	printf("printf |42%+42.16hu42|\n", -1168745428);  
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16hhu42|\n", -1168745428);
+	printf("printf |42%+42.16hhu42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16lu42|\n", -1168745428);
+	printf("printf |42%+42.16lu42|\n", -1168745428);	
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16llu42|\n", -1168745428);	
+	printf("printf |42%+42.16llu42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16Lu42|\n", -1168745428);	
+	printf("printf |42%+42.16Lu42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16%%u42|\n", -1168745428);		////LEAKS
+	printf("printf |42%+42.16%%u42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16zu42|\n", -1168745428);					
+	printf("printf |42%+42.16zu42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |42%+42.16ju42|\n", -1168745428);
+	printf("printf |42%+42.16ju42|\n", -1168745428);
+	return (0);
+}*/
+
+/*int		main(void)
+{
+	printf("printf |000000000000000000000000000000000000000000|yo\n");
+	ft_printf("prinff |#42%+42.16u42|\n", -1168745428);
+	printf("printf |#42%+42.16u42|\n", -1168745428);   
+	return (0);
+}*/
